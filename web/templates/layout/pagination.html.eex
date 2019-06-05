@@ -1,0 +1,13 @@
+<div>
+  <ul class="pagination">
+    <li class="page-item"><a href="<%= @url %>?page=1">start</a></li>
+    <%= if @page_number != 1 do %><li class="page-item"><a href="<%= @url %>?page=<%= @page_number - 1 %>">&lt;</a></li><% end %>
+    <%= for page <- 1..@total_pages do %>
+        <%= if abs(page-@page_number) < 3 do %>
+            <li class="page-item <%= if page == @page_number, do: "active", else: "foo" %>"><a href="<%= @url %>?page=<%= page %>"><%= page %></a></li>
+        <% end %>
+    <% end %>
+    <%= if @page_number != @total_pages do %><li class="page-item"><a href="<%= @url %>?page=<%= @page_number + 1 %>">&gt;</a></li><% end %>
+    <li class="page-item"><a href="<%= @url %>?page=<%= @total_pages %>">end</a></li>
+  </ul>
+</div>

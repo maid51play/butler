@@ -1,0 +1,105 @@
+/* This file is for your main application css. */
+.logo{
+    width: 200px;
+    height: 57px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    background-image: url(/images/fanimaid.png);
+}
+
+.btn.btn-primary {
+    background-color: #EE008C;
+    border-color: #C8167C;
+}
+
+.help-block {
+    color: red;
+}
+
+a{
+    color: #EE008C;
+}
+
+a:hover{
+    color: #C8167C;
+}
+
+.pagination>li>a, .pagination>li>span {
+    color: deeppink;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background: deeppink;
+    border-color: deeppink
+}
+
+.search-container {
+    display: flex;
+}
+
+.search-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-clear-button {
+    position: relative;
+    left: -105px;
+    background: lightgray;
+    color: white;
+    border-radius: 100px;
+    height: 25px;
+    width: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-clear-button:hover{
+    color: white;
+}
+
+.search-input {
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.control-label {
+    width: 100%;
+}
+
+.fade{
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transform: none;
+    transform: none;
+}
+
+.modal-backdrop.fade {
+    opacity: 0.5;
+}
+
+.modal-header .close {
+    margin-top: -20px;
+}
+
+.not-suggested {
+    background-color: #fff;
+    border-color: #ccc;
+    box-shadow: none;
+    opacity: .5;
+
+}
+
+.overtime {
+    color: orange;
+}
+
+.way-overtime {
+    color: red;
+}

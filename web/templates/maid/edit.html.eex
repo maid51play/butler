@@ -1,0 +1,6 @@
+<h2>Edit maid</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: maid_path(@conn, :update, @maid) %>
+
+<span><%= link "Back", to: maid_path(@conn, :index) %></span>

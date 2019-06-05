@@ -1,0 +1,57 @@
+<h2>Clear Party</h2>
+<%= form_for @changeset, party_path(@conn, :clear), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="height: 0px; overflow: hidden;">
+    <%= label f, :party_id, class: "control-label" %>
+    <%= number_input f, :party_id, class: "form-control" %>
+    <%= error_tag f, :party_id %>
+  </div>
+
+  <div class="form-group">
+    <img src="https://i.imgur.com/hKnSuU3.gif" id="scan-complete" style="visibility: hidden; height: 0;" height="150" />
+    <h3 id="scan-label">Please scan a barcode.</h3>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+var clearInput;
+var scanning = false;
+function clearFunc(){
+  $('input').blur()
+  scanning = false
+  $('#scan-complete').css({"visibility":"visible","height":"150px"})
+  $('#scan-complete').attr({"src":"https://i.imgur.com/hKnSuU3.gif"})
+  $('#scan-label').text("Scan complete!")
+}
+$(document).ready(function(){
+  $('body').on('keydown',function(e){
+    if(e.which == 27 || e.which == 66){
+      $("#party_party_id").focus()
+    }
+  })
+  $("#party_party_id").on('keydown',function(e){
+    clearTimeout(clearInput)
+    if(scanning == false){
+      $("#party_party_id").val("")
+      scanning = true
+    }
+    if(e.which == 13){
+      e.preventDefault()
+    }
+    clearInput = setTimeout(function(){ clearFunc() }, 20);
+  })
+  $("#party_party_id").on('focus',function(){
+    clearTimeout(clearInput)
+    clearInput = setTimeout(function(){ $('input').blur() }, 20);
+  })
+})
+</script>

@@ -1,0 +1,6 @@
+<h2>Edit party</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: party_path(@conn, :update, @party) %>
+
+<span><%= link "Back", to: party_path(@conn, :index) %></span>

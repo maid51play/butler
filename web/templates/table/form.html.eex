@@ -1,0 +1,31 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :table_number, class: "control-label" %>
+    <%= text_input f, :table_number, class: "form-control" %>
+    <%= error_tag f, :table_number %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :max_capacity, class: "control-label" %>
+    <%= number_input f, :max_capacity, class: "form-control" %>
+    <%= error_tag f, :max_capacity %>
+  </div>
+
+  <div class="form-group">
+    <%= inputs_for f, :parties, [append: [%FanimaidButler.Party{}]], fn i -> %>
+      <%= label i, :size, class: "control-label" %>
+      <%= number_input i, :size, class: "form-control" %>
+      <%= error_tag i, :size %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

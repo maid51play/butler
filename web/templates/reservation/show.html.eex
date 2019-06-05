@@ -1,0 +1,61 @@
+<h2>Reservation Details</h2>
+
+<ul>
+  <li>
+    <strong>id:</strong>
+    <%= @reservation.id %>
+  </li>
+
+  <li>
+    <strong>Size:</strong>
+    <%= @reservation.size %>
+  </li>
+
+  <li>
+    <strong>Shinkansen:</strong>
+    <%= @reservation.shinkansen %>
+  </li>
+
+  <li>
+    <strong>Staff:</strong>
+    <%= @reservation.staff %>
+  </li>
+
+  <li>
+    <strong>Time waitlisted:</strong>
+    <%= @reservation.time_waitlisted %>
+  </li>
+
+  <li>
+    <strong>Time in:</strong>
+    <%= @reservation.time_in %>
+  </li>
+
+  <li>
+    <strong>Time out:</strong>
+    <%= @reservation.time_out %>
+  </li>
+
+  <li>
+    <strong>Notes:</strong>
+    <%= @reservation.notes %>
+  </li>
+
+  <li>
+    <strong>Maid:</strong>
+    <%= @reservation.maid.name %>
+  </li>
+
+  <li>
+    <strong>Party:</strong>
+    <%= @reservation.party_id %>
+  </li>
+
+  <li>
+    <strong>Table:</strong>
+    <%= @reservation.table_number %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: reservation_path(@conn, :edit, @reservation) %></span>
+<span><%= link "Back", to: reservation_path(@conn, :index) %></span>

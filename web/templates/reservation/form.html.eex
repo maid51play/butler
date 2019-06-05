@@ -1,0 +1,109 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :size, class: "control-label" %>
+    <%= error_tag f, :size %>
+    <%= number_input f, :size, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :maid_id, class: "control-label" %>
+    <%= error_tag f, :maid_id %>
+    <ul>
+      <%= for maid <- @maids do %>
+      <li>
+        <label>
+          <%= radio_button(f, :maid_id, maid.id) %>
+          <%= maid.name %>
+        </label>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :shinkansen, class: "control-label" %>
+    <%= error_tag f, :shinkansen %>
+    <%= checkbox f, :shinkansen, class: "checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :staff, class: "control-label" %>
+    <%= error_tag f, :staff %>
+    <%= checkbox f, :staff, class: "checkbox" %>
+  </div>
+  
+
+  <div class="form-group">
+    <%= label f, :notes, class: "control-label" %>
+    <%= error_tag f, :notes %>
+    <%= textarea f, :notes, class: "form-control" %>
+  </div>
+
+  <%= if !@changeset.data.time_out do %>
+    <div class="form-group" style="height: 0px; overflow: hidden;">
+      <%= label f, :party_id, class: "control-label" %>
+      <%= text_input f, :party_id, class: "form-control", autocomplete: "false" %>
+    </div>
+
+    <%= if @table do %>
+      <div class="form-group" style="height: 0px; overflow: hidden;">
+        <%= label f, :table_number, class: "control-label" %>
+        <%= text_input f, :table_number, value: @table.table_number, class: "form-control", autocomplete: "false" %>
+        <%= error_tag f, :table_number %>
+      </div>
+    <% end %>
+
+    <%= if !@changeset.data.time_out do %>
+    <div class="form-group" style="background: url(/images/unscanned.png) no-repeat;">
+      <img src="https://i.imgur.com/hKnSuU3.gif" id="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :party_id), do: "", else: "visibility:hidden;"%>" height="150" />
+      <h3 id="scan-label">Please scan a barcode.</h3>
+      <%= error_tag f, :party_id %>
+    </div>
+    <% end %>
+  <% end %>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+<script>
+var clearInput;
+var scanning = false;
+function clearFunc(){
+  $('input').blur()
+  scanning = false
+  $('#scan-complete').css({"visibility":"visible","height":"150px"})
+  $('#scan-complete').attr({"src":"https://i.imgur.com/hKnSuU3.gif"})
+  $('#scan-label').text("Scan complete!")
+}
+$(document).ready(function(){
+  $('body').on('keydown',function(e){
+    if(e.which == 27 || e.which == 66){
+      $("#reservation_party_id").focus()
+    }
+  })
+  $("#reservation_party_id").on('keydown',function(e){
+    clearTimeout(clearInput)
+    if(scanning == false){
+      $("#reservation_party_id").val("")
+      scanning = true
+    }
+    if(e.which == 13){
+      e.preventDefault()
+    }
+    clearInput = setTimeout(function(){ clearFunc() }, 20);
+  })
+  $("#reservation_party_id").on('focus',function(){
+    clearTimeout(clearInput)
+    clearInput = setTimeout(function(){ $('input').blur() }, 20);
+  })
+})
+</script>

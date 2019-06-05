@@ -1,0 +1,9 @@
+<h2>Edit reservation</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        maids: @maids,
+                        table: @table,
+                        action: reservation_path(@conn, :update, @reservation) %>
+
+<span><%= link "Back", to: reservation_path(@conn, :index) %></span>
+<span><%= link "Delete", to: reservation_path(@conn, :delete, @reservation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right" %></span>

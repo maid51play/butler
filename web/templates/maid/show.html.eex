@@ -1,0 +1,43 @@
+<h2>Show maid</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @maid.name %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @maid.status %>
+  </li>
+
+  <li>
+    <strong>Goshujinsama:</strong>
+    <%= @maid.goshujinsama %>
+  </li>
+
+  <li>
+    <strong>Tables:</strong>
+    <%= @maid.tables %>
+  </li>
+
+  <li>
+    <strong>Logged hours:</strong>
+    <span id="logged_hours"></span>
+    <script>
+    duration = moment.duration(<%= @maid.logged_hours %>*1000)
+    formatted_duration = duration.isValid() ? [duration.hours(),('0' + duration.minutes()).slice(-2)].join(':') : ''
+    $('#logged_hours').html(formatted_duration)
+    </script>
+  </li>
+
+  <li>
+    <strong>Logged in since:</strong>
+    <%= @maid.checked_in_at %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: maid_path(@conn, :edit, @maid) %></span>
+<span><%= link "Back", to: maid_path(@conn, :index) %></span>

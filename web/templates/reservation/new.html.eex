@@ -1,0 +1,11 @@
+<h2>New reservation for table <%= @table.table_number %></h2>
+<%= if @warning.message do %>
+<p class="alert alert-danger" role="alert"><%= @warning.message %></p>
+<% end %>
+
+<%= render "form.html", maids: @maids,
+                        table: @table,
+                        changeset: @changeset,
+                        action: reservation_path(@conn, :create) %>
+
+<span><%= link "Back", to: table_path(@conn, :index) %></span>

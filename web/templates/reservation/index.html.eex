@@ -1,0 +1,54 @@
+<h2>Total Reservations</h2>
+<div>
+We have served <b><%= @goshujinsama %></b> goshujinsama and <b><%= @total_entries %></b> parties!
+</div>
+<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Shinkansen/Staff?</th>
+      <th>Table #</th>
+      <th>Size</th>
+      <th>Maid</th>
+      <th>Time in</th>
+      <th>Time out</th>
+      <th></th>
+      <th>Notes</th>
+      <th>party id</th>
+      <th>id</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reservation <- @reservations do %>
+    <tr>
+      <td><%= if reservation.staff do %> Staff <% end %>
+      <%= if reservation.shinkansen do %> Shinkansen <% end %></td>
+      <td><%= reservation.table_number %></td>
+      <td><%= reservation.size %></td>
+      <td><%= reservation.maid.name %></td>
+      <td class="time_in<%= reservation.id %>"><%= reservation.time_in %></td>
+      <td class="time_out<%= reservation.id %>"><%= reservation.time_out %></td>
+      <td></td>
+      <td><%= reservation.notes %></td>
+      <td><%= if reservation.party do reservation.party.id end %></td>
+      <td><%= reservation.id %></td>
+
+      <td class="text-right">
+        <span hidden><%= link "Show", to: reservation_path(@conn, :show, reservation), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: reservation_path(@conn, :edit, reservation), class: "btn btn-default btn-xs" %></span>
+        <span hidden><%= link "Delete", to: reservation_path(@conn, :delete, reservation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+
+  <script>
+    formatted_in = moment("<%= reservation.time_in %>").format('hh:mm a');
+    formatted_out = '<%= reservation.time_out %>' ? moment("<%= reservation.time_out %>").format('hh:mm a') : '' ;
+    $('td.time_in<%= reservation.id %>').html(formatted_in)
+    $('td.time_out<%= reservation.id %>').html(formatted_out)
+  </script>
+<% end %>
+  </tbody>
+</table>
+<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>

@@ -1,0 +1,18 @@
+<h2>Show table</h2>
+
+<ul>
+
+  <li>
+    <strong>Table number:</strong>
+    <%= @table.table_number %>
+  </li>
+
+  <li>
+    <strong>Max capacity:</strong>
+    <%= @table.max_capacity %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: table_path(@conn, :edit, @table) %></span>
+<span><%= link "Back", to: table_path(@conn, :index) %></span>

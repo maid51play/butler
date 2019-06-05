@@ -1,0 +1,47 @@
+<h2>Maid Check-In</h2>
+<%= render "search.html", search: @search %>
+<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Checked In Since</th>
+      <th>Status</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <%= for maid <- @maids do %>
+    <tr id="<%= maid.id %>">
+      <td><%= maid.name %></td>
+      <td class="checked_in_at<%= maid.id %>"></td>
+      <td>
+      <%= if maid.status=="present" do %>
+        <%= button("Check Out", to: "/maids/#{maid.id}/check-out", method: "post", class: "btn btn-primary") %>
+      <%= else %>
+        <%= button("Check In", to: "/maids/#{maid.id}/check-in", method: "post", class: "btn btn-default") %>
+      <% end %>
+      </td>
+
+      <td class="text-right">
+        <span hidden><%= link "Show", to: maid_path(@conn, :show, maid) %></span>
+        <span hidden><%= link "Edit", to: maid_path(@conn, :edit, maid), class: "btn btn-default btn-xs" %></span>
+        <span hidden><%= link "Delete", to: maid_path(@conn, :delete, maid), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+    <script>
+      duration = moment.duration(moment().diff('<%= maid.checked_in_at %>'))
+      formatted_duration = duration.isValid() ? [duration.hours(),('0' + duration.minutes()).slice(-2)].join(':') : ''
+      formatted_time = duration.isValid() ? moment('<%= maid.checked_in_at %>') : ''
+      $('td.checked_in_at<%= maid.id %>').html(formatted_duration)
+      $('td.checked_in_at<%= maid.id %>').prop('title',formatted_time)
+    </script>
+<% end %>
+  </tbody>
+</table>
+<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+
+
+<span><%= link "New maid", to: maid_path(@conn, :new) %></span>
