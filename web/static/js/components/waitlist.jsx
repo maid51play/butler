@@ -41,7 +41,7 @@ class waitlistComponent extends React.Component {
 
   render() {
     const { waitlist } = this.state;
-    const { modal, selectReservation } = this.props;
+    const { modal, selectReservation, token } = this.props;
 
     const pages = [...Array(waitlist.total_pages + 1).keys()]
       .slice(
@@ -64,7 +64,7 @@ class waitlistComponent extends React.Component {
         <td>{entry.notes}</td>
         <td className="text-right">
           <span><a className="btn btn-default btn-xs" href={`/waitlist/${entry.id}/edit`}>Edit</a></span>
-          {!modal && <span><a className="btn btn-danger btn-xs" data-confirm="Are you sure?" data-csrf={this.props.token} data-method="delete" data-to={`/waitlist/${entry.id}`} href={`/waitlist/${entry.id}`} rel="nofollow">Delete</a></span>}
+          {!modal && <span><a className="btn btn-danger btn-xs" data-confirm="Are you sure?" data-csrf={token} data-method="delete" data-to={`/waitlist/${entry.id}`} href={`/waitlist/${entry.id}`} rel="nofollow">Delete</a></span>}
           {modal && (<span><button type="button" className="btn btn-primary btn-xs" onClick={() => selectReservation(entry)}>Select</button></span>)}
         </td>
       </tr>
@@ -111,11 +111,13 @@ waitlistComponent.propTypes = {
   }).isRequired,
   modal: PropTypes.bool,
   selectReservation: PropTypes.func,
+  token: PropTypes.string,
 };
 
 waitlistComponent.defaultProps = {
   modal: false,
   selectReservation: () => {},
+  token: '',
 };
 
 export default waitlistComponent;

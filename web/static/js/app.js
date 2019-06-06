@@ -19,8 +19,6 @@ import 'react-phoenix';
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
-
 import TableComponent from './components/tables';
 import WaitlistComponent from './components/waitlist';
 import WaitlistNewComponent from './components/waitlistNew';
