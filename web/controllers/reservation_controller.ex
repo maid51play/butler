@@ -1,14 +1,15 @@
 defmodule FanimaidButler.ReservationController do
   use FanimaidButler.Web, :controller
 
-  alias FanimaidButler.Reservation
   alias FanimaidButler.Maid
+  alias FanimaidButler.Reservation
   alias FanimaidButler.Table
+
+  @message_alone_table "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?"
+  @message_alone_party "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?"
 
   def index(conn, %{"page" => page}) do
     goshujinsama = Repo.aggregate(Reservation, :sum, :size)
-    # query = from reservation in Reservation, where: reservation.time_out < datetime_add(reservation.time_in, 10, "minute")
-    # goshujinsama = Repo.aggregate(query, :sum, :size)
 
     page =
       Reservation
@@ -35,7 +36,7 @@ defmodule FanimaidButler.ReservationController do
     maids = Maid |> Maid.present |> Repo.all
     table = Repo.get!(Table, table_id)
     existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
-    warning = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
+    warning = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end), do: @message_alone_table, else: "")}
     changeset = Reservation.changeset(%Reservation{})
     render(conn, "new.html", maids: maids, table: table, changeset: changeset, warning: warning)
   end
@@ -64,18 +65,31 @@ defmodule FanimaidButler.ReservationController do
   def seat(conn, %{"id" => id, "table_id" => table_id}) do
     reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
     table = Repo.get!(Table, table_id)
-    maids = Maid |> Maid.present |> Repo.all 
+    maids = Maid |> Maid.present |> Repo.all
     changeset = Reservation.booking_waitlist_changeset(reservation)
     existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
-    warning = %{message: (if (length(existing_reservations) > 0) && (reservation.seat_alone == true), do: "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?", else: "")}
-    warning2 = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
-    render(conn, "seat.html", reservation: reservation, maids: maids, table: table, warning: warning, warning2: warning2, changeset: changeset)
+    warning = %{message: (if (length(existing_reservations) > 0) && (reservation.seat_alone == true),
+      do: @message_alone_party,
+      else: "")}
+    warning2 = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end),
+      do: @message_alone_table,
+      else: "")}
+    render(
+      conn,
+      "seat.html",
+      reservation: reservation,
+      maids: maids,
+      table: table,
+      warning: warning,
+      warning2: warning2,
+      changeset: changeset
+    )
   end
 
   def edit(conn, %{"id" => id}) do
     reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
     table = if reservation.party, do: reservation.party.table, else: nil
-    available_maids = Maid |> Maid.present |> Repo.all 
+    available_maids = Maid |> Maid.present |> Repo.all
     maids = cond do
       reservation.time_out -> Maid |> Repo.all
       reservation.maid -> [[reservation.maid], available_maids] |> Enum.concat |> Enum.uniq
@@ -88,7 +102,9 @@ defmodule FanimaidButler.ReservationController do
   def update(conn, %{"id" => id, "reservation" => reservation_params}) do
     reservation = Repo.get!(Reservation, id)
     time_in = reservation.time_in
-    changeset = if reservation.time_in, do: Reservation.update_changeset(reservation, reservation_params), else: Reservation.booking_waitlist_changeset(reservation, reservation_params)
+    changeset = if reservation.time_in,
+      do: Reservation.update_changeset(reservation, reservation_params),
+      else: Reservation.booking_waitlist_changeset(reservation, reservation_params)
 
     case Repo.update(changeset) do
       {:ok, reservation} ->
@@ -102,9 +118,19 @@ defmodule FanimaidButler.ReservationController do
         table_number = if reservation.table_number, do: reservation.table_number, else: changeset.changes.table_number
         table = Repo.get_by!(Table, table_number: table_number)
         existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
-        warning = %{message: (if ((length(existing_reservations) > 0) && (reservation.seat_alone == true)), do: "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?", else: "")}
+        warning = %{message: (if ((length(existing_reservations) > 0) && (reservation.seat_alone == true)),
+          do: @message_alone_party,
+          else: "")}
         route = if reservation.time_waitlisted, do: "seat.html", else: "edit.html"
-        render(conn, route, reservation: reservation, table: table, maids: available_maids, warning: warning, changeset: changeset)
+        render(
+          conn,
+          route,
+          reservation: reservation,
+          table: table,
+          maids: available_maids,
+          warning: warning,
+          changeset: changeset
+        )
     end
   end
 

@@ -14,6 +14,8 @@ defmodule FanimaidButler.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias FanimaidButler.Repo
@@ -26,10 +28,10 @@ defmodule FanimaidButler.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(FanimaidButler.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
     end
 
     :ok

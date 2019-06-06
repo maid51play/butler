@@ -11,7 +11,7 @@ defmodule FanimaidButler.MaidController do
         |> order_by(:name)
         |> FanimaidButler.Repo.paginate(page: page)
 
-    render(conn, "index.html", 
+    render(conn, "index.html",
       search: search,
       url: "/maids",
       maids: page.entries,
@@ -25,14 +25,14 @@ defmodule FanimaidButler.MaidController do
     redirect(conn, to: maid_path(conn, :index, search: search, page: 1))
   end
 
-  def index(conn, %{"page" => page}) do    
+  def index(conn, %{"page" => page}) do
     page =
       Maid
         |> order_by(desc: :status)
         |> order_by(:name)
         |> FanimaidButler.Repo.paginate(page: page)
 
-    render(conn, "index.html", 
+    render(conn, "index.html",
       search: "",
       url: "/maids",
       maids: page.entries,

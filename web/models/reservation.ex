@@ -2,15 +2,25 @@ require Protocol
 Protocol.derive(Jason.Encoder, Scrivener.Page)
 
 defmodule FanimaidButler.Reservation do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use FanimaidButler.Web, :model
 
-  alias FanimaidButler.Repo
   alias FanimaidButler.Party
-  alias FanimaidButler.Table
+  alias FanimaidButler.Repo
   alias FanimaidButler.Reservation
+  alias FanimaidButler.Table
 
-  @derive {Jason.Encoder, only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]}
-  @derive {Poison.Encoder, only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]}
+  @derive {
+    Jason.Encoder,
+    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]
+  }
+  @derive {
+    Poison.Encoder,
+    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]
+  }
   schema "reservations" do
     field :name, :string
     field :size, :integer
@@ -54,7 +64,10 @@ defmodule FanimaidButler.Reservation do
 
   def booking_waitlist_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :size, :shinkansen, :staff, :time_in, :notes, :table_number, :party_id, :maid_id, :seat_alone])
+    |> cast(
+      params,
+      [:name, :size, :shinkansen, :staff, :time_in, :notes, :table_number, :party_id, :maid_id, :seat_alone]
+    )
     |> cast_assoc(:maid)
     |> cast_assoc(:party)
     |> validate_matching_party()
@@ -105,7 +118,7 @@ defmodule FanimaidButler.Reservation do
     |> validate_required([:size, :shinkansen, :staff, :maid_id, :table_number, :party_id])
   end
 
-  def validate_matching_party(changeset \\ []) do 
+  def validate_matching_party(changeset \\ []) do
     if get_change(changeset, :party_id) && Repo.get!(Party, get_change(changeset, :party_id)).table_id != Repo.get_by!(Table, table_number: get_change(changeset, :table_number)).id do
       add_error(changeset, :party_id, "Scanned party does not match table!")
     else
@@ -123,7 +136,7 @@ defmodule FanimaidButler.Reservation do
       table_parties = Enum.filter(table.parties, fn x -> if changeset.data.time_out, do: x.id == party_id, else: x.id != party_id end)
       full_seats = Enum.reduce(table_parties, 0, fn(x, acc) -> if x.reservation do x.reservation.size + acc else acc end end)
       max_seats = table.max_capacity
-      
+
       if get_change(changeset, :size) > (max_seats - full_seats) do
         add_error(changeset, :size, "Specified party size is too large for this table!")
       else

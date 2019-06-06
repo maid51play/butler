@@ -1,4 +1,8 @@
 defmodule FanimaidButler.RoomChannel do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use Phoenix.Channel
 
   alias FanimaidButler.Reservation
@@ -6,7 +10,7 @@ defmodule FanimaidButler.RoomChannel do
   def join("room:lobby", _message, socket) do
     {:ok, socket}
   end
-  
+
   def join("room:" <> _private_room_id, _params, _socket) do
     {:error, %{reason: "unauthorized"}}
   end

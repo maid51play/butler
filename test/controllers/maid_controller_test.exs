@@ -10,7 +10,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> get(maid_path(conn, :index, page: 1))
-    
+
     assert html_response(conn, 200) =~ "Maid Check-In"
   end
 
@@ -25,7 +25,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> post(maid_path(conn, :create), maid: @valid_attrs)
-    
+
     assert redirected_to(conn) == maid_path(conn, :index)
   end
 
@@ -33,7 +33,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> post(maid_path(conn, :create), maid: @invalid_attrs)
-    
+
     assert html_response(conn, 200) =~ "New maid"
   end
 
@@ -42,7 +42,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> get(maid_path(conn, :show, maid))
-    
+
     assert html_response(conn, 200) =~ "Show maid"
   end
 
@@ -59,7 +59,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> get(maid_path(conn, :edit, maid))
-    
+
     assert html_response(conn, 200) =~ "Edit maid"
   end
 
@@ -68,7 +68,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> put(maid_path(conn, :update, maid), maid: @valid_attrs)
-    
+
     assert redirected_to(conn) == maid_path(conn, :show, maid)
     assert Repo.get_by(Maid, @valid_attrs)
   end
@@ -78,7 +78,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> put(maid_path(conn, :update, maid), maid: @invalid_attrs)
-    
+
     assert html_response(conn, 200) =~ "Edit maid"
   end
 
@@ -87,7 +87,7 @@ defmodule FanimaidButler.MaidControllerTest do
     conn = conn
       |> authorize
       |> delete(maid_path(conn, :delete, maid))
-    
+
     assert redirected_to(conn) == maid_path(conn, :index)
     refute Repo.get(Maid, maid.id)
   end

@@ -1,4 +1,8 @@
 defmodule FanimaidButler.Maid do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use FanimaidButler.Web, :model
 
   @derive {Jason.Encoder, only: [:id, :name]}

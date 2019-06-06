@@ -5,7 +5,7 @@ defmodule FanimaidButler.PageControllerTest do
     conn = conn
       |> authorize
       |> get("/")
-    
+
     assert html_response(conn, 200) =~ "Fanimaid Butler BETA"
   end
 end

@@ -1,8 +1,8 @@
 defmodule FanimaidButler.SwitchTablesController do
   use FanimaidButler.Web, :controller
 
-  alias FanimaidButler.Reservation
   alias FanimaidButler.Party
+  alias FanimaidButler.Reservation
 
   def index(conn, _params) do
     changeset = Reservation.changeset(%Reservation{})
@@ -26,7 +26,7 @@ defmodule FanimaidButler.SwitchTablesController do
         changeset_1 = Reservation.switch_parties_changeset(reservation_1, %{party_id: party_2.id, table_number: party_2.table.table_number})
         changeset_2 = Reservation.switch_parties_changeset(reservation_2, %{party_id: party_1.id, table_number: party_1.table.table_number})
 
-        case Repo.transaction(fn -> 
+        case Repo.transaction(fn ->
           Repo.update(changeset_1)
           Repo.update(changeset_2)
         end) do

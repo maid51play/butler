@@ -1,4 +1,8 @@
 defmodule FanimaidButler.Table do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use FanimaidButler.Web, :model
 
   @derive {Jason.Encoder, only: [:id, :table_number, :max_capacity, :parties]}

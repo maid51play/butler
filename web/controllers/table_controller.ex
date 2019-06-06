@@ -1,21 +1,21 @@
 defmodule FanimaidButler.TableController do
   use FanimaidButler.Web, :controller
 
-  alias FanimaidButler.Table
-  alias FanimaidButler.Party
   alias FanimaidButler.Maid
+  alias FanimaidButler.Party
   alias FanimaidButler.Reservation
+  alias FanimaidButler.Table
 
   def index(conn, params) do
     selected_reservation_id = Map.get(params, "reservation")
     selected_reservation = if selected_reservation_id, do: Reservation |> Repo.get(selected_reservation_id) |> Repo.preload(:maid), else: %{}
     tables = Repo.all from t in Table, preload: [parties: [reservation: :maid]]
-    waitlist = Reservation 
-      |> Reservation.waitlist 
+    waitlist = Reservation
+      |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
       |> FanimaidButler.Repo.paginate(page: 1)
-    
+
     render(conn, "index.html", tables: tables, waitlist: waitlist, selected_reservation: selected_reservation)
   end
 

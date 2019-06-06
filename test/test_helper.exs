@@ -3,4 +3,3 @@
 ExUnit.start
 
 Ecto.Adapters.SQL.Sandbox.mode(FanimaidButler.Repo, :manual)
-

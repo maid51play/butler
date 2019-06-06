@@ -12,13 +12,13 @@ defmodule FanimaidButler.ReservationControllerTest do
       assert true
     end
   end
-  
+
   describe "#index" do
     test "lists all entries on index for a given page", %{conn: conn} do
       conn = conn
         |> authorize
         |> get(reservation_path(conn, :index, page: 1))
-      
+
       assert html_response(conn, 200) =~ "Total Reservations"
     end
   end
@@ -29,7 +29,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> get(reservation_path(conn, :new, table.id))
-      
+
       assert html_response(conn, 200) =~ "New reservation"
     end
   end
@@ -53,7 +53,7 @@ defmodule FanimaidButler.ReservationControllerTest do
 
       assert redirected_to(conn) == table_path(conn, :index)
     end
-    
+
     test "allows multiple parties at one table when data is valid and table is not overbooked", %{conn: conn, valid_attrs: valid_attrs, table: table} do
       existing_party = insert(:party, table: table)
       insert(:reservation, party: existing_party, table_number: valid_attrs.table_number, size: 2)
@@ -61,7 +61,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> post(reservation_path(conn, :create), reservation: valid_attrs)
-      
+
       assert redirected_to(conn) == table_path(conn, :index)
     end
 
@@ -69,7 +69,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> post(reservation_path(conn, :create), reservation: invalid_attrs)
-      
+
       assert html_response(conn, 200) =~ "New reservation"
     end
 
@@ -79,7 +79,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> post(reservation_path(conn, :create), reservation: invalid_attrs)
-      
+
       assert html_response(conn, 200) =~ "New reservation"
     end
 
@@ -92,7 +92,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> post(reservation_path(conn, :create), reservation: invalid_attrs)
-      
+
       assert html_response(conn, 200) =~ "New reservation"
     end
   end
@@ -105,7 +105,7 @@ defmodule FanimaidButler.ReservationControllerTest do
       conn = conn
         |> authorize
         |> get(reservation_path(conn, :show, reservation))
-      
+
       assert html_response(conn, 200) =~ "Reservation Details"
     end
 

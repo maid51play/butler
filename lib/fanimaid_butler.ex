@@ -1,4 +1,8 @@
 defmodule FanimaidButler do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html

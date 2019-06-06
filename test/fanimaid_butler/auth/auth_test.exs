@@ -31,9 +31,7 @@ defmodule FanimaidButler.AuthTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Auth.create_user(@valid_attrs)
-      
-      # assert user.password == "some password"
-      # assert user.username == "some username"
+
       # TODO: is there a better way to test this?
       assert Auth.authenticate_user("some username", "some password") == {:ok, user}
     end
@@ -46,10 +44,9 @@ defmodule FanimaidButler.AuthTest do
       user = user_fixture()
       assert {:ok, user} = Auth.update_user(user, @update_attrs)
       assert %User{} = user
-      # assert user.password == "some updated password"
-      # assert user.username == "some updated username"
+
       # TODO: is there a better way to test this?
-      assert Auth.authenticate_user("some updated username", "some updated password") == {:ok, user}      
+      assert Auth.authenticate_user("some updated username", "some updated password") == {:ok, user}
     end
 
     test "update_user/2 with invalid data returns error changeset" do

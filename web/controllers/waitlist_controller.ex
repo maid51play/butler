@@ -4,8 +4,8 @@ defmodule FanimaidButler.WaitlistController do
   alias FanimaidButler.Reservation
 
   def index(conn, %{"page" => page}) do
-    waitlist = Reservation 
-      |> Reservation.waitlist 
+    waitlist = Reservation
+      |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
       |> FanimaidButler.Repo.paginate(page: page)
@@ -30,8 +30,8 @@ defmodule FanimaidButler.WaitlistController do
 
     case Repo.insert(changeset) do
       {:ok, reservation} ->
-        waitlist = Reservation 
-          |> Reservation.waitlist 
+        waitlist = Reservation
+          |> Reservation.waitlist
           |> order_by(asc: :id)
           |> preload([:maid])
           |> FanimaidButler.Repo.paginate(page: 1)
@@ -62,13 +62,13 @@ defmodule FanimaidButler.WaitlistController do
 
     case Repo.update(changeset) do
       {:ok, reservation} ->
-        waitlist = Reservation 
-          |> Reservation.waitlist 
+        waitlist = Reservation
+          |> Reservation.waitlist
           |> order_by(asc: :id)
           |> preload([:maid])
           |> FanimaidButler.Repo.paginate(page: 1)
         FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
-      
+
         conn
           |> put_flash(:info, "Reservation updated successfully.")
           |> redirect(to: waitlist_path(conn, :index))
@@ -86,8 +86,8 @@ defmodule FanimaidButler.WaitlistController do
     # it to always work (and if it does not, it will raise).
     Repo.delete!(reservation)
 
-    waitlist = Reservation 
-      |> Reservation.waitlist 
+    waitlist = Reservation
+      |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
       |> FanimaidButler.Repo.paginate(page: 1)
@@ -99,8 +99,8 @@ defmodule FanimaidButler.WaitlistController do
   end
 
   def new_waitlist_entries(page) do
-    Reservation 
-      |> Reservation.waitlist 
+    Reservation
+      |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
       |> FanimaidButler.Repo.paginate(page: page)

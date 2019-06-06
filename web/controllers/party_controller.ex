@@ -1,8 +1,8 @@
 defmodule FanimaidButler.PartyController do
   use FanimaidButler.Web, :controller
 
-  alias FanimaidButler.Party
   alias FanimaidButler.Maid
+  alias FanimaidButler.Party
 
   def index(conn, _params) do
     parties = Party |> Repo.all |> Repo.preload(:table)

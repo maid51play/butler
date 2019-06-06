@@ -1,11 +1,15 @@
 defmodule FanimaidButler.Factory do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   use ExMachina.Ecto, repo: FanimaidButler.Repo
 
   alias FanimaidButler.Auth.User
-  alias FanimaidButler.Reservation
-  alias FanimaidButler.Party
-  alias FanimaidButler.Table
   alias FanimaidButler.Maid
+  alias FanimaidButler.Party
+  alias FanimaidButler.Reservation
+  alias FanimaidButler.Table
 
   def user_factory do
     %User{
