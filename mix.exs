@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Mixfile do
+defmodule Butler.Mixfile do
   use Mix.Project
 
   def project do
@@ -19,7 +19,7 @@ defmodule FanimaidButler.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {FanimaidButler, []},
+      mod: {Butler, []},
       extra_applications: [:logger, :scrivener_ecto]
     ]
   end

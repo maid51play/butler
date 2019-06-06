@@ -1,4 +1,4 @@
-defmodule FanimaidButler do
+defmodule Butler do
   @moduledoc """
   Placeholder moduledoc
   """
@@ -13,23 +13,23 @@ defmodule FanimaidButler do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(FanimaidButler.Repo, []),
+      supervisor(Butler.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FanimaidButler.Endpoint, []),
-      # Start your own worker by calling: FanimaidButler.Worker.start_link(arg1, arg2, arg3)
-      # worker(FanimaidButler.Worker, [arg1, arg2, arg3]),
+      supervisor(Butler.Endpoint, []),
+      # Start your own worker by calling: Butler.Worker.start_link(arg1, arg2, arg3)
+      # worker(Butler.Worker, [arg1, arg2, arg3]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: FanimaidButler.Supervisor]
+    opts = [strategy: :one_for_one, name: Butler.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    FanimaidButler.Endpoint.config_change(changed, removed)
+    Butler.Endpoint.config_change(changed, removed)
     :ok
   end
 end

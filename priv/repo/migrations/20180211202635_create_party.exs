@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.CreateParty do
+defmodule Butler.Repo.Migrations.CreateParty do
   use Ecto.Migration
 
   def change do

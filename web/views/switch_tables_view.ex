@@ -1,3 +1,3 @@
-defmodule FanimaidButler.SwitchTablesView do
-  use FanimaidButler.Web, :view
+defmodule Butler.SwitchTablesView do
+  use Butler.Web, :view
 end

@@ -1,10 +1,10 @@
-defmodule FanimaidButler.AuthTest do
-  use FanimaidButler.DataCase
+defmodule Butler.AuthTest do
+  use Butler.DataCase
 
-  alias FanimaidButler.Auth
+  alias Butler.Auth
 
   describe "users" do
-    alias FanimaidButler.Auth.User
+    alias Butler.Auth.User
 
     @valid_attrs %{password: "some password", username: "some username"}
     @update_attrs %{password: "some updated password", username: "some updated username"}

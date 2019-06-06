@@ -1,4 +1,4 @@
-defmodule FanimaidButler.RoomChannel do
+defmodule Butler.RoomChannel do
   @moduledoc """
   Placeholder moduledoc
   """
@@ -29,7 +29,7 @@ defmodule FanimaidButler.RoomChannel do
   end
 
   def handle_in("new_waitlist_entries", %{"body" => body}, socket) do
-    waitlist = FanimaidButler.WaitlistController.new_waitlist_entries(body)
+    waitlist = Butler.WaitlistController.new_waitlist_entries(body)
     push(socket, "new_waitlist_entries", %{body: waitlist})
     {:noreply, socket}
   end

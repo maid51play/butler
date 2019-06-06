@@ -1,7 +1,7 @@
-defmodule FanimaidButler.Endpoint do
+defmodule Butler.Endpoint do
   use Phoenix.Endpoint, otp_app: :fanimaid_butler
 
-  socket "/socket", FanimaidButler.UserSocket,
+  socket "/socket", Butler.UserSocket,
     websocket: [timeout: 45_000]
 
   # Serve at "/" the static files from "priv/static" directory.
@@ -39,5 +39,5 @@ defmodule FanimaidButler.Endpoint do
     key: "_fanimaid_butler_key",
     signing_salt: "X6Zzam7Y"
 
-  plug FanimaidButler.Router
+  plug Butler.Router
 end

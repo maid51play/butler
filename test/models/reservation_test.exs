@@ -1,10 +1,10 @@
-defmodule FanimaidButler.ReservationTest do
-  use FanimaidButler.DataCase
+defmodule Butler.ReservationTest do
+  use Butler.DataCase
 
-  alias FanimaidButler.Maid
-  alias FanimaidButler.Party
-  alias FanimaidButler.Reservation
-  alias FanimaidButler.Table
+  alias Butler.Maid
+  alias Butler.Party
+  alias Butler.Reservation
+  alias Butler.Table
 
   setup do
     table = Repo.insert! %Table{table_number: "A1", max_capacity: 4}

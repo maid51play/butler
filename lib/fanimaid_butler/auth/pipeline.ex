@@ -1,12 +1,12 @@
-defmodule FanimaidButler.Auth.Pipeline do
+defmodule Butler.Auth.Pipeline do
   @moduledoc """
   Placeholder moduledoc
   """
 
   use Guardian.Plug.Pipeline,
     otp_app: :fanimaid_butler,
-    error_handler: FanimaidButler.Auth.ErrorHandler,
-    module: FanimaidButler.Auth.Guardian
+    error_handler: Butler.Auth.ErrorHandler,
+    module: Butler.Auth.Guardian
   # If there is a session token, validate it
   plug Guardian.Plug.VerifySession, claims: %{"typ" => "access"}
   # If there is an authorization header, validate it

@@ -1,7 +1,7 @@
-defmodule FanimaidButler.MaidControllerTest do
-  use FanimaidButler.ConnCase
+defmodule Butler.MaidControllerTest do
+  use Butler.ConnCase
 
-  alias FanimaidButler.Maid
+  alias Butler.Maid
 
   @valid_attrs %{goshujinsama: 42, logged_hours: 120.5, name: "some name", status: "some status", tables: 42}
   @invalid_attrs %{}

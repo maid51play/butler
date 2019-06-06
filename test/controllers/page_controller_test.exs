@@ -1,5 +1,5 @@
-defmodule FanimaidButler.PageControllerTest do
-  use FanimaidButler.ConnCase
+defmodule Butler.PageControllerTest do
+  use Butler.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = conn

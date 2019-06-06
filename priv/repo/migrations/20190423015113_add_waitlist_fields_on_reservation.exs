@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.AddWaitlistFieldsOnReservation do
+defmodule Butler.Repo.Migrations.AddWaitlistFieldsOnReservation do
   use Ecto.Migration
 
   def change do

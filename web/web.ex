@@ -1,12 +1,12 @@
-defmodule FanimaidButler.Web do
+defmodule Butler.Web do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use FanimaidButler.Web, :controller
-      use FanimaidButler.Web, :view
+      use Butler.Web, :controller
+      use Butler.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -31,12 +31,12 @@ defmodule FanimaidButler.Web do
     quote do
       use Phoenix.Controller
 
-      alias FanimaidButler.Repo
+      alias Butler.Repo
       import Ecto
       import Ecto.Query
 
-      import FanimaidButler.Router.Helpers
-      import FanimaidButler.Gettext
+      import Butler.Router.Helpers
+      import Butler.Gettext
     end
   end
 
@@ -50,9 +50,9 @@ defmodule FanimaidButler.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import FanimaidButler.Router.Helpers
-      import FanimaidButler.ErrorHelpers
-      import FanimaidButler.Gettext
+      import Butler.Router.Helpers
+      import Butler.ErrorHelpers
+      import Butler.Gettext
 
       import ReactPhoenix.ClientSide
     end
@@ -68,10 +68,10 @@ defmodule FanimaidButler.Web do
     quote do
       use Phoenix.Channel
 
-      alias FanimaidButler.Repo
+      alias Butler.Repo
       import Ecto
       import Ecto.Query
-      import FanimaidButler.Gettext
+      import Butler.Gettext
     end
   end
 

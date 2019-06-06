@@ -1,7 +1,7 @@
-defmodule FanimaidButler.MaidController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.MaidController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Maid
+  alias Butler.Maid
 
   def index(conn, %{"search" => search, "page" => page}) do
     page =
@@ -9,7 +9,7 @@ defmodule FanimaidButler.MaidController do
         |> where([m], ilike(m.name, ^search))
         |> order_by(desc: :status)
         |> order_by(:name)
-        |> FanimaidButler.Repo.paginate(page: page)
+        |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
       search: search,
@@ -30,7 +30,7 @@ defmodule FanimaidButler.MaidController do
       Maid
         |> order_by(desc: :status)
         |> order_by(:name)
-        |> FanimaidButler.Repo.paginate(page: page)
+        |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
       search: "",

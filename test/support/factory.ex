@@ -1,15 +1,15 @@
-defmodule FanimaidButler.Factory do
+defmodule Butler.Factory do
   @moduledoc """
   Placeholder moduledoc
   """
 
-  use ExMachina.Ecto, repo: FanimaidButler.Repo
+  use ExMachina.Ecto, repo: Butler.Repo
 
-  alias FanimaidButler.Auth.User
-  alias FanimaidButler.Maid
-  alias FanimaidButler.Party
-  alias FanimaidButler.Reservation
-  alias FanimaidButler.Table
+  alias Butler.Auth.User
+  alias Butler.Maid
+  alias Butler.Party
+  alias Butler.Reservation
+  alias Butler.Table
 
   def user_factory do
     %User{
@@ -50,8 +50,8 @@ defmodule FanimaidButler.Factory do
   # def article_factory do
   #   title = sequence(:title, &"Use ExMachina! (Part #{&1})")
   #   # derived attribute
-  #   slug = FanimaidButler.Article.title_to_slug(title)
-  #   %FanimaidButler.Article{
+  #   slug = Butler.Article.title_to_slug(title)
+  #   %Butler.Article{
   #     title: title,
   #     slug: slug,
   #     # associations are inserted when you call `insert`
@@ -70,7 +70,7 @@ defmodule FanimaidButler.Factory do
   # end
 
   # def comment_factory do
-  #   %FanimaidButler.Comment{
+  #   %Butler.Comment{
   #     text: "It's great!",
   #     article: build(:article),
   #   }

@@ -1,9 +1,9 @@
-defmodule FanimaidButler.Auth.Guardian do
+defmodule Butler.Auth.Guardian do
   @moduledoc """
   Placeholder moduledoc
   """
   use Guardian, otp_app: :fanimaid_butler
-  alias FanimaidButler.Auth
+  alias Butler.Auth
 
   def subject_for_token(user, _claims) do
     {:ok, to_string(user.id)}

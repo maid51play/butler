@@ -1,9 +1,9 @@
-defmodule FanimaidButler.PageController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.PageController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Auth
-  alias FanimaidButler.Auth.Guardian
-  alias FanimaidButler.Auth.User
+  alias Butler.Auth
+  alias Butler.Auth.Guardian
+  alias Butler.Auth.User
 
   def index(conn, _params) do
     changeset = Auth.change_user(%User{})

@@ -1,4 +1,4 @@
-defmodule FanimaidButler.ConnCase do
+defmodule Butler.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -22,24 +22,24 @@ defmodule FanimaidButler.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias FanimaidButler.Repo
+      alias Butler.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
-      import FanimaidButler.Router.Helpers
-      import FanimaidButler.Tests.ControllerTestHelpers
+      import Butler.Router.Helpers
+      import Butler.Tests.ControllerTestHelpers
 
       # The default endpoint for testing
-      @endpoint FanimaidButler.Endpoint
+      @endpoint Butler.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(Butler.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(Butler.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

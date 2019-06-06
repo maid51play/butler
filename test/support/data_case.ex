@@ -1,4 +1,4 @@
-defmodule FanimaidButler.DataCase do
+defmodule Butler.DataCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -18,20 +18,20 @@ defmodule FanimaidButler.DataCase do
 
   using do
     quote do
-      alias FanimaidButler.Repo
+      alias Butler.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import FanimaidButler.DataCase
+      import Butler.DataCase
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(Butler.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(Butler.Repo, {:shared, self()})
     end
 
     :ok
@@ -54,8 +54,8 @@ defmodule FanimaidButler.DataCase do
   """
   def errors_on(struct, data) do
     struct
-      |> struct.__struct__.changeset data
-      |> Ecto.Changeset.traverse_errors(&FanimaidButler.ErrorHelpers.translate_error/1)
+      |> struct.__struct__.changeset(data)
+      |> Ecto.Changeset.traverse_errors(&Butler.ErrorHelpers.translate_error/1)
       |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

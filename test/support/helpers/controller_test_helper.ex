@@ -1,12 +1,12 @@
 # TODO: is this a good namespace?
-defmodule FanimaidButler.Tests.ControllerTestHelpers do
+defmodule Butler.Tests.ControllerTestHelpers do
   @moduledoc """
   Placeholder moduledoc
   """
 
   import Plug.Conn
-  import FanimaidButler.Factory
-  import FanimaidButler.Auth.Guardian
+  import Butler.Factory
+  import Butler.Auth.Guardian
 
   def authorize(conn) do
     user = insert(:user)

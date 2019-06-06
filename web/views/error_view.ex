@@ -1,5 +1,5 @@
-defmodule FanimaidButler.ErrorView do
-  use FanimaidButler.Web, :view
+defmodule Butler.ErrorView do
+  use Butler.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

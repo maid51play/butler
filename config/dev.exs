@@ -19,7 +19,7 @@ use Mix.Config
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
-config :fanimaid_butler, FanimaidButler.Endpoint,
+config :fanimaid_butler, Butler.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -29,7 +29,7 @@ config :fanimaid_butler, FanimaidButler.Endpoint,
 
 
 # Watch static and templates for browser reloading.
-config :fanimaid_butler, FanimaidButler.Endpoint,
+config :fanimaid_butler, Butler.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
@@ -47,7 +47,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :fanimaid_butler, FanimaidButler.Repo,
+config :fanimaid_butler, Butler.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "fanimaid_butler_dev",
   hostname: "localhost",

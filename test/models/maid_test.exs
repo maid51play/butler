@@ -1,8 +1,8 @@
-defmodule FanimaidButler.MaidTest do
-  use FanimaidButler.DataCase
+defmodule Butler.MaidTest do
+  use Butler.DataCase
 
-  alias FanimaidButler.Maid
-  alias FanimaidButler.Reservation
+  alias Butler.Maid
+  alias Butler.Reservation
 
   describe "check_in_changeset" do
     setup do

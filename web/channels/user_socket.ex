@@ -1,8 +1,8 @@
-defmodule FanimaidButler.UserSocket do
+defmodule Butler.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", FanimaidButler.RoomChannel
+  channel "room:*", Butler.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -26,7 +26,7 @@ defmodule FanimaidButler.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     FanimaidButler.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
+  #     Butler.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

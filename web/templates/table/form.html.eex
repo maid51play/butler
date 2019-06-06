@@ -18,7 +18,7 @@
   </div>
 
   <div class="form-group">
-    <%= inputs_for f, :parties, [append: [%FanimaidButler.Party{}]], fn i -> %>
+    <%= inputs_for f, :parties, [append: [%Butler.Party{}]], fn i -> %>
       <%= label i, :size, class: "control-label" %>
       <%= number_input i, :size, class: "form-control" %>
       <%= error_tag i, :size %>

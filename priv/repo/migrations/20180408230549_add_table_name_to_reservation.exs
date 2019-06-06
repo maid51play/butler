@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.AddTableNameToReservation do
+defmodule Butler.Repo.Migrations.AddTableNameToReservation do
   use Ecto.Migration
 
   def change do

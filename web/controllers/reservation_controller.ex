@@ -1,9 +1,9 @@
-defmodule FanimaidButler.ReservationController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.ReservationController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Maid
-  alias FanimaidButler.Reservation
-  alias FanimaidButler.Table
+  alias Butler.Maid
+  alias Butler.Reservation
+  alias Butler.Table
 
   @message_alone_table "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?"
   @message_alone_party "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?"
@@ -16,7 +16,7 @@ defmodule FanimaidButler.ReservationController do
         |> Reservation.seated
         |> order_by(asc: :id)
         |> preload([:maid, party: :table])
-        |> FanimaidButler.Repo.paginate(page: page)
+        |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
       url: "/reservations",
@@ -108,7 +108,7 @@ defmodule FanimaidButler.ReservationController do
 
     case Repo.update(changeset) do
       {:ok, reservation} ->
-        if !time_in, do: FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{id: reservation.id})
+        if !time_in, do: Butler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{id: reservation.id})
 
         conn
           |> put_flash(:info, "Reservation updated successfully.")
@@ -164,7 +164,7 @@ defmodule FanimaidButler.ReservationController do
       changeset = Reservation.clearing_changeset(reservation)
       case Repo.update(changeset) do
         {:ok, reservation} ->
-          FanimaidButler.Endpoint.broadcast("room:lobby", "table_cleared", %{id: party_id})
+          Butler.Endpoint.broadcast("room:lobby", "table_cleared", %{id: party_id})
           conn
             |> put_flash(:info, "Reservation cleared successfully.")
             |> redirect(to: reservation_path(conn, :show, reservation))
