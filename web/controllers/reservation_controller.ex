@@ -52,7 +52,8 @@ defmodule FanimaidButler.ReservationController do
       {:error, changeset} ->
         maids = Maid |> Maid.present |> Repo.all
         table = Repo.get_by!(Table, table_number: reservation_params["table_number"])
-        render(conn, "new.html", maids: maids, table: table, changeset: changeset)
+        warning = %{message: ""}
+        render(conn, "new.html", maids: maids, table: table, changeset: changeset, warning: warning)
     end
   end
 
