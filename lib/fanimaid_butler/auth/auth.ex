@@ -5,8 +5,8 @@ defmodule FanimaidButler.Auth do
 
   import Ecto.Query, warn: false
   alias Comeonin.Bcrypt
-  alias FanimaidButler.Repo
   alias FanimaidButler.Auth.User
+  alias FanimaidButler.Repo
 
   @doc """
   Returns the list of users.
@@ -104,12 +104,13 @@ defmodule FanimaidButler.Auth do
 
   def authenticate_user(username, plain_text_password) do
     query = from u in User, where: u.username == ^username
-    Repo.one(query)
-    |> check_password(plain_text_password)
+    query
+      |> Repo.one
+      |> check_password(plain_text_password)
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect username or password"}
-  
+
   defp check_password(user, plain_text_password) do
     case Bcrypt.checkpw(plain_text_password, user.password) do
       true -> {:ok, user}

@@ -14,6 +14,8 @@ defmodule FanimaidButler.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias FanimaidButler.Repo
@@ -26,10 +28,10 @@ defmodule FanimaidButler.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(FanimaidButler.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
     end
 
     :ok
@@ -51,8 +53,9 @@ defmodule FanimaidButler.DataCase do
       assert {:password, "is unsafe"} in errors_on(%User{}, %{password: "password"})
   """
   def errors_on(struct, data) do
-    struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&FanimaidButler.ErrorHelpers.translate_error/1)
-    |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
+    struct
+      |> struct.__struct__.changeset data
+      |> Ecto.Changeset.traverse_errors(&FanimaidButler.ErrorHelpers.translate_error/1)
+      |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

@@ -1,7 +1,8 @@
 defmodule FanimaidButler.Endpoint do
   use Phoenix.Endpoint, otp_app: :fanimaid_butler
 
-  socket "/socket", FanimaidButler.UserSocket
+  socket "/socket", FanimaidButler.UserSocket,
+    websocket: [timeout: 45_000]
 
   # Serve at "/" the static files from "priv/static" directory.
   #

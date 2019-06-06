@@ -28,10 +28,9 @@ defmodule FanimaidButler.Router do
     post "/", PageController, :login
     post "/logout", PageController, :logout
   end
+
   scope "/", FanimaidButler do
     pipe_through [:browser, :auth, :ensure_auth] # Use the default browser stack
-
-    get "/", PageController, :index
 
     resources "/maids", MaidController
     post "/maids/:id/check-in", MaidController, :check_in

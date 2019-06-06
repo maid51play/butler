@@ -4,9 +4,6 @@ defmodule FanimaidButler.ReservationControllerTest do
   import FanimaidButler.Factory
 
   alias FanimaidButler.Reservation
-  alias FanimaidButler.Table
-  alias FanimaidButler.Party
-  alias FanimaidButler.Maid
 
   # DO NOT TOUCH THIS METHOD
   # we don't know why but deleting this breaks everything
@@ -15,13 +12,13 @@ defmodule FanimaidButler.ReservationControllerTest do
       assert true
     end
   end
-  
+
   describe "#index" do
     test "lists all entries on index for a given page", %{conn: conn} do
       conn = conn
-      |> authorize
-      |> get reservation_path(conn, :index, page: 1)
-      
+        |> authorize
+        |> get(reservation_path(conn, :index, page: 1))
+
       assert html_response(conn, 200) =~ "Total Reservations"
     end
   end
@@ -30,9 +27,9 @@ defmodule FanimaidButler.ReservationControllerTest do
     test "renders form for new reservation", %{conn: conn} do
       table = insert(:table)
       conn = conn
-      |> authorize
-      |> get reservation_path(conn, :new, table.id)
-      
+        |> authorize
+        |> get(reservation_path(conn, :new, table.id))
+
       assert html_response(conn, 200) =~ "New reservation"
     end
   end
@@ -51,30 +48,28 @@ defmodule FanimaidButler.ReservationControllerTest do
 
     test "creates resource and redirects when data is valid", %{conn: conn, valid_attrs: valid_attrs} do
       conn = conn
-      |> authorize
-      |> post reservation_path(conn, :create), reservation: valid_attrs
+        |> authorize
+        |> post(reservation_path(conn, :create), reservation: valid_attrs)
 
-      reservation = Repo.get_by!(Reservation, valid_attrs)
       assert redirected_to(conn) == table_path(conn, :index)
     end
-    
+
     test "allows multiple parties at one table when data is valid and table is not overbooked", %{conn: conn, valid_attrs: valid_attrs, table: table} do
       existing_party = insert(:party, table: table)
       insert(:reservation, party: existing_party, table_number: valid_attrs.table_number, size: 2)
 
       conn = conn
-      |> authorize
-      |> post reservation_path(conn, :create), reservation: valid_attrs
-      
-      reservation = Repo.get_by!(Reservation, valid_attrs)
+        |> authorize
+        |> post(reservation_path(conn, :create), reservation: valid_attrs)
+
       assert redirected_to(conn) == table_path(conn, :index)
     end
 
     test "does not create resource and renders errors when data is invalid", %{conn: conn, invalid_attrs: invalid_attrs} do
       conn = conn
-      |> authorize
-      |> post reservation_path(conn, :create), reservation: invalid_attrs
-      
+        |> authorize
+        |> post(reservation_path(conn, :create), reservation: invalid_attrs)
+
       assert html_response(conn, 200) =~ "New reservation"
     end
 
@@ -82,9 +77,9 @@ defmodule FanimaidButler.ReservationControllerTest do
       invalid_attrs = %{valid_attrs | size: 5}
 
       conn = conn
-      |> authorize
-      |> post reservation_path(conn, :create), reservation: invalid_attrs
-      
+        |> authorize
+        |> post(reservation_path(conn, :create), reservation: invalid_attrs)
+
       assert html_response(conn, 200) =~ "New reservation"
     end
 
@@ -95,9 +90,9 @@ defmodule FanimaidButler.ReservationControllerTest do
       invalid_attrs = %{valid_attrs | size: 3}
 
       conn = conn
-      |> authorize
-      |> post reservation_path(conn, :create), reservation: invalid_attrs
-      
+        |> authorize
+        |> post(reservation_path(conn, :create), reservation: invalid_attrs)
+
       assert html_response(conn, 200) =~ "New reservation"
     end
   end
@@ -108,17 +103,17 @@ defmodule FanimaidButler.ReservationControllerTest do
       reservation = insert(:reservation, maid: maid)
 
       conn = conn
-      |> authorize
-      |> get reservation_path(conn, :show, reservation)
-      
+        |> authorize
+        |> get(reservation_path(conn, :show, reservation))
+
       assert html_response(conn, 200) =~ "Reservation Details"
     end
 
     test "renders page not found when id is nonexistent", %{conn: conn} do
       assert_error_sent 404, fn ->
         conn
-        |> authorize
-        |> get reservation_path(conn, :show, -1)
+          |> authorize
+          |> get(reservation_path(conn, :show, -1))
       end
     end
   end
@@ -128,8 +123,8 @@ defmodule FanimaidButler.ReservationControllerTest do
       reservation = insert(:reservation)
 
       conn = conn
-      |> authorize
-      |> get reservation_path(conn, :edit, reservation)
+        |> authorize
+        |> get(reservation_path(conn, :edit, reservation))
       assert html_response(conn, 200) =~ "Edit reservation"
     end
   end
@@ -148,18 +143,18 @@ defmodule FanimaidButler.ReservationControllerTest do
       }
     end
 
-    test "updates chosen resource and redirects when data is valid", %{conn: conn, valid_attrs: valid_attrs, party: party, reservation: reservation} do
+    test "updates chosen resource and redirects when data is valid", %{conn: conn, valid_attrs: valid_attrs, reservation: reservation} do
       conn = conn
-      |> authorize
-      |> put reservation_path(conn, :update, reservation), reservation: valid_attrs
+        |> authorize
+        |> put(reservation_path(conn, :update, reservation), reservation: valid_attrs)
       assert redirected_to(conn) == reservation_path(conn, :show, reservation)
       assert Repo.get_by(Reservation, valid_attrs)
     end
 
     test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, invalid_attrs: invalid_attrs, reservation: reservation} do
       conn = conn
-      |> authorize
-      |> put reservation_path(conn, :update, reservation), reservation: invalid_attrs
+        |> authorize
+        |> put(reservation_path(conn, :update, reservation), reservation: invalid_attrs)
       assert html_response(conn, 200) =~ "Edit reservation"
     end
 
@@ -170,8 +165,8 @@ defmodule FanimaidButler.ReservationControllerTest do
     test "deletes chosen resource", %{conn: conn} do
       reservation = insert(:reservation, time_out: "2010-04-17 14:40:00.000000Z")
       conn = conn
-      |> authorize
-      |> delete reservation_path(conn, :delete, reservation)
+        |> authorize
+        |> delete(reservation_path(conn, :delete, reservation))
       assert redirected_to(conn) == reservation_path(conn, :index)
       refute Repo.get(Reservation, reservation.id)
     end

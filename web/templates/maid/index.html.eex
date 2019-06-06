@@ -20,7 +20,7 @@
       <td>
       <%= if maid.status=="present" do %>
         <%= button("Check Out", to: "/maids/#{maid.id}/check-out", method: "post", class: "btn btn-primary") %>
-      <%= else %>
+      <% else %>
         <%= button("Check In", to: "/maids/#{maid.id}/check-in", method: "post", class: "btn btn-default") %>
       <% end %>
       </td>

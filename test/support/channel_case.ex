@@ -15,6 +15,8 @@ defmodule FanimaidButler.ChannelCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       # Import conveniences for testing with channels
@@ -25,17 +27,16 @@ defmodule FanimaidButler.ChannelCase do
       import Ecto.Changeset
       import Ecto.Query
 
-
       # The default endpoint for testing
       @endpoint FanimaidButler.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(FanimaidButler.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
     end
 
     :ok

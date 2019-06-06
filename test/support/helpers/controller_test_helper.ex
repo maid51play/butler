@@ -1,5 +1,9 @@
 # TODO: is this a good namespace?
 defmodule FanimaidButler.Tests.ControllerTestHelpers do
+  @moduledoc """
+  Placeholder moduledoc
+  """
+
   import Plug.Conn
   import FanimaidButler.Factory
   import FanimaidButler.Auth.Guardian
@@ -10,7 +14,6 @@ defmodule FanimaidButler.Tests.ControllerTestHelpers do
     {:ok, token, _} = encode_and_sign(user, %{})
 
     conn
-    |> put_req_header("authorization", "bearer: " <> token)
-
+      |> put_req_header("authorization", "bearer: " <> token)
   end
 end

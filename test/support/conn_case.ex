@@ -15,6 +15,8 @@ defmodule FanimaidButler.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -34,10 +36,10 @@ defmodule FanimaidButler.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(FanimaidButler.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
