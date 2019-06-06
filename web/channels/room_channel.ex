@@ -5,8 +5,6 @@ defmodule FanimaidButler.RoomChannel do
 
   use Phoenix.Channel
 
-  alias FanimaidButler.Reservation
-
   def join("room:lobby", _message, socket) do
     {:ok, socket}
   end
