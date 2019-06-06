@@ -50,6 +50,7 @@ defmodule FanimaidButler.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:ex_machina, "~> 2.2", only: :test},
       {:react_phoenix, "~> 1.0.0"},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
     ]
   end
 
@@ -63,7 +64,7 @@ defmodule FanimaidButler.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

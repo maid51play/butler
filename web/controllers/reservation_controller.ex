@@ -3,20 +3,19 @@ defmodule FanimaidButler.ReservationController do
 
   alias FanimaidButler.Reservation
   alias FanimaidButler.Maid
-  alias FanimaidButler.Party
   alias FanimaidButler.Table
 
-  def index(conn, %{"page" => page} = params) do
+  def index(conn, %{"page" => page}) do
     goshujinsama = Repo.aggregate(Reservation, :sum, :size)
     # query = from reservation in Reservation, where: reservation.time_out < datetime_add(reservation.time_in, 10, "minute")
     # goshujinsama = Repo.aggregate(query, :sum, :size)
 
     page =
       Reservation
-      |> Reservation.seated
-      |> order_by(asc: :id)
-      |> preload([:maid, party: :table])
-      |> FanimaidButler.Repo.paginate(page: page)
+        |> Reservation.seated
+        |> order_by(asc: :id)
+        |> preload([:maid, party: :table])
+        |> FanimaidButler.Repo.paginate(page: page)
 
     render(conn, "index.html",
       url: "/reservations",
@@ -36,7 +35,7 @@ defmodule FanimaidButler.ReservationController do
     maids = Maid |> Maid.present |> Repo.all
     table = Repo.get!(Table, table_id)
     existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
-    warning = %{message: (if (Enum.any?(existing_reservations, fn x -> x.seat_alone == true end)), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
+    warning = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
     changeset = Reservation.changeset(%Reservation{})
     render(conn, "new.html", maids: maids, table: table, changeset: changeset, warning: warning)
   end
@@ -45,10 +44,10 @@ defmodule FanimaidButler.ReservationController do
     changeset = Reservation.booking_changeset(%Reservation{}, reservation_params)
 
     case Repo.insert(changeset) do
-      {:ok, reservation} ->
+      {:ok, _reservation} ->
         conn
-        |> put_flash(:info, "Reservation created successfully.")
-        |> redirect(to: table_path(conn, :index))
+          |> put_flash(:info, "Reservation created successfully.")
+          |> redirect(to: table_path(conn, :index))
       {:error, changeset} ->
         maids = Maid |> Maid.present |> Repo.all
         table = Repo.get_by!(Table, table_number: reservation_params["table_number"])
@@ -58,23 +57,23 @@ defmodule FanimaidButler.ReservationController do
   end
 
   def show(conn, %{"id" => id}) do
-    reservation = Repo.get!(Reservation, id) |> Repo.preload [:maid, party: :table]
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
     render(conn, "show.html", reservation: reservation)
   end
 
   def seat(conn, %{"id" => id, "table_id" => table_id}) do
-    reservation = Repo.get!(Reservation, id) |> Repo.preload [:maid, party: :table]
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
     table = Repo.get!(Table, table_id)
     maids = Maid |> Maid.present |> Repo.all 
     changeset = Reservation.booking_waitlist_changeset(reservation)
     existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
-    warning = %{message: (if ((length(existing_reservations) > 0) && (reservation.seat_alone == true)), do: "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?", else: "")}
-    warning2 = %{message: (if (Enum.any?(existing_reservations, fn x -> x.seat_alone == true end)), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
+    warning = %{message: (if (length(existing_reservations) > 0) && (reservation.seat_alone == true), do: "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?", else: "")}
+    warning2 = %{message: (if Enum.any?(existing_reservations, fn x -> x.seat_alone == true end), do: "This table already has a party seated who requested to be seated alone. Are you sure you want to seat this party with others anyway?", else: "")}
     render(conn, "seat.html", reservation: reservation, maids: maids, table: table, warning: warning, warning2: warning2, changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do
-    reservation = Repo.get!(Reservation, id) |> Repo.preload [:maid, party: :table]
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
     table = if reservation.party, do: reservation.party.table, else: nil
     available_maids = Maid |> Maid.present |> Repo.all 
     maids = cond do
@@ -88,7 +87,6 @@ defmodule FanimaidButler.ReservationController do
 
   def update(conn, %{"id" => id, "reservation" => reservation_params}) do
     reservation = Repo.get!(Reservation, id)
-    maid = if reservation.maid_id, do: Repo.get!(Maid, reservation.maid_id)
     time_in = reservation.time_in
     changeset = if reservation.time_in, do: Reservation.update_changeset(reservation, reservation_params), else: Reservation.booking_waitlist_changeset(reservation, reservation_params)
 
@@ -97,16 +95,11 @@ defmodule FanimaidButler.ReservationController do
         if !time_in, do: FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{id: reservation.id})
 
         conn
-        |> put_flash(:info, "Reservation updated successfully.")
-        |> redirect(to: reservation_path(conn, :show, reservation))
+          |> put_flash(:info, "Reservation updated successfully.")
+          |> redirect(to: reservation_path(conn, :show, reservation))
       {:error, changeset} ->
         available_maids = Maid |> Maid.present |> Repo.all
-        maids = cond do
-          reservation.time_out -> Maid |> Repo.all
-          reservation.maid -> [[reservation.maid], available_maids] |> Enum.concat |> Enum.uniq
-          true -> available_maids
-        end
-        table_number = if (reservation.table_number), do: reservation.table_number, else: changeset.changes.table_number
+        table_number = if reservation.table_number, do: reservation.table_number, else: changeset.changes.table_number
         table = Repo.get_by!(Table, table_number: table_number)
         existing_reservations = Repo.all(from reservation in Reservation, where: reservation.table_number == ^table.table_number, where: is_nil(reservation.time_out))
         warning = %{message: (if ((length(existing_reservations) > 0) && (reservation.seat_alone == true)), do: "The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?", else: "")}
@@ -124,19 +117,19 @@ defmodule FanimaidButler.ReservationController do
       Repo.delete!(reservation)
 
       conn
-      |> put_flash(:info, "Reservation deleted successfully.")
-      |> redirect(to: reservation_path(conn, :index))
+        |> put_flash(:info, "Reservation deleted successfully.")
+        |> redirect(to: reservation_path(conn, :index))
     else
       conn
-      |> put_flash(:error, "Please check out party before deleting the reservation.")
-      |> redirect(to: reservation_path(conn, :index))
+        |> put_flash(:error, "Please check out party before deleting the reservation.")
+        |> redirect(to: reservation_path(conn, :index))
     end
   end
 
   def clear(conn, %{"reservation" => %{"party_id" => ""}}) do
     conn
-    |> put_flash(:error, "Must scan a barcode.")
-    |> redirect(to: reservation_path(conn, :clear))
+      |> put_flash(:error, "Must scan a barcode.")
+      |> redirect(to: reservation_path(conn, :clear))
   end
 
   def clear(conn, %{"reservation" => %{"party_id" => party_id}}) do
@@ -147,15 +140,15 @@ defmodule FanimaidButler.ReservationController do
         {:ok, reservation} ->
           FanimaidButler.Endpoint.broadcast("room:lobby", "table_cleared", %{id: party_id})
           conn
-          |> put_flash(:info, "Reservation cleared successfully.")
-          |> redirect(to: reservation_path(conn, :show, reservation))
+            |> put_flash(:info, "Reservation cleared successfully.")
+            |> redirect(to: reservation_path(conn, :show, reservation))
         {:error, changeset} ->
           render(conn, "clear.html", reservation: reservation, changeset: changeset)
       end
     else
       conn
-      |> put_flash(:error, "The party you scanned was already empty :(")
-      |> redirect(to: reservation_path(conn, :clear))
+        |> put_flash(:error, "The party you scanned was already empty :(")
+        |> redirect(to: reservation_path(conn, :clear))
     end
   end
 

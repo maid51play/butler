@@ -3,7 +3,7 @@ defmodule FanimaidButler.WaitlistController do
 
   alias FanimaidButler.Reservation
 
-  def index(conn, %{"page" => page} = params) do
+  def index(conn, %{"page" => page}) do
     waitlist = Reservation 
       |> Reservation.waitlist 
       |> order_by(asc: :id)
@@ -38,21 +38,20 @@ defmodule FanimaidButler.WaitlistController do
         FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
 
         conn
-        |> put_flash(:info, "Reservation created successfully.")
-        |> redirect(to: waitlist_path(conn, :index))
-      {:error, changeset} ->
-        # maids = Maid |> Maid.present |> Repo.all
-        # table = Repo.get_by!(Table, table_number: reservation_params["table_number"])
-        # render(conn, "new.html", maids: maids, table: table, changeset: changeset)
+          |> put_flash(:info, "Reservation created successfully.")
+          |> redirect(to: waitlist_path(conn, :index))
+      {:error, _changeset} ->
         conn
-        |> put_flash(:error, "Reservation not created.")
-        |> redirect(to: waitlist_path(conn, :new))
+          |> put_flash(:error, "Reservation not created.")
+          |> redirect(to: waitlist_path(conn, :new))
     end
   end
 
   def edit(conn, %{"id" => id}) do
     token = get_csrf_token()
-    reservation = Repo.get!(Reservation, id) |> Repo.preload [:maid, party: :table]
+    reservation = Reservation
+      |> Repo.get!(id)
+      |> Repo.preload([:maid, party: :table])
     changeset = Reservation.waitlist_changeset(reservation)
     render(conn, "edit.html", reservation: reservation, changeset: changeset, token: token)
   end
@@ -71,12 +70,12 @@ defmodule FanimaidButler.WaitlistController do
         FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
       
         conn
-        |> put_flash(:info, "Reservation updated successfully.")
-        |> redirect(to: waitlist_path(conn, :index))
-      {:error, changeset} ->
+          |> put_flash(:info, "Reservation updated successfully.")
+          |> redirect(to: waitlist_path(conn, :index))
+      {:error, _changeset} ->
         conn
-        |> put_flash(:error, "Error updating reservation.")
-        |> redirect(to: waitlist_path(conn, :index))
+          |> put_flash(:error, "Error updating reservation.")
+          |> redirect(to: waitlist_path(conn, :index))
     end
   end
 
@@ -95,12 +94,12 @@ defmodule FanimaidButler.WaitlistController do
     FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: id})
 
     conn
-    |> put_flash(:info, "Reservation deleted successfully.")
-    |> redirect(to: waitlist_path(conn, :index))
+      |> put_flash(:info, "Reservation deleted successfully.")
+      |> redirect(to: waitlist_path(conn, :index))
   end
 
   def new_waitlist_entries(page) do
-    waitlist = Reservation 
+    Reservation 
       |> Reservation.waitlist 
       |> order_by(asc: :id)
       |> preload([:maid])

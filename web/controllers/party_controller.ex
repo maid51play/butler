@@ -2,11 +2,10 @@ defmodule FanimaidButler.PartyController do
   use FanimaidButler.Web, :controller
 
   alias FanimaidButler.Party
-  alias FanimaidButler.Table
   alias FanimaidButler.Maid
 
   def index(conn, _params) do
-    parties = Repo.all(Party) |> Repo.preload :table
+    parties = Party |> Repo.all |> Repo.preload(:table)
     render(conn, "index.html", parties: parties)
   end
 
@@ -40,7 +39,7 @@ defmodule FanimaidButler.PartyController do
   end
 
   def clear(conn, %{"party" => %{"party_id" => party_id}}) do
-    party = Repo.get(Party,party_id) |> Repo.preload :maid
+    party = Party |> Repo.get(party_id) |> Repo.preload(:maid)
     case party.id > 0 do
       true ->
         # maid = Repo.get(Maid,party.maid.id)
@@ -52,11 +51,11 @@ defmodule FanimaidButler.PartyController do
             |> Ecto.Multi.update(:maid, maid_changeset)
         )
         case res do
-          {:ok, party} ->
+          {:ok, _party} ->
             conn
-            |> put_flash(:info, "Party cleared successfully.")
-            |> redirect(to: table_path(conn, :index))
-          {:error, changeset} ->
+              |> put_flash(:info, "Party cleared successfully.")
+              |> redirect(to: table_path(conn, :index))
+          {:error, _changeset} ->
             render(conn, "clear.html")
         end
         conn

@@ -2,7 +2,6 @@ defmodule FanimaidButler.AuthTest do
   use FanimaidButler.DataCase
 
   alias FanimaidButler.Auth
-  alias Comeonin.Bcrypt
 
   describe "users" do
     alias FanimaidButler.Auth.User

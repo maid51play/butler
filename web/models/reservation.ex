@@ -106,7 +106,7 @@ defmodule FanimaidButler.Reservation do
   end
 
   def validate_matching_party(changeset \\ []) do 
-    if get_change(changeset, :party_id) && Repo.get!(Party,get_change(changeset, :party_id)).table_id != Repo.get_by!(Table, table_number: get_change(changeset, :table_number)).id do
+    if get_change(changeset, :party_id) && Repo.get!(Party, get_change(changeset, :party_id)).table_id != Repo.get_by!(Table, table_number: get_change(changeset, :table_number)).id do
       add_error(changeset, :party_id, "Scanned party does not match table!")
     else
       changeset
@@ -115,14 +115,16 @@ defmodule FanimaidButler.Reservation do
 
   def validate_party_size(changeset \\ []) do
     if get_change(changeset, :size) do
-      table = Repo.get_by!(Table, table_number: get_change(changeset, :table_number, changeset.data.table_number)) |> Repo.preload [parties: :reservation]
+      table = Table
+        |> Repo.get_by!(table_number: get_change(changeset, :table_number, changeset.data.table_number))
+        |> Repo.preload [parties: :reservation]
       party_id = get_change(changeset, :party_id, changeset.data.party_id)
 
-      table_parties = Enum.filter(table.parties, fn x -> if (changeset.data.time_out), do: x.id == party_id, else: x.id != party_id end)
+      table_parties = Enum.filter(table.parties, fn x -> if changeset.data.time_out, do: x.id == party_id, else: x.id != party_id end)
       full_seats = Enum.reduce(table_parties, 0, fn(x, acc) -> if x.reservation do x.reservation.size + acc else acc end end)
       max_seats = table.max_capacity
       
-      if(get_change(changeset, :size) > (max_seats - full_seats)) do
+      if get_change(changeset, :size) > (max_seats - full_seats) do
         add_error(changeset, :size, "Specified party size is too large for this table!")
       else
         changeset
@@ -134,7 +136,9 @@ defmodule FanimaidButler.Reservation do
 
   def validate_party_available(changeset \\ []) do
     if get_change(changeset, :party_id) do
-      party = Repo.get!(Party, get_change(changeset, :party_id)) |> Repo.preload [reservation: :maid]
+      party = Party
+        |> Repo.get!(get_change(changeset, :party_id))
+        |> Repo.preload [reservation: :maid]
       if party.reservation do
         add_error(changeset, :party_id, "Barcode already assigned to #{party.reservation.maid.name}")
       else
@@ -144,5 +148,4 @@ defmodule FanimaidButler.Reservation do
       changeset
     end
   end
-
 end

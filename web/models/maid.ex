@@ -25,7 +25,7 @@ defmodule FanimaidButler.Maid do
   def unavailable(query) do
     from maid in query,
     left_join: r in assoc(maid, :reservations),
-    where: r.time_out |> is_nil and not r |> is_nil
+    where: is_nil(r.time_out) and not is_nil(r)
   end
 
   def check_in_changeset(struct, params \\ %{}) do

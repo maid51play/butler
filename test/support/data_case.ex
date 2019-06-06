@@ -51,8 +51,9 @@ defmodule FanimaidButler.DataCase do
       assert {:password, "is unsafe"} in errors_on(%User{}, %{password: "password"})
   """
   def errors_on(struct, data) do
-    struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&FanimaidButler.ErrorHelpers.translate_error/1)
-    |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
+    struct
+      |> struct.__struct__.changeset data
+      |> Ecto.Changeset.traverse_errors(&FanimaidButler.ErrorHelpers.translate_error/1)
+      |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

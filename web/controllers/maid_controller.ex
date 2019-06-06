@@ -3,13 +3,13 @@ defmodule FanimaidButler.MaidController do
 
   alias FanimaidButler.Maid
 
-  def index(conn, %{"search" => search, "page" => page} = params) do
+  def index(conn, %{"search" => search, "page" => page}) do
     page =
       Maid
-      |> where([m], ilike(m.name, ^search))
-      |> order_by(desc: :status)
-      |> order_by(:name)
-      |> FanimaidButler.Repo.paginate(page: page)
+        |> where([m], ilike(m.name, ^search))
+        |> order_by(desc: :status)
+        |> order_by(:name)
+        |> FanimaidButler.Repo.paginate(page: page)
 
     render(conn, "index.html", 
       search: search,
@@ -21,16 +21,16 @@ defmodule FanimaidButler.MaidController do
       total_entries: page.total_entries)
   end
 
-  def index(conn, %{"search" => search} = params) do
+  def index(conn, %{"search" => search}) do
     redirect(conn, to: maid_path(conn, :index, search: search, page: 1))
   end
 
-  def index(conn, %{"page" => page} = params) do    
+  def index(conn, %{"page" => page}) do    
     page =
       Maid
-      |> order_by(desc: :status)
-      |> order_by(:name)
-      |> FanimaidButler.Repo.paginate(page: page)
+        |> order_by(desc: :status)
+        |> order_by(:name)
+        |> FanimaidButler.Repo.paginate(page: page)
 
     render(conn, "index.html", 
       search: "",
@@ -57,8 +57,8 @@ defmodule FanimaidButler.MaidController do
     case Repo.insert(changeset) do
       {:ok, maid} ->
         conn
-        |> put_flash(:info, "Maid #{maid.name} created successfully.")
-        |> redirect(to: maid_path(conn, :index))
+          |> put_flash(:info, "Maid #{maid.name} created successfully.")
+          |> redirect(to: maid_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -82,8 +82,8 @@ defmodule FanimaidButler.MaidController do
     case Repo.update(changeset) do
       {:ok, maid} ->
         conn
-        |> put_flash(:info, "Maid updated successfully.")
-        |> redirect(to: maid_path(conn, :show, maid))
+          |> put_flash(:info, "Maid updated successfully.")
+          |> redirect(to: maid_path(conn, :show, maid))
       {:error, changeset} ->
         render(conn, "edit.html", maid: maid, changeset: changeset)
     end
@@ -97,26 +97,26 @@ defmodule FanimaidButler.MaidController do
     Repo.delete!(maid)
 
     conn
-    |> put_flash(:info, "Maid deleted successfully.")
-    |> redirect(to: maid_path(conn, :index))
+      |> put_flash(:info, "Maid deleted successfully.")
+      |> redirect(to: maid_path(conn, :index))
   end
 
   def check_in(conn, %{"id" => id}) do
-    maid= Repo.get!(Maid, id)
+    maid = Repo.get!(Maid, id)
     changeset = Maid.check_in_changeset(maid, %{status: "present", checked_in_at: DateTime.utc_now()})
 
     case Repo.update(changeset) do
       {:ok, maid} ->
         conn
-        |> put_flash(:info, "#{maid.name} checked in successfully at #{DateTime.utc_now()}")
-        |> redirect(to: maid_path(conn, :index))
+          |> put_flash(:info, "#{maid.name} checked in successfully at #{DateTime.utc_now()}")
+          |> redirect(to: maid_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", maid: maid, changeset: changeset)
     end
   end
 
   def check_out(conn, %{"id" => id}) do
-    maid= Repo.get!(Maid, id)
+    maid = Repo.get!(Maid, id)
     new_hours = DateTime.diff(DateTime.utc_now(), maid.checked_in_at)
     hours = maid.logged_hours + new_hours
     changeset = Maid.check_in_changeset(maid, %{status: "not-present", checked_in_at: nil, logged_hours: hours})
@@ -124,8 +124,8 @@ defmodule FanimaidButler.MaidController do
     case Repo.update(changeset) do
       {:ok, maid} ->
         conn
-        |> put_flash(:info, "#{maid.name} checked out successfully.")
-        |> redirect(to: maid_path(conn, :index))
+          |> put_flash(:info, "#{maid.name} checked out successfully.")
+          |> redirect(to: maid_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", maid: maid, changeset: changeset)
     end
