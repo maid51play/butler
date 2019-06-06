@@ -1,3 +1,3 @@
-defmodule FanimaidButler.ReservationView do
-  use FanimaidButler.Web, :view
+defmodule Butler.ReservationView do
+  use Butler.Web, :view
 end

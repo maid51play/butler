@@ -1,9 +1,9 @@
-defmodule FanimaidButler.ReservationControllerTest do
-  use FanimaidButler.ConnCase
+defmodule Butler.ReservationControllerTest do
+  use Butler.ConnCase
 
-  import FanimaidButler.Factory
+  import Butler.Factory
 
-  alias FanimaidButler.Reservation
+  alias Butler.Reservation
 
   # DO NOT TOUCH THIS METHOD
   # we don't know why but deleting this breaks everything

@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.CreateMaid do
+defmodule Butler.Repo.Migrations.CreateMaid do
   use Ecto.Migration
 
   def change do

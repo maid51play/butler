@@ -1,4 +1,4 @@
-# FanimaidButler
+# Butler
 
 ## FAQ
 

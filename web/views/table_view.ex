@@ -1,3 +1,3 @@
-defmodule FanimaidButler.TableView do
-  use FanimaidButler.Web, :view
+defmodule Butler.TableView do
+  use Butler.Web, :view
 end

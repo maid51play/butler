@@ -1,8 +1,8 @@
-defmodule FanimaidButler.SwitchTablesController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.SwitchTablesController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Party
-  alias FanimaidButler.Reservation
+  alias Butler.Party
+  alias Butler.Reservation
 
   def index(conn, _params) do
     changeset = Reservation.changeset(%Reservation{})

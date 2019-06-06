@@ -1,3 +1,3 @@
-defmodule FanimaidButler.PartyView do
-  use FanimaidButler.Web, :view
+defmodule Butler.PartyView do
+  use Butler.Web, :view
 end

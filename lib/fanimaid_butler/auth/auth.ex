@@ -1,12 +1,12 @@
-defmodule FanimaidButler.Auth do
+defmodule Butler.Auth do
   @moduledoc """
   The Auth context.
   """
 
   import Ecto.Query, warn: false
+  alias Butler.Auth.User
+  alias Butler.Repo
   alias Comeonin.Bcrypt
-  alias FanimaidButler.Auth.User
-  alias FanimaidButler.Repo
 
   @doc """
   Returns the list of users.

@@ -1,7 +1,7 @@
-defmodule FanimaidButler.TableTest do
-  use FanimaidButler.DataCase
+defmodule Butler.TableTest do
+  use Butler.DataCase
 
-  alias FanimaidButler.Table
+  alias Butler.Table
 
   @valid_attrs %{max_capacity: 42, table_number: "some table_number"}
   @invalid_attrs %{}

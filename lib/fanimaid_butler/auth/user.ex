@@ -1,12 +1,13 @@
-defmodule FanimaidButler.Auth.User do
+defmodule Butler.Auth.User do
   @moduledoc """
   Placeholder moduledoc
   """
 
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias Butler.Auth.User
   alias Comeonin.Bcrypt
-  alias FanimaidButler.Auth.User
 
   schema "users" do
     field :password, :string

@@ -1,7 +1,7 @@
-defmodule FanimaidButler.PartyControllerTest do
-  use FanimaidButler.ConnCase
+defmodule Butler.PartyControllerTest do
+  use Butler.ConnCase
 
-  alias FanimaidButler.Party
+  alias Butler.Party
   @valid_attrs %{size: 42}
   @invalid_attrs %{}
 

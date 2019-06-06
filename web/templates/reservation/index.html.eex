@@ -2,7 +2,7 @@
 <div>
 We have served <b><%= @goshujinsama %></b> goshujinsama and <b><%= @total_entries %></b> parties!
 </div>
-<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<%= if @total_pages > 1, do: render Butler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
 <table class="table">
   <thead>
     <tr>
@@ -51,4 +51,4 @@ We have served <b><%= @goshujinsama %></b> goshujinsama and <b><%= @total_entrie
 <% end %>
   </tbody>
 </table>
-<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<%= if @total_pages > 1, do: render Butler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>

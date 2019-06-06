@@ -1,10 +1,10 @@
-defmodule FanimaidButler.TableController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.TableController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Maid
-  alias FanimaidButler.Party
-  alias FanimaidButler.Reservation
-  alias FanimaidButler.Table
+  alias Butler.Maid
+  alias Butler.Party
+  alias Butler.Reservation
+  alias Butler.Table
 
   def index(conn, params) do
     selected_reservation_id = Map.get(params, "reservation")
@@ -14,7 +14,7 @@ defmodule FanimaidButler.TableController do
       |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
-      |> FanimaidButler.Repo.paginate(page: 1)
+      |> Butler.Repo.paginate(page: 1)
 
     render(conn, "index.html", tables: tables, waitlist: waitlist, selected_reservation: selected_reservation)
   end

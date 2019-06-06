@@ -7,18 +7,18 @@ use Mix.Config
 
 # General application configuration
 config :fanimaid_butler,
-  ecto_repos: [FanimaidButler.Repo]
+  ecto_repos: [Butler.Repo]
 
 # Configures the endpoint
-config :fanimaid_butler, FanimaidButler.Endpoint,
+config :fanimaid_butler, Butler.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  render_errors: [view: FanimaidButler.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: FanimaidButler.PubSub,
+  render_errors: [view: Butler.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Butler.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures auth
-config :fanimaid_butler, FanimaidButler.Auth.Guardian,
+config :fanimaid_butler, Butler.Auth.Guardian,
   issuer: "fanimaid_butler",
   secret_key: System.get_env("AUTH_SECRET")
 

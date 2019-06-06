@@ -1,4 +1,4 @@
-defmodule FanimaidButler.ChannelCase do
+defmodule Butler.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -22,21 +22,21 @@ defmodule FanimaidButler.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias FanimaidButler.Repo
+      alias Butler.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
       # The default endpoint for testing
-      @endpoint FanimaidButler.Endpoint
+      @endpoint Butler.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(FanimaidButler.Repo)
+    :ok = Sandbox.checkout(Butler.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(FanimaidButler.Repo, {:shared, self()})
+      Sandbox.mode(Butler.Repo, {:shared, self()})
     end
 
     :ok

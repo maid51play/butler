@@ -1,5 +1,5 @@
-defmodule FanimaidButler.Router do
-  use FanimaidButler.Web, :router
+defmodule Butler.Router do
+  use Butler.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,14 +14,14 @@ defmodule FanimaidButler.Router do
   end
 
   pipeline :auth do
-    plug FanimaidButler.Auth.Pipeline
+    plug Butler.Auth.Pipeline
   end
 
   pipeline :ensure_auth do
     plug Guardian.Plug.EnsureAuthenticated
   end
 
-  scope "/", FanimaidButler do
+  scope "/", Butler do
     pipe_through [:browser, :auth]
 
     get "/", PageController, :index
@@ -29,7 +29,7 @@ defmodule FanimaidButler.Router do
     post "/logout", PageController, :logout
   end
 
-  scope "/", FanimaidButler do
+  scope "/", Butler do
     pipe_through [:browser, :auth, :ensure_auth] # Use the default browser stack
 
     resources "/maids", MaidController
@@ -55,7 +55,7 @@ defmodule FanimaidButler.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FanimaidButler do
+  # scope "/api", Butler do
   #   pipe_through :api
   # end
 end

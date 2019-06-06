@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Auth.ErrorHandler do
+defmodule Butler.Auth.ErrorHandler do
   @moduledoc """
   Placeholder moduledoc
   """

@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.CreateReservation do
+defmodule Butler.Repo.Migrations.CreateReservation do
   use Ecto.Migration
 
   def change do

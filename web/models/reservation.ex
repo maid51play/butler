@@ -1,16 +1,16 @@
 require Protocol
 Protocol.derive(Jason.Encoder, Scrivener.Page)
 
-defmodule FanimaidButler.Reservation do
+defmodule Butler.Reservation do
   @moduledoc """
   Placeholder moduledoc
   """
 
-  use FanimaidButler.Web, :model
+  use Butler.Web, :model
 
-  alias FanimaidButler.Party
-  alias FanimaidButler.Repo
-  alias FanimaidButler.Table
+  alias Butler.Party
+  alias Butler.Repo
+  alias Butler.Table
 
   @derive {
     Jason.Encoder,
@@ -34,8 +34,8 @@ defmodule FanimaidButler.Reservation do
 
     timestamps()
 
-    belongs_to :party, FanimaidButler.Party
-    belongs_to :maid, FanimaidButler.Maid
+    belongs_to :party, Butler.Party
+    belongs_to :maid, Butler.Maid
   end
 
   def waitlist(query) do

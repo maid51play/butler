@@ -1,9 +1,9 @@
-defmodule FanimaidButler.Table do
+defmodule Butler.Table do
   @moduledoc """
   Placeholder moduledoc
   """
 
-  use FanimaidButler.Web, :model
+  use Butler.Web, :model
 
   @derive {Jason.Encoder, only: [:id, :table_number, :max_capacity, :parties]}
   schema "tables" do
@@ -12,7 +12,7 @@ defmodule FanimaidButler.Table do
 
     timestamps()
 
-    has_many :parties, FanimaidButler.Party
+    has_many :parties, Butler.Party
   end
 
   @doc """

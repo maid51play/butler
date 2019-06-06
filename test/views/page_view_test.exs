@@ -1,3 +1,3 @@
-defmodule FanimaidButler.PageViewTest do
-  use FanimaidButler.ConnCase, async: true
+defmodule Butler.PageViewTest do
+  use Butler.ConnCase, async: true
 end

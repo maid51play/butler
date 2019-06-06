@@ -1,14 +1,14 @@
-defmodule FanimaidButler.WaitlistController do
-  use FanimaidButler.Web, :controller
+defmodule Butler.WaitlistController do
+  use Butler.Web, :controller
 
-  alias FanimaidButler.Reservation
+  alias Butler.Reservation
 
   def index(conn, %{"page" => page}) do
     waitlist = Reservation
       |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
-      |> FanimaidButler.Repo.paginate(page: page)
+      |> Butler.Repo.paginate(page: page)
     token = get_csrf_token()
     render(conn, "index.html", waitlist: waitlist, token: token)
   end
@@ -34,8 +34,8 @@ defmodule FanimaidButler.WaitlistController do
           |> Reservation.waitlist
           |> order_by(asc: :id)
           |> preload([:maid])
-          |> FanimaidButler.Repo.paginate(page: 1)
-        FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
+          |> Butler.Repo.paginate(page: 1)
+        Butler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
 
         conn
           |> put_flash(:info, "Reservation created successfully.")
@@ -66,8 +66,8 @@ defmodule FanimaidButler.WaitlistController do
           |> Reservation.waitlist
           |> order_by(asc: :id)
           |> preload([:maid])
-          |> FanimaidButler.Repo.paginate(page: 1)
-        FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
+          |> Butler.Repo.paginate(page: 1)
+        Butler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: reservation.id})
 
         conn
           |> put_flash(:info, "Reservation updated successfully.")
@@ -90,8 +90,8 @@ defmodule FanimaidButler.WaitlistController do
       |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
-      |> FanimaidButler.Repo.paginate(page: 1)
-    FanimaidButler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: id})
+      |> Butler.Repo.paginate(page: 1)
+    Butler.Endpoint.broadcast("room:lobby", "waitlist_updated", %{waitlist: waitlist, id: id})
 
     conn
       |> put_flash(:info, "Reservation deleted successfully.")
@@ -103,6 +103,6 @@ defmodule FanimaidButler.WaitlistController do
       |> Reservation.waitlist
       |> order_by(asc: :id)
       |> preload([:maid])
-      |> FanimaidButler.Repo.paginate(page: page)
+      |> Butler.Repo.paginate(page: page)
   end
 end

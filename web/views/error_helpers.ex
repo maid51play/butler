@@ -1,4 +1,4 @@
-defmodule FanimaidButler.ErrorHelpers do
+defmodule Butler.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule FanimaidButler.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(FanimaidButler.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Butler.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(FanimaidButler.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Butler.Gettext, "errors", msg, opts)
     end
   end
 end

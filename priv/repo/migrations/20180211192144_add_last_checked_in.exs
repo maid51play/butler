@@ -1,4 +1,4 @@
-defmodule FanimaidButler.Repo.Migrations.AddLastCheckedIn do
+defmodule Butler.Repo.Migrations.AddLastCheckedIn do
   use Ecto.Migration
 
   def change do

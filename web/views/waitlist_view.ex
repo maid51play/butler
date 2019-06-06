@@ -1,3 +1,3 @@
-defmodule FanimaidButler.WaitlistView do
-  use FanimaidButler.Web, :view
+defmodule Butler.WaitlistView do
+  use Butler.Web, :view
 end

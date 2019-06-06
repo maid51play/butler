@@ -1,7 +1,7 @@
-defmodule FanimaidButler.TableControllerTest do
-  use FanimaidButler.ConnCase
+defmodule Butler.TableControllerTest do
+  use Butler.ConnCase
 
-  alias FanimaidButler.Table
+  alias Butler.Table
 
   test "lists all entries on index", %{conn: conn} do
     conn = conn

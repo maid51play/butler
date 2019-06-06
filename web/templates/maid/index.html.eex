@@ -1,6 +1,6 @@
 <h2>Maid Check-In</h2>
 <%= render "search.html", search: @search %>
-<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<%= if @total_pages > 1, do: render Butler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
 <table class="table">
   <thead>
     <tr>
@@ -41,7 +41,7 @@
 <% end %>
   </tbody>
 </table>
-<%= if @total_pages > 1, do: render FanimaidButler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
+<%= if @total_pages > 1, do: render Butler.LayoutView, "pagination.html", url: @url, page_number: @page_number, total_pages: @total_pages %>
 
 
 <span><%= link "New maid", to: maid_path(@conn, :new) %></span>

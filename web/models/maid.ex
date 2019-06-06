@@ -1,9 +1,9 @@
-defmodule FanimaidButler.Maid do
+defmodule Butler.Maid do
   @moduledoc """
   Placeholder moduledoc
   """
 
-  use FanimaidButler.Web, :model
+  use Butler.Web, :model
 
   @derive {Jason.Encoder, only: [:id, :name]}
   schema "maids" do
@@ -16,8 +16,8 @@ defmodule FanimaidButler.Maid do
 
     timestamps()
 
-    belongs_to :party, FanimaidButler.Party
-    has_many :reservations, FanimaidButler.Reservation
+    belongs_to :party, Butler.Party
+    has_many :reservations, Butler.Reservation
   end
 
   def present(query) do
