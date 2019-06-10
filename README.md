@@ -1,33 +1,14 @@
 # Butler
 
-## FAQ
-
-**Q:** Can I fork this app for use in other maid cafes?
-
-**A:** Yes! Please do! If the feature you are adding isn't specific to your particular maid cafe and has the potential to be useful to other maid cafes that are using this app (like my own) please consider making a pull request so that we can all benefit from your contributions 🌸
-
-
-**Q:** I'm involved in 5.1 Play or an affiliated maid cafe. Can I make contributions to the codebase?
-
-**A:** Unfortunately in the aftermath of our last event this codebase has become incredibly messy again and as such isn't quite ready for contributors yet. That being said, allowing volunteers to pick up issues and make contributions is one of my major goals for the next year, so please keep an eye out for when we are open for contributors!
-
-**Q:** I don't know if my maid cafe is affiliated with 5.1 Play! Can I still contribute?
-
-**A:** Talk to **Midori** on discord; she'll be able to tell you if you are affiliated with 5.1 Play and how to get involved.
-
-**Q:** Did you really rename the `master` branch to `ご主人様`.
-
-**A:** Yes and you literally can't stop me.
-
-**Q:** It's really annoying to use a branch name that can't be typed out on an american keyboard 😭
-
-**A:** in this house we suffer for fashion
+Butler is an open source tabling application by [5.1 Play](https://www.twitch.tv/51play) for use at in person events and in affiliated maid cafes. Butler primarily keeps track of which tables are open for seating and which maids are available to table. Because seating parties at a busy maid cafe is hectic, we strive to reduce human error by associating barcodes to tables so that Butler can handle assigning the maid to the correct table for us!
 
 ## Contributor Guidelines
 
 5.1 Play strives to create an environment where our staff and streamers can teach each other real world skills that are applicable both inside and outside of our cafe. As an organization dedicated to the growth of our girls, we are proud to add "software development" to the list of many skills we offer to foster in our maids! While any and all contributions will be treasured, please keep in mind that we will prioritize supporting contributions from those involved with 5.1 Play and affiliated organizations to this end. For those of you who are not involved in running and organizing our cafe, we are working to include tickets labeled [ご主人様OK](/labels/ご主人様OK) which are best suited for the level of collaboration accessible to you; we would love to see all of your smiling faces on our list of contributors!
 
 Those affiliated with 5.1 Play who are interested in contributing to the codebase outside of the ご主人様OK label should contact **Midori** directly on discord. In addition to the content of this readme, she can provide the additional resources necessary to get started!
+
+We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary duplicate work or contributing to stale issues which are no longer being prioritized or are lacking appropriate levels of detail. Failure to follow the contribution guidelines below may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the contribution guidelines closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
 
 ## Cloning the repo
 
@@ -60,6 +41,24 @@ Before you start writing code, please make sure you have followed the following 
 
 Running the app will require you to create a `.env` file to store certain app secrets! Trying to run the app without them is a big non-non~
 
+**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue](/issues/new) so that we can update the README accordingly!**
+
+1. In your terminal, generate a secret key base:
+
+    ```$ mix phx.gen.secret```
+1. Add the secret key base to your `.env` file:
+
+    ```export SECRET_KEY_BASE="{secret key base goes here}"```
+1. In your terminal, generate an auth secret:
+
+    ```$ mix guardian.gen.secret``` 
+1. Add the auth secret to your `.env` file:
+
+    ```export AUTH_SECRET="{auth secret goes here}"```
+1. To use your newly set environment variables, in your terminal run:
+
+    ```$ source .env```
+
 ## Running the app
 
 Once you have done the above steps, start your phoenix app by doing the following:
@@ -72,10 +71,34 @@ Once you have done the above steps, start your phoenix app by doing the followin
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+You should be able to log in with the username `admin` and password `password`.
 
-## Learn more
+## FAQ
 
+**Q:** Can I fork this app for use in other maid cafes?
+
+**A:** Yes! Please do! If the feature you are adding isn't specific to your particular maid cafe and has the potential to be useful to other maid cafes that are using this app (like my own) please consider making a pull request so that we might all benefit from your contributions 🌸
+
+**Q:** I'm involved in 5.1 Play or an affiliated maid cafe. Can I make contributions to the codebase?
+
+**A:** Yes! We recommend talking to **Midori** directly on discord so she can give you access to the full extent of the resources available to staff, streamers, and volunteers.
+
+**Q:** I don't know if my maid cafe is affiliated with 5.1 Play! Can I still contribute?
+
+**A:** Talk to **Midori** on discord; she'll be able to tell you if you are affiliated with 5.1 Play and how to get involved.
+
+**Q:** Did you really rename the `master` branch to `ご主人様`.
+
+**A:** Yes and you literally can't stop me.
+
+**Q:** It's really annoying to use a branch name that can't be typed out on an american keyboard 😭
+
+**A:** in this house we suffer for fashion
+
+## Resource Library 🌸
+In this section you'll find helpful links for ramping up on the various technologies used in this project. If you have a blog article or tutorial that you think should be included in this list, please make a pull request or ask Midori to help you!
+
+### Phoenix Resources
   * Official website: http://www.phoenixframework.org/
   * Guides: http://phoenixframework.org/docs/overview
   * Docs: https://hexdocs.pm/phoenix
