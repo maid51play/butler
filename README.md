@@ -69,13 +69,23 @@ Running the app will require you to create a `.env` file to store certain app se
 
 ## Running the app
 
-Once you have done the above steps, start your phoenix app by doing the following:
+Once you have done the above steps, you can start your phoenix app by doing the following in your terminal:
 
-1. Install dependencies with `mix deps.get`
-1. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-1. Populate the database with seed data with `mix run priv/repo/seeds.exs`
-1. Install Node.js dependencies with `npm install`
-1. Start Phoenix endpoint with `mix phx.server`
+1. Install dependencies:
+
+    ```$ mix deps.get```
+1. Create and migrate your database:
+
+    ```$ mix ecto.create && mix ecto.migrate```
+1. Populate the database with seed data:
+
+    ```$ mix run priv/repo/seeds.exs```
+1. Install Node.js dependencies:
+    
+    ```$ npm install```
+1. Start Phoenix endpoint:
+
+    ```$ mix phx.server```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
