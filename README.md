@@ -10,6 +10,14 @@ Those affiliated with 5.1 Play who are interested in contributing to the codebas
 
 We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary duplicate work or contributing to stale issues which are no longer being prioritized or are lacking appropriate levels of detail. Failure to follow the contribution guidelines below may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the contribution guidelines closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
 
+## Reporting a bug
+
+If you find a bug in our codebase, we want to hear about it! Please [open up an issue](/issues/new) about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug](/labels/bug) issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board](/projects/1).
+
+## Requesting a feature
+
+Although there is no guarantee that feature requests will be prioritized, we welcome any and all suggestions, especially from people who are actively using our software! To make a feature suggestion, please [open an issue](/issues/new) about it! The maintaners of the codebase will label it as a [discussion](/labels/discussion) issue, and contributors can weigh in on the usefulness/plausibility of the suggested feature.
+
 ## Cloning the repo
 
 Unless you have been given collaborator status (you know who you are), you will need to fork the repo in order to make contributions. Please fork this repo as you would any other :3
@@ -94,6 +102,14 @@ You should be able to log in with the username `admin` and password `password`.
 **Q:** It's really annoying to use a branch name that can't be typed out on an american keyboard 😭
 
 **A:** in this house we suffer for fashion
+
+**Q:** When I run the test I get an error that looks like `** (MatchError) no match of right hand side value: {:error, :secret_not_found}`
+
+OR
+
+When I try to run the server I get an error that looks like `** (ArgumentError) cookie store expects conn.secret_key_base to be set`
+
+**A:** `$ source .env` and try again :3
 
 ## Resource Library 🌸
 In this section you'll find helpful links for ramping up on the various technologies used in this project. If you have a blog article or tutorial that you think should be included in this list, please make a pull request or ask Midori to help you!
