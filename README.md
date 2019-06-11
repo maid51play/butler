@@ -12,11 +12,11 @@ We are doing our best to clearly explain our contribution guidelines to avoid co
 
 ## Reporting a bug
 
-If you find a bug in our codebase, we want to hear about it! Please [open up an issue](/issues/new/choose) about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug](/labels/bug) issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board](/projects/1).
+If you find a bug in our codebase, we want to hear about it! Please [open up an issue][new-issue] about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug][label-bug] issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board][project-board].
 
 ## Requesting a feature
 
-Although there is no guarantee that feature requests will be prioritized, we welcome any and all suggestions, especially from people who are actively using our software! To make a feature suggestion, please [open an issue](/issues/new/choose) about it! The maintaners of the codebase will label it as a [discussion](/labels/discussion) issue, and contributors can weigh in on the usefulness/plausibility of the suggested feature.
+Although there is no guarantee that feature requests will be prioritized, we welcome any and all suggestions, especially from people who are actively using our software! To make a feature suggestion, please [open an issue][new-issue] about it! It will be labeled as a [discussion][label-discussion] issue, and contributors can weigh in on the usefulness/plausibility of the suggested feature.
 
 ## Cloning the repo
 
@@ -26,7 +26,7 @@ Unless you have been given collaborator status (you know who you are), you will 
 
 Before you start writing code, please make sure you have followed the following process!
 
-1. Browse the [ご主人様OK](/labels/ご主人様OK) label for straight forward, bite-sized chunks of work, or browse the To-Do column in our [Project Board](/projects/1) and find an open issue that appeals to you.
+1. Browse the [ご主人様OK][label-ご主人様-ok] label for straight forward, bite-sized chunks of work, or browse the To-Do column in our [Project Board][project-board] and find an open issue that appeals to you.
 1. Comment on the issue you're picking up so that others know that the issue is in progress. Make sure to tag @MeganeMidori so that she can update the project board and assign the issue to you.
 1. In bash make sure the ご主人様 branch is up to date:
     ```
@@ -49,7 +49,7 @@ Before you start writing code, please make sure you have followed the following 
 
 Running the app will require you to create a `.env` file to store certain app secrets! Trying to run the app without them is a big non-non~
 
-**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue](/issues/new/choose) so that we can update the README accordingly!**
+**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue][new-issue] so that we can update the README accordingly!**
 
 1. In your terminal, generate a secret key base:
 
@@ -134,3 +134,7 @@ In this section you'll find helpful links for ramping up on the various technolo
 
 [5-1-play]: <https://www.twitch.tv/51play>
 [label-ご主人様-ok]: <https://github.com/MeganeMidori/butler/labels/%E3%81%94%E4%B8%BB%E4%BA%BA%E6%A7%98OK>
+[label-bug]: <https://github.com/MeganeMidori/butler/labels/bug>
+[label-discussion]: <https://github.com/MeganeMidori/butler/labels/discussion>
+[new-issue]: <https://github.com/MeganeMidori/butler/issues/new/choose>
+[project-board]: <https://github.com/MeganeMidori/butler/projects/1>
