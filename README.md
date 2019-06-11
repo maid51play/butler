@@ -12,11 +12,11 @@ We are doing our best to clearly explain our contribution guidelines to avoid co
 
 ## Reporting a bug
 
-If you find a bug in our codebase, we want to hear about it! Please [open up an issue](/issues/new) about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug](/labels/bug) issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board](/projects/1).
+If you find a bug in our codebase, we want to hear about it! Please [open up an issue](/issues/new/choose) about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug](/labels/bug) issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board](/projects/1).
 
 ## Requesting a feature
 
-Although there is no guarantee that feature requests will be prioritized, we welcome any and all suggestions, especially from people who are actively using our software! To make a feature suggestion, please [open an issue](/issues/new) about it! The maintaners of the codebase will label it as a [discussion](/labels/discussion) issue, and contributors can weigh in on the usefulness/plausibility of the suggested feature.
+Although there is no guarantee that feature requests will be prioritized, we welcome any and all suggestions, especially from people who are actively using our software! To make a feature suggestion, please [open an issue](/issues/new/choose) about it! The maintaners of the codebase will label it as a [discussion](/labels/discussion) issue, and contributors can weigh in on the usefulness/plausibility of the suggested feature.
 
 ## Cloning the repo
 
@@ -49,7 +49,7 @@ Before you start writing code, please make sure you have followed the following 
 
 Running the app will require you to create a `.env` file to store certain app secrets! Trying to run the app without them is a big non-non~
 
-**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue](/issues/new) so that we can update the README accordingly!**
+**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue](/issues/new/choose) so that we can update the README accordingly!**
 
 1. In your terminal, generate a secret key base:
 
