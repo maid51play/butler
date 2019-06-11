@@ -12,7 +12,7 @@ We are doing our best to clearly explain our contribution guidelines to avoid co
 
 ## Reporting a bug
 
-If you find a bug in our codebase, we want to hear about it! Please [open up an issue][new-issue] about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The maintainers of the codebase will label it as a [bug][label-bug] issue and prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board][project-board].
+If you find a bug in our codebase, we want to hear about it! Please [open up an issue][new-issue] about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The issue will be labeled as a [bug][label-bug] and a maintainer will prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board][project-board].
 
 ## Requesting a feature
 
