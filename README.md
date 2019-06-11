@@ -1,6 +1,6 @@
 # Butler
 
-Butler is an open source tabling application by [5.1 Play](https://www.twitch.tv/51play) for use at in person events and in affiliated maid cafes. Butler primarily keeps track of which tables are open for seating and which maids are available to table. Because seating parties at a busy maid cafe is hectic, we strive to reduce human error by associating barcodes to tables so that Butler can handle assigning the maid to the correct table for us!
+Butler is an open source tabling application by [5.1 Play][5-1-play] for use at in person events and in affiliated maid cafes. Butler primarily keeps track of which tables are open for seating and which maids are available to table. Because seating parties at a busy maid cafe is hectic, we strive to reduce human error by associating barcodes to tables so that Butler can handle assigning the maid to the correct table for us!
 
 ## Contributor Guidelines
 
@@ -130,3 +130,6 @@ In this section you'll find helpful links for ramping up on the various technolo
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+
+[5-1-play]: <https://www.twitch.tv/51play>
