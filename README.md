@@ -4,7 +4,7 @@ Butler is an open source tabling application by [5.1 Play][5-1-play] for use at 
 
 ## Contributor Guidelines
 
-5.1 Play strives to create an environment where our staff and streamers can teach each other real world skills that are applicable both inside and outside of our cafe. As an organization dedicated to the growth of our girls, we are proud to add "software development" to the list of many skills we offer to foster in our maids! While any and all contributions will be treasured, please keep in mind that we will prioritize supporting contributions from those involved with 5.1 Play and affiliated organizations to this end. For those of you who are not involved in running and organizing our cafe, we are working to include tickets labeled [ご主人様OK](labels/ご主人様OK) which are best suited for the level of collaboration accessible to you; we would love to see all of your smiling faces on our list of contributors!
+5.1 Play strives to create an environment where our staff and streamers can teach each other real world skills that are applicable both inside and outside of our cafe. As an organization dedicated to the growth of our girls, we are proud to add "software development" to the list of many skills we offer to foster in our maids! While any and all contributions will be treasured, please keep in mind that we will prioritize supporting contributions from those involved with 5.1 Play and affiliated organizations to this end. For those of you who are not involved in running and organizing our cafe, we are working to include tickets labeled [ご主人様OK][label-ご主人様-ok] which are best suited for the level of collaboration accessible to you; we would love to see all of your smiling faces on our list of contributors!
 
 Those affiliated with 5.1 Play who are interested in contributing to the codebase outside of the ご主人様OK label should contact **Midori** directly on discord. In addition to the content of this readme, she can provide the additional resources necessary to get started!
 
@@ -133,3 +133,4 @@ In this section you'll find helpful links for ramping up on the various technolo
 
 
 [5-1-play]: <https://www.twitch.tv/51play>
+[label-ご主人様-ok]: <https://github.com/MeganeMidori/butler/labels/%E3%81%94%E4%B8%BB%E4%BA%BA%E6%A7%98OK>
