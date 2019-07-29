@@ -26,24 +26,7 @@ Unless you have been given collaborator status (you know who you are), you will 
 
 ## Picking up tickets
 
-Before you start writing code, please make sure you have followed the following process!
-
-1. Browse the [ご主人様OK][label-ご主人様-ok] label for straight forward, bite-sized chunks of work, or browse the To-Do column in our [Project Board][project-board] and find an open issue that appeals to you.
-1. Comment on the issue you're picking up so that others know that the issue is in progress. Make sure to tag @MeganeMidori so that she can update the project board and assign the issue to you.
-1. In bash make sure the ご主人様 branch is up to date:
-    ```
-    $ git checkout ご主人様
-    $ git pull origin ご主人様
-    ```
-1. checkout a new branch from the `ご主人様` branch:
-    ```
-    $ git checkout -b feature/branch-name-here-573
-    ```
-    make sure you follow the naming convention: [feature | chore | bug]/descriptive-branch-name-{issueId}
-1. While development progresses, please make sure you keep an eye on the discussion in your issue so that you don't miss valuable feedback from contributors who might be able to help with the task you're working on, especially if it's a long running ticket! Do post questions that might come up as well; if you tag @MeganeMidori she will be happy to address them personally!
-1. When your feature is ready for review, please check for any linter errors or failing tests before creating your pull request. When writing your PR, make sure to include either "resolves #`{issueId}`" or "addresses #`{issueId}`" depending on whether the original issue is ready to be closed or not after merging your PR. Also make sure your PR includes sufficient background/information to make it easy peasy to review~
-1. Merging into the `ご主人様` branch will require at least one passing review from an admin.
-1. After your PR has been accepted, please go ahead and merge using the "Squash and merge" button on your PR. Thank you so much for your contribution!
+Before you start writing code, please make sure you have followed the process outlined in our [contributor workflow wiki page][contributor-workflow]!
 
 ## Secrets: それは…ひ•み•ちゅ(｡•ᴗ-)~☆
 
@@ -123,16 +106,6 @@ When I try to run the server I get an error that looks like `** (ArgumentError) 
 
 **A:** `$ source .env` and try again :3
 
-## Resource Library 🌸
-In this section you'll find helpful links for ramping up on the various technologies used in this project. If you have a blog article or tutorial that you think should be included in this list, please make a pull request or ask Midori to help you!
-
-### Phoenix Resources
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
-
 
 [5-1-play]: <https://www.twitch.tv/51play>
 [label-ご主人様-ok]: <https://github.com/MeganeMidori/butler/labels/%E3%81%94%E4%B8%BB%E4%BA%BA%E6%A7%98OK>
@@ -140,3 +113,4 @@ In this section you'll find helpful links for ramping up on the various technolo
 [label-discussion]: <https://github.com/MeganeMidori/butler/labels/discussion>
 [new-issue]: <https://github.com/MeganeMidori/butler/issues/new/choose>
 [project-board]: <https://github.com/MeganeMidori/butler/projects/1>
+[contributor-workflow]: <https://github.com/MeganeMidori/butler/wiki/Contributor-Workflow-(AKA-how-to-pick-up-tickets)>
