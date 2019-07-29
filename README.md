@@ -10,7 +10,7 @@ For those of you who are not involved in running and organizing our cafe but wou
 
 Those affiliated with 5.1 Play who are interested in contributing to the codebase outside of the ご主人様OK label should contact **Midori** directly on discord. In addition to the content of this readme, she can provide the additional resources necessary to get started!
 
-We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary duplicate work or contributing to stale issues which are no longer being prioritized or are lacking appropriate levels of detail. Failure to follow the contribution guidelines below may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the contribution guidelines closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
+We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary duplicate work or contributing to stale issues which are no longer being prioritized or are lacking appropriate levels of detail. Failure to follow the contribution guidelines below may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the [contribution guidelines][contributor-workflow] closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
 
 ## Reporting a bug
 
@@ -76,6 +76,10 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 You should be able to log in with the username `admin` and password `password`.
 
+## Butler App Architecture
+
+Our app architecture is documented in [our wiki][architecture-wiki]. Please check it out to get a more in depth technical introduction to this codebase!
+
 ## FAQ
 
 **Q:** Can I fork this app for use in other maid cafes?
@@ -114,3 +118,4 @@ When I try to run the server I get an error that looks like `** (ArgumentError) 
 [new-issue]: <https://github.com/MeganeMidori/butler/issues/new/choose>
 [project-board]: <https://github.com/MeganeMidori/butler/projects/1>
 [contributor-workflow]: <https://github.com/MeganeMidori/butler/wiki/Contributor-Workflow-(AKA-how-to-pick-up-tickets)>
+[architecture-wiki]: <https://github.com/MeganeMidori/butler/wiki/Butler-App-Architecture>
