@@ -29,5 +29,4 @@ jobs:
       - run: mix local.rebar
       - run: mix deps.get
       - run: MIX_ENV=test mix ecto.create
-      - run: source .env
       - run: mix test
