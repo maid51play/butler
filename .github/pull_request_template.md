@@ -16,7 +16,4 @@ addresses #<!-- issue number here -->
 - <!-- list summary of changes made in this PR -->
 
 # Checklist
-- [ ] I have read and followed the [contributor guidelines](https://github.com/MeganeMidori/butler#contributor-guidelines)
-- [ ] I have run `./node_modules/.bin/eslint "web/static/js/**"` and am not merging any new eslint errors
-- [ ] I have run `mix credo` and am not merging any new credo errors 
-- [ ] I have run `mix test` and am not merging any new failing tests
+- [ ] I have read and followed the [contributor guidelines](https://github.com/maid51play/butler/wiki/Contributor-Workflow-(AKA-how-to-pick-up-tickets))
