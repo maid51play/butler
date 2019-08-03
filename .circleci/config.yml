@@ -34,5 +34,5 @@ jobs:
       - run: MIX_ENV=test mix ecto.create
       - run: npm install
       - run: ./node_modules/.bin/eslint "web/static/js/**"
-      - run: mix credo
+      - run: mix credo --ignore design,refactor
       - run: mix test
