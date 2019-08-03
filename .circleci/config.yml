@@ -9,8 +9,8 @@ jobs:
       - image: circleci/elixir:1.5
         environment:
             TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
-            SECRET_KEY_BASE: "foo"
-            AUTH_SECRET: "bar"
+            SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
+            AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
       - image: circleci/postgres:9.6.5-alpine-ram
 
       # Specify service dependencies here if necessary
