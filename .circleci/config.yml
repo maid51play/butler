@@ -25,7 +25,8 @@ jobs:
       # specify any bash command here prefixed with `run: `
       - run: sudo apt-get update
       - run: sudo apt-get install postgresql-client-9.6
-      - run: sudo apt install npm
+      - run: sudo apt-get install nodejs
+      - run: sudo apt-get install npm
       - run: whoami
       - run: mix local.hex --force
       - run: mix local.rebar
