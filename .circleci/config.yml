@@ -30,6 +30,7 @@ jobs:
       - run: mix local.rebar
       - run: mix deps.get
       - run: MIX_ENV=test mix ecto.create
-      - run: eslint "web/static/js/**"
+      - run: npm install
+      - run: ./node_modules/.bin/eslint "web/static/js/**"
       - run: mix credo
       - run: mix test
