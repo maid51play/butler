@@ -22,17 +22,21 @@ jobs:
     steps:
       - checkout
 
-      # specify any bash command here prefixed with `run: `
+      # set up necessary packages
       - run: sudo apt-get update
       - run: sudo apt-get install postgresql-client-9.6
       - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs
       - run: whoami
+
+      # js tests
+      - run: npm install
+      - run: ./node_modules/.bin/eslint "web/static/js/**"
+
+      # elixir tests
       - run: mix local.hex --force
       - run: mix local.rebar
       - run: mix deps.get
-      - run: MIX_ENV=test mix ecto.create
-      - run: npm install
-      - run: ./node_modules/.bin/eslint "web/static/js/**"
       - run: mix credo --ignore design,refactor
+      - run: MIX_ENV=test mix ecto.create
       - run: mix test
