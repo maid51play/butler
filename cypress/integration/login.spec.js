@@ -5,6 +5,12 @@ context('Login', () => {
     cy.visit('localhost:4000/')
   })
 
+  it('displays unathenticated error when accessing pages without logging in', () => {
+    cy.contains('Cafe Data').click()
+
+    cy.contains('unauthenticated').should('be.visible')
+  })
+
   it('displays an error when username and password are incorrect', () => {
     cy.get('#user_username')
       .type('fake@email.com').should('have.value', 'fake@email.com')
@@ -14,7 +20,7 @@ context('Login', () => {
 
     cy.contains('Submit')
       .click()
-      
+
     cy.contains('Incorrect username or password').should('be.visible')
 
     cy.contains('Cafe Data').click()
