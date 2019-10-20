@@ -3,7 +3,7 @@ Protocol.derive(Jason.Encoder, Scrivener.Page)
 
 defmodule Butler.Reservation do
   @moduledoc """
-  Placeholder moduledoc
+  Represents an individual party's reservation
   """
 
   use Butler.Web, :model

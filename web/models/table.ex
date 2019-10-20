@@ -1,6 +1,6 @@
 defmodule Butler.Table do
   @moduledoc """
-  Placeholder moduledoc
+  Represents a table on the cafe floor
   """
 
   use Butler.Web, :model

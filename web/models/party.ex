@@ -1,6 +1,6 @@
 defmodule Butler.Party do
   @moduledoc """
-  Placeholder moduledoc
+  Represents a card/barcode that belongs to a table
   """
 
   use Butler.Web, :model

@@ -1,6 +1,6 @@
 defmodule Butler.Maid do
   @moduledoc """
-  Placeholder moduledoc
+  Represents a maid in the cafe
   """
 
   use Butler.Web, :model
