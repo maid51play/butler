@@ -2,8 +2,6 @@
 #
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
 version: 2
-orbs:
-  cypress: cypress-io/cypress@1
 jobs:
   build:
     docker:
@@ -33,9 +31,46 @@ jobs:
       - run: mix local.hex --force
       - run: mix local.rebar
       - run: mix deps.get
-      - run: npm install && npm install cypress --save-dev
+      - run: npm install
       - run: ./node_modules/.bin/eslint "web/static/js/**"
       - run: mix credo --ignore design,refactor
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
-      - run: npm run cypress:run
+
+
+  build:
+    docker:
+      # the Docker image with Cypress dependencies
+      - image: cypress/base:8
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    # working_directory: ~/app
+    parallelism: 1
+    steps:
+      - checkout
+      # - restore_cache:
+      #     keys:
+      #       - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      #       - v2-deps-{{ .Branch }}-
+      #       - v2-deps-
+      # - run: npm ci
+      # - save_cache:
+      #     key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      #     paths:
+      #       - ~/.npm
+      #       - ~/.cache
+      # - run:
+      #     name: Running E2E tests with JUnit reporter
+      #     command: npm run test-junit
+      # - store_test_results:
+      #     path: junit-results
+      - run:
+          name: Running E2E tests with multiple reporters
+          command: npm run cypress:run
+      # - store_test_results:
+      #     path: multiple-results
+      # - store_artifacts:
+      #     path: cypress/videos
+      # - store_artifacts:
+      #     path: cypress/screenshots
