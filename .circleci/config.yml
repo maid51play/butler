@@ -31,7 +31,7 @@ jobs:
       - run: mix local.hex --force
       - run: mix local.rebar
       - run: mix deps.get
-      - run: npm install
+      - run: npm install && npm install cypress --save-dev
       - run: ./node_modules/.bin/eslint "web/static/js/**"
       - run: mix credo --ignore design,refactor
       - run: MIX_ENV=test mix ecto.create
