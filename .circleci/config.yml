@@ -12,6 +12,10 @@ jobs:
             SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
             AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
       - image: circleci/postgres:9.6.5-alpine-ram
+      - image: cypress/base:8
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -36,41 +40,4 @@ jobs:
       - run: mix credo --ignore design,refactor
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
-
-
-  build:
-    docker:
-      # the Docker image with Cypress dependencies
-      - image: cypress/base:8
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
-    # working_directory: ~/app
-    parallelism: 1
-    steps:
-      - checkout
-      # - restore_cache:
-      #     keys:
-      #       - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      #       - v2-deps-{{ .Branch }}-
-      #       - v2-deps-
-      # - run: npm ci
-      # - save_cache:
-      #     key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      #     paths:
-      #       - ~/.npm
-      #       - ~/.cache
-      # - run:
-      #     name: Running E2E tests with JUnit reporter
-      #     command: npm run test-junit
-      # - store_test_results:
-      #     path: junit-results
-      - run:
-          name: Running E2E tests with multiple reporters
-          command: npm run cypress:run
-      # - store_test_results:
-      #     path: multiple-results
-      # - store_artifacts:
-      #     path: cypress/videos
-      # - store_artifacts:
-      #     path: cypress/screenshots
+      - run: npm run cypress:run
