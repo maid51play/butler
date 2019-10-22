@@ -41,6 +41,7 @@ jobs:
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
       - run: sudo apt install libgtk-3-0
+      - run: sudo apt-get install libxss1
       - restore_cache:
           keys:
             - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
