@@ -1,7 +1,9 @@
 # Elixir CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
-version: 2
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
 jobs:
   build:
     docker:
