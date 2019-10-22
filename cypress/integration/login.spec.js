@@ -2,7 +2,7 @@
 
 context('Login', () => {
   beforeEach(() => {
-    cy.visit('localhost:4000/')
+    cy.visit('localhost:4001/')
   })
 
   it('displays unathenticated error when accessing pages without logging in', () => {
@@ -29,6 +29,10 @@ context('Login', () => {
   })
 
   it('authenticates when username and password are correct', () => {
+    cy.factorydb('user', {
+      username: "admin",
+    })
+
     cy.get('#user_username')
       .type('admin').should('have.value', 'admin')
 

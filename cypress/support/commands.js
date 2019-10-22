@@ -23,3 +23,22 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("resetdb", () => {
+  cy.exec('mix do ecto.drop, ecto.create, ecto.migrate')
+})
+
+Cypress.Commands.add("checkoutdb", () => {
+  cy.request('POST', 'http://localhost:4001/api/end-to-end/db/checkout').as('checkoutDb')
+})
+
+Cypress.Commands.add("checkindb", () => {
+  cy.request('POST', 'http://localhost:4001/api/end-to-end/db/checkin').as('checkinDb')
+})
+
+Cypress.Commands.add("factorydb", (schema, attrs) => {
+  cy.log(`Creating a ${schema} via fullstack factory`)
+  cy.request('POST', 'http://localhost:4001/api/end-to-end/db/factory', {
+    schema: schema,
+    attributes: attrs
+  }).as('factoryDb')
+})

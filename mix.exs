@@ -26,6 +26,7 @@ defmodule Butler.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(:cypress), do: ["lib", "web", "test/support"]
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   # Specifies your project dependencies.
@@ -48,7 +49,7 @@ defmodule Butler.Mixfile do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:ex_machina, "~> 2.2", only: :test},
+      {:ex_machina, "~> 2.2", only: [:test, :cypress]},
       {:react_phoenix, "~> 1.0.0"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
     ]

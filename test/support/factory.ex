@@ -10,10 +10,12 @@ defmodule Butler.Factory do
   alias Butler.Party
   alias Butler.Reservation
   alias Butler.Table
+  alias Comeonin.Bcrypt
 
   def user_factory do
     %User{
       username: "Admin",
+      password: Bcrypt.hashpwsalt("password")
     }
   end
 
