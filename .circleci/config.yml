@@ -52,5 +52,5 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
+      - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server & wait-on http://localhost:4001
       - run: npm run cypress:run
