@@ -40,6 +40,7 @@ jobs:
       - run: mix credo --ignore design,refactor
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
+      - run: sudo apt install libgtk-3-0
       - restore_cache:
           keys:
             - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
