@@ -36,3 +36,4 @@ jobs:
       - run: mix credo --ignore design,refactor
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
+      - run: npm run cypress:run

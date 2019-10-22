@@ -30,3 +30,4 @@ latest.dump*
 .envrc
 
 /cypress/screenshots
+/cypress/videos
