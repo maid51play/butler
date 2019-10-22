@@ -5,7 +5,7 @@
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
     "cypress:open": "MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server && cypress open",
-    "cypress:run": "MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server && cypress run"
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
