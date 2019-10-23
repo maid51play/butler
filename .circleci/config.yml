@@ -30,7 +30,7 @@ jobs:
   lint:
     docker:
       # specify the version here
-      <<: *elixir_image
+      *elixir_image
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
