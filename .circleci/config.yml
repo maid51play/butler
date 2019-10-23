@@ -12,11 +12,10 @@ docker_elixir_postgres: &docker_elixir_postgres
           SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
           AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
     - image: circleci/postgres:9.6.5-alpine-ram
-
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
     # documented at https://circleci.com/docs/2.0/circleci-images/
-    # - image: circleci/postgres:9.4
+
 
 commands:
   build_command:
@@ -31,6 +30,8 @@ commands:
       - run: mix local.rebar
       - run: mix deps.get
       - run: npm install
+
+
 jobs:
   lint:
     << : *docker_elixir_postgres
@@ -58,6 +59,7 @@ jobs:
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
       - run: timeout 5m bash -c 'until $(curl --output /dev/null --silent --fail http://localhost:4001); do printf .; sleep 5; done'
       - run: npm run cypress:run
+
 
 workflows:
   version: 2.1
