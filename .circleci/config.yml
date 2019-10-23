@@ -3,8 +3,23 @@
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
 version: 2.1
 
+docker_elixir_postgres: &docker_elixir_postgres
+  docker:
+    # specify the version here
+    - image: circleci/elixir:1.7
+      environment:
+          TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
+          SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
+          AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
+    - image: circleci/postgres:9.6.5-alpine-ram
+
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/postgres:9.4
+
 commands:
-  build-command:
+  build_command:
     steps:
       - checkout
       - run: sudo apt-get update
@@ -18,67 +33,26 @@ commands:
       - run: npm install
 jobs:
   lint:
-    docker:
-      # specify the version here
-      - image: circleci/elixir:1.7
-        environment:
-            TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
-            SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
-            AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+    << : *docker_elixir_postgres
     working_directory: ~/repo
     steps:
-      - build-command
+      - build_command
       - run: ./node_modules/.bin/eslint "web/static/js/**" "cypress/integration/*.js"
       - run: mix credo --ignore design,refactor
 
   unit_tests:
-    docker:
-      # specify the version here
-      - image: circleci/elixir:1.7
-        environment:
-            TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
-            SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
-            AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
-      - image: circleci/postgres:9.6.5-alpine-ram
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+    << : *docker_elixir_postgres
     working_directory: ~/repo
     steps:
-      - build-command
+      - build_command
       - run: MIX_ENV=test mix ecto.create
       - run: mix test
 
   cypress_tests:
-    docker:
-      # specify the version here
-      - image: circleci/elixir:1.7
-        environment:
-            TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
-            SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
-            AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
-      - image: circleci/postgres:9.6.5-alpine-ram
-        environment:
-            ## this enables colors in the output
-            TERM: xterm
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+    << : *docker_elixir_postgres
     working_directory: ~/repo
     steps:
-      - build-command
+      - build_command
       - run: sudo apt-get install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
       - run: MIX_ENV=cypress mix do ecto.create, ecto.migrate
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
