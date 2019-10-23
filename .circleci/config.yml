@@ -32,7 +32,7 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - *build
+      - build
       # - checkout
 
       # specify any bash command here prefixed with `run: `
@@ -65,7 +65,7 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - *build
+      - build
       # - checkout
 
       # specify any bash command here prefixed with `run: `
@@ -102,7 +102,7 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - *build
+      - build
       # - checkout
 
       # # specify any bash command here prefixed with `run: `
