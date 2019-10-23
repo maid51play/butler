@@ -36,11 +36,11 @@ jobs:
       - run: mix local.rebar
       - run: mix deps.get
       - run: npm install
-      - run: ./node_modules/.bin/eslint "web/static/js/**"
+      # - run: ./node_modules/.bin/eslint "web/static/js/**"
       # - run: mix credo --ignore design,refactor
       # - run: MIX_ENV=test mix ecto.create
       # - run: mix test
       - run: sudo apt-get install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
-      - run: npm install wait-on
-      - run: wait-on http://localhost:4001 & npm run cypress:run
+      - run: timeout 5m bash -c 'until $(curl --output /dev/null --silent --fail http://localhost:4001); do printf .; sleep 5; done'
+      - run: npm run cypress:run
