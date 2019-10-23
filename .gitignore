@@ -28,3 +28,6 @@ latest.dump*
 .tool-versions
 /.env
 .envrc
+
+/cypress/screenshots
+/cypress/videos
