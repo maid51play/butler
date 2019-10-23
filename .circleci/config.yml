@@ -4,16 +4,16 @@
 version: 2
 aliases:
   - &build
-    checkout
-    run: sudo apt-get update
-    run: sudo apt-get install postgresql-client-9.6
-    run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-    run: sudo apt-get install -y nodejs
-    run: whoami
-    run: mix local.hex --force
-    run: mix local.rebar
-    run: mix deps.get
-    run: npm install
+    - checkout
+    - run: sudo apt-get update
+    - run: sudo apt-get install postgresql-client-9.6
+    - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    - run: sudo apt-get install -y nodejs
+    - run: whoami
+    - run: mix local.hex --force
+    - run: mix local.rebar
+    - run: mix deps.get
+    - run: npm install
 jobs:
   lint:
     docker:
