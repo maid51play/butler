@@ -34,7 +34,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - npm install eslint credo
+      - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      - run: sudo apt-get install -y nodejs
+      - run: npm install eslint credo
       - run: ./node_modules/.bin/eslint "web/static/js/**" "cypress/integration/*.js"
       - run: mix credo --ignore design,refactor
 
