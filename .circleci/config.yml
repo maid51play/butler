@@ -2,26 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
 version: 2
-jobs:
-  build:
-    docker:
-      # specify the version here
-      - image: circleci/elixir:1.7
-        environment:
-            TEST_DATABASE_URL: postgresql://root@localhost/fanimaid_butler_test
-            SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
-            AUTH_SECRET: "9vlxv/ywkjdobqeZOaZnj+H/qY76lofagm2h14tZ3zpOqQT/oI95i/CkDSYYU1Tq"
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
-    steps:
+aliases:
+  - &build
       - checkout
-
-      # specify any bash command here prefixed with `run: `
       - run: sudo apt-get update
       - run: sudo apt-get install postgresql-client-9.6
       - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
@@ -31,11 +14,7 @@ jobs:
       - run: mix local.rebar
       - run: mix deps.get
       - run: npm install
-      - save_cache:
-          key: client-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".build"
-  
+jobs:
   lint:
     docker:
       # specify the version here
@@ -52,10 +31,8 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - client-{{ .Branch }}-{{ .Revision }}
+      - *build
+      # - checkout
 
       # specify any bash command here prefixed with `run: `
       # - run: sudo apt-get update
@@ -87,10 +64,8 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - client-{{ .Branch }}-{{ .Revision }}
+      - *build
+      # - checkout
 
       # specify any bash command here prefixed with `run: `
       # - run: sudo apt-get update
@@ -126,10 +101,8 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - client-{{ .Branch }}-{{ .Revision }}
+      - *build
+      # - checkout
 
       # # specify any bash command here prefixed with `run: `
       # - run: sudo apt-get update
@@ -151,13 +124,6 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - lint:
-          requires:
-            - build
-      - unit_tests:
-          requires:
-            - build
-      - cypress_tests:
-          requires:
-            - build
+      - lint
+      - unit_tests
+      - cypress_tests
