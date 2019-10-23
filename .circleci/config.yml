@@ -37,9 +37,9 @@ jobs:
       - run: mix deps.get
       - run: npm install
       - run: ./node_modules/.bin/eslint "web/static/js/**"
-      - run: mix credo --ignore design,refactor
-      - run: MIX_ENV=test mix ecto.create
-      - run: mix test
+      # - run: mix credo --ignore design,refactor
+      # - run: MIX_ENV=test mix ecto.create
+      # - run: mix test
       - run: sudo apt-get install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
       - restore_cache:
           keys:
@@ -53,5 +53,5 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
-      - run: npm install -g wait-on
+      - run: npm install wait-on
       - run: wait-on http://localhost:4001 & npm run cypress:run
