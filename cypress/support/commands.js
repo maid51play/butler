@@ -24,7 +24,7 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 Cypress.Commands.add("resetdb", () => {
-  cy.exec('MIX_ENV=cypress mix do ecto.drop, ecto.create, ecto.migrate')
+  cy.exec('mix do ecto.drop, ecto.create, ecto.migrate')
 })
 
 Cypress.Commands.add("checkoutdb", () => {

@@ -23,7 +23,7 @@ before(() => {
   // is currently running, so we might end up with a checked-out connection
   // lying around and blocking our database reset.
   cy.checkindb()
-  cy.resetdb()
+  // cy.resetdb()
 })
 
 beforeEach(() => {
