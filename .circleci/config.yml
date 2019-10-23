@@ -1,7 +1,7 @@
 # Elixir CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
-version: 2
+version: 2.1
 commands:
   build-command:
     steps:
@@ -122,7 +122,7 @@ jobs:
       - run: npm run cypress:run
 
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
       - lint
