@@ -54,6 +54,14 @@ Running the app will require you to create a `.env` file to store certain app se
 
     ```$ source .env```
 
+## Running tests
+
+### Cypress end to end tests
+1. `$ MIX_ENV=cypress mix do ecto.drop, ecto.create, ecto.migrate`
+1. `$ MIX_ENV=cypress mix phx.server`
+1. In another window, `$ npm run cypress:open`
+1. The cypress window should open. From here you can run any test in the test suite!
+
 ## Running the app
 
 Once you have done the above steps, you can start your phoenix app by doing the following in your terminal:
