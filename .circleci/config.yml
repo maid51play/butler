@@ -34,7 +34,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - build-command
-      - run: ./node_modules/.bin/eslint "web/static/js/**"
+      - run: ./node_modules/.bin/eslint "web/static/js/**" "cypress/integration/*.js"
       - run: mix credo --ignore design,refactor
 
   unit_tests:

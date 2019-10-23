@@ -4,7 +4,10 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: 'airbnb',
+  extends: [
+    'airbnb',
+    'plugin:cypress/recommended'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',

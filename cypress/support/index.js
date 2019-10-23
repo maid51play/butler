@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 before(() => {
   // Before we run any tests, we reset our database.
@@ -22,18 +22,18 @@ before(() => {
   // test file, cypress will re-run the tests, not finishing the ones it
   // is currently running, so we might end up with a checked-out connection
   // lying around and blocking our database reset.
-  cy.checkindb()
+  cy.checkindb();
   // cy.resetdb()
-})
+});
 
 beforeEach(() => {
   // Before each test, we check out a database connection
-  cy.checkoutdb()
-})
+  cy.checkoutdb();
+});
 
 afterEach(() => {
   // After each test, we check the database connection back in
-  cy.checkindb()
-})
+  cy.checkindb();
+});
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
