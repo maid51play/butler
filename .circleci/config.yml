@@ -60,6 +60,8 @@ jobs:
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
       - run: timeout 5m bash -c 'until $(curl --output /dev/null --silent --fail http://localhost:4001); do printf .; sleep 5; done'
       - run: npm run cypress:run
+      - store_artifacts:
+          path: /tmp
 
 
 workflows:
