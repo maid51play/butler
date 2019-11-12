@@ -27,7 +27,13 @@ context('Maid Checkin', () => {
 
     cy.contains('td', 'Mikuru').parent().contains('Check In').click();
 
+    cy.contains('td', 'Mikuru').parent().contains('0:00').should('be.visible');	
+
+    cy.clock(new Date().getTime() + 606000);
+
     cy.contains('Maid Check In').click();
+
+    cy.contains('td', 'Mikuru').parent().contains('0:10').should('be.visible');
 
     cy.contains('Tables').click();
 
