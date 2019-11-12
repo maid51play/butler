@@ -3,6 +3,7 @@
 context('Maid Checkin', () => {
   beforeEach(() => {
     cy.factorydb('party', {});
+    cy.factorydb('table', { table_number: 'B1' });
 
     cy.login();
     cy.visit('localhost:4001/');
@@ -29,6 +30,8 @@ context('Maid Checkin', () => {
     // cy.contains('Maid Check In').click();
 
     cy.contains('Tables').click();
+
+    cy.reload();
 
     cy.contains('Book').click();
 
