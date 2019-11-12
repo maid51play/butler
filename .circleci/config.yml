@@ -56,7 +56,7 @@ jobs:
     steps:
       - build_command
       - run: sudo apt-get install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
-      - run: npm install -g brunch
+      - run: sudo npm install -g brunch
       - run: brunch build
       - run: MIX_ENV=cypress mix do ecto.create, ecto.migrate
       - run: MIX_ENV=cypress PORT=4001 elixir --detached -S mix phx.server
