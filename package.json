@@ -11,6 +11,7 @@
     ]
   },
   "scripts": {
+    "brunch:build": "brunch build",
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
     "cypress:open": "cypress open",
