@@ -14,7 +14,7 @@
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome",
+    "cypress:run": "cypress run",
     "test": "jest"
   },
   "dependencies": {
