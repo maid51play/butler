@@ -64,6 +64,8 @@ jobs:
       - run: npm run cypress:run
       - store_artifacts:
           path: /home/circleci/repo/cypress
+      - store_artifacts:
+          path: /priv/static
 
 
 workflows:
