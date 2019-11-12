@@ -22,7 +22,7 @@ commands:
     steps:
       - checkout
       - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-11.5
+      - run: sudo apt-get install postgresql-client-11
       - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs
       - run: whoami
