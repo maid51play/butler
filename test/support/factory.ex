@@ -26,14 +26,14 @@ defmodule Butler.Factory do
       staff: false,
       time_in: "2010-04-17 14:00:00.000000Z",
       notes: "",
-      party: build(:party),
+      # party: build(:party),
       maid: build(:maid)
     }
   end
 
   def party_factory do
     %Party{
-      table: build(:table),
+      # table: build(:table),
     }
   end
 
