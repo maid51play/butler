@@ -23,17 +23,6 @@ context('Waitlist seating', () => {
 
     cy.login();
 
-    // get the table ids since I don't know how to get this from the factory directly QQ
-    cy.visit('localhost:4001/parties');
-    // cy.window().then((win) => {
-    //   const rows = win.document.getElementsByTagName('tr');
-    //   for (let i = 1; i < rows.length; i += 1) {
-    //     const tableName = rows[i].children[1].innerHTML;
-    //     const tableId = rows[i].children[2].children[0].children[0].href.split('/').pop();
-    //     tableIndex[tableName] = tableId;
-    //   }
-    // });
-
     cy.visit('localhost:4001/');
   });
 

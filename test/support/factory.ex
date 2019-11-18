@@ -19,22 +19,36 @@ defmodule Butler.Factory do
     }
   end
 
-  def reservation_factory do
-    %Reservation{
+  def reservation_factory(attrs \\ %{}) do
+    party_id = Map.get(attrs, :party_id, nil)
+    party = Map.get(attrs, :party, nil)
+
+    reservation = merge_attributes(%Reservation{
       size: 2,
       shinkansen: false,
       staff: false,
       time_in: "2010-04-17 14:00:00.000000Z",
       notes: "",
-      # party: build(:party),
       maid: build(:maid)
-    }
+    }, attrs)
+
+    if is_nil(party_id) && is_nil(party) do
+      %Reservation{reservation | party: build(:party)}
+    else
+      reservation
+    end
   end
 
-  def party_factory do
-    %Party{
-      # table: build(:table),
-    }
+  def party_factory(attrs \\ %{}) do
+    table_id = Map.get(attrs, :table_id, nil)
+    table = Map.get(attrs, :table, nil)
+    party = merge_attributes(%Party{}, attrs)
+    
+    if is_nil(table_id) && is_nil(table) do
+      %Party{party | table: build(:table)}
+    else
+      party
+    end
   end
 
   def table_factory do
