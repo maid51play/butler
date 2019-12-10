@@ -245,7 +245,8 @@ context('Waitlist seating', () => {
 
     cy.contains('Submit').click();
 
-    // when seating a non-book alone party at a table with an existing seat alone party, show a warning
+    // when seating a non-book alone party at a table with an existing seat alone party, show a 
+    // warning
     cy.contains('Tables').click();
 
     cy.contains('button', 'Waitlist').click();
