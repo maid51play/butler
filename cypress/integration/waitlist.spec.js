@@ -1,12 +1,12 @@
 // <reference types="Cypress" />
 
 context('Waitlist seating', () => {
-  let tableA1 = { table_number: 'A1', max_capacity: '8' };
-  let tableA2 = { table_number: 'A2', max_capacity: '8' };
-  let party1 = {};
-  let party2 = {};
-  let party3 = {};
-  let party4 = {};
+  let tableA1;
+  let tableA2;
+  let party1;
+  let party2;
+  let party3;
+  let party4;
 
   beforeEach(() => {
     tableA1 = { table_number: 'A1', max_capacity: '8' };
@@ -15,12 +15,15 @@ context('Waitlist seating', () => {
     party2 = {};
     party3 = {};
     party4 = {};
+
     cy.factorydb('table', tableA1)
       .then((result) => { tableA1.id = result.body.id; })
       .then(() => cy.factorydb('party', { table_id: tableA1.id }))
       .then((result) => {
         party1 = { table_id: tableA1.id, id: result.body.id };
-        tableA1.parties = [result.body.id];
+      })
+      .then(() => {
+        tableA1.parties = [party1.id];
       });
 
     cy.factorydb('maid', {
