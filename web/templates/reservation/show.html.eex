@@ -47,8 +47,8 @@
   </li>
 
   <li>
-    <strong>Party:</strong>
-    <%= @reservation.party_id %>
+    <strong>Barcode ID:</strong>
+    <%= @reservation.barcode_id %>
   </li>
 
   <li>

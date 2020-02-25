@@ -2,14 +2,14 @@ defmodule Butler.TableController do
   use Butler.Web, :controller
 
   alias Butler.Maid
-  alias Butler.Party
+  alias Butler.Barcode
   alias Butler.Reservation
   alias Butler.Table
 
   def index(conn, params) do
     selected_reservation_id = Map.get(params, "reservation")
     selected_reservation = if selected_reservation_id, do: Reservation |> Repo.get(selected_reservation_id) |> Repo.preload(:maid), else: %{}
-    tables = Repo.all from t in Table, preload: [parties: [reservation: :maid]]
+    tables = Repo.all from t in Table, preload: [barcodes: [reservation: :maid]]
     waitlist = Reservation
       |> Reservation.waitlist
       |> order_by(asc: :id)
@@ -45,40 +45,40 @@ defmodule Butler.TableController do
   def edit(conn, %{"id" => id}) do
     table = Table
       |> Repo.get!(id)
-      |> Repo.preload(:parties)
-    maids = Repo.all(from maid in Maid, where: maid.status == "present", where: is_nil(maid.party_id))
+      |> Repo.preload(:barcodes)
+    maids = Repo.all(from maid in Maid, where: maid.status == "present", where: is_nil(maid.barcode_id))
     changeset = Table.changeset(table)
     render(conn, "edit.html", table: table, maids: maids, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "table" => %{"party_id" => ""}}) do
+  def update(conn, %{"id" => id, "table" => %{"barcode_id" => ""}}) do
     # TODO: Add a changeset. This will probably require adding a context and an ecto thinggy.
     conn
       |> put_flash(:error, "Please scan a barcode")
       |> redirect(to: table_path(conn, :edit, id))
   end
 
-  def update(conn, %{"id" => id, "table" => %{"party_size" => party_size, "party_id" => party_id, "maid_id" => maid_id}}) do
+  def update(conn, %{"id" => id, "table" => %{"barcode_size" => barcode_size, "barcode_id" => barcode_id, "maid_id" => maid_id}}) do
     table = Table
       |> Repo.get!(id)
-      |> Repo.preload(:parties)
+      |> Repo.preload(:barcodes)
     maid = Maid
       |> Repo.get!(String.to_integer(maid_id))
-    party = Party
-      |> Repo.get(String.to_integer(party_id))
+      barcode = Barcode
+      |> Repo.get(String.to_integer(barcode_id))
 
-    valid_party_ids = Enum.map(table.parties, fn(x) -> x.id end)
-    case Enum.member?(valid_party_ids, String.to_integer(party_id)) && party.size == 0 do
+    valid_barcode_ids = Enum.map(table.barcodes, fn(x) -> x.id end)
+    case Enum.member?(valid_barcode_ids, String.to_integer(barcode_id)) && barcode.size == 0 do
       true ->
-        party_changeset = Party.changeset(party, %{size: String.to_integer(party_size)})
-        maid_changeset = Maid.changeset(maid, %{party_id: String.to_integer(party_id)})
+        barcode_changeset = Barcode.changeset(barcode, %{size: String.to_integer(barcode_size)})
+        maid_changeset = Maid.changeset(maid, %{barcode_id: String.to_integer(barcode_id)})
         res = Repo.transaction(
           Ecto.Multi.new
-            |> Ecto.Multi.update(:party, party_changeset)
+            |> Ecto.Multi.update(:barcode, barcode_changeset)
             |> Ecto.Multi.update(:maid, maid_changeset)
         )
         case res do
-          {:ok, _party} ->
+          {:ok, _barcode} ->
             conn
             |> put_flash(:info, "Table updated successfully.")
             |> redirect(to: table_path(conn, :index))
@@ -87,7 +87,7 @@ defmodule Butler.TableController do
         end
       false ->
         conn
-        |> put_flash(:error, "Invalid party id #{Enum.member?(valid_party_ids, String.to_integer(party_id))}")
+        |> put_flash(:error, "Invalid barcode id #{Enum.member?(valid_barcode_ids, String.to_integer(barcode_id))}")
         |> redirect(to: table_path(conn, :edit, table))
     end
   end
@@ -95,7 +95,7 @@ defmodule Butler.TableController do
   def update(conn, %{"id" => id, "table" => table_params}) do
     table = Table
       |> Repo.get!(id)
-      |> Repo.preload(:parties)
+      |> Repo.preload(:barcodes)
     changeset = Table.changeset(table, table_params)
 
     case Repo.update(changeset) do

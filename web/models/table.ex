@@ -5,14 +5,14 @@ defmodule Butler.Table do
 
   use Butler.Web, :model
 
-  @derive {Jason.Encoder, only: [:id, :table_number, :max_capacity, :parties]}
+  @derive {Jason.Encoder, only: [:id, :table_number, :max_capacity, :barcodes]}
   schema "tables" do
     field :table_number, :string
     field :max_capacity, :integer
 
     timestamps()
 
-    has_many :parties, Butler.Party
+    has_many :barcodes, Butler.Barcode
   end
 
   @doc """
@@ -21,7 +21,7 @@ defmodule Butler.Table do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:table_number, :max_capacity])
-    |> cast_assoc(:parties)
+    |> cast_assoc(:barcodes)
     |> validate_required([:table_number, :max_capacity])
   end
 end

@@ -29,7 +29,7 @@ class tableComponent extends React.Component {
     const channel = socket.channel('room:lobby', {});
     channel.on('table_cleared', (payload) => {
       const { tables } = this.state;
-      const updatedTables = tables.map(table => Object.assign(table, { parties: table.parties.map(party => (`${party.id}` === `${payload.id}` ? { id: party.id, size: 0, reservation: null } : party)) }));
+      const updatedTables = tables.map(table => Object.assign(table, { barcodes: table.barcodes.map(barcode => (`${barcode.id}` === `${payload.id}` ? { id: barcode.id, size: 0, reservation: null } : barcode)) }));
       this.setState({ tables: updatedTables });
     });
 
@@ -69,50 +69,50 @@ class tableComponent extends React.Component {
       tables, show, reservation, waitlist,
     } = this.state;
 
-    const hasOpenParties = table => table.parties.reduce(
-      (acc, party) => (party.reservation ? false || acc : true || acc), false,
+    const hasOpenBarcodes = table => table.barcodes.reduce(
+      (acc, barcode) => (barcode.reservation ? false || acc : true || acc), false,
     );
 
-    const tableReservationCount = table => table.parties.reduce(
-      (acc, party) => (party.reservation ? acc + 1 : acc), 0,
+    const tableReservationCount = table => table.barcodes.reduce(
+      (acc, barcode) => (barcode.reservation ? acc + 1 : acc), 0,
     );
 
-    const takenSeats = table => table.parties.reduce(
-      (acc, party) => (party.reservation ? acc + party.reservation.size : acc), 0,
+    const takenSeats = table => table.barcodes.reduce(
+      (acc, barcode) => (barcode.reservation ? acc + barcode.reservation.size : acc), 0,
     );
 
     const openSeats = table => table.max_capacity - takenSeats(table);
 
-    const isAvailable = table => table.parties.length > 0
+    const isAvailable = table => table.barcodes.length > 0
       && (reservation.id
         ? openSeats(table) >= reservation.size
         : openSeats(table) > 0)
-      && hasOpenParties(table);
+      && hasOpenBarcodes(table);
 
 
-    const maidsForTable = (party, index) => (
-      party.reservation
-        ? <p key={`table-maid-${index}`}>{party.reservation.maid.name}</p>
+    const maidsForTable = (barcode, index) => (
+      barcode.reservation
+        ? <p key={`table-maid-${index}`}>{barcode.reservation.maid.name}</p>
         : <p key={`table-maid-${index}`} hidden />
     );
 
-    const patronsForTable = (party, index) => (
-      party.reservation
-        ? <p key={`table-patrons-${index}`}>{party.reservation.size}</p>
+    const patronsForTable = (barcode, index) => (
+      barcode.reservation
+        ? <p key={`table-patrons-${index}`}>{barcode.reservation.size}</p>
         : <p key={`table-patrons-${index}`} hidden />
     );
 
-    const timeForTable = (party, index) => (
-      party.reservation
+    const timeForTable = (barcode, index) => (
+      barcode.reservation
         ? (
           <p
             key={`table-time-${index}`}
             className={
-            `${moment.duration(moment().diff(party.reservation.time_in)) > 35 * 60 * 1000 ? 'overtime' : ''}
-            ${moment.duration(moment().diff(party.reservation.time_in)) > 45 * 60 * 1000 ? 'way-overtime' : ''}`
+            `${moment.duration(moment().diff(barcode.reservation.time_in)) > 35 * 60 * 1000 ? 'overtime' : ''}
+            ${moment.duration(moment().diff(barcode.reservation.time_in)) > 45 * 60 * 1000 ? 'way-overtime' : ''}`
             }
           >
-            {moment.duration(moment().diff(party.reservation.time_in)).humanize()}
+            {moment.duration(moment().diff(barcode.reservation.time_in)).humanize()}
           </p>
         )
         : <p key={`table-time-${index}`} hidden />
@@ -127,9 +127,9 @@ class tableComponent extends React.Component {
           <td>{table.table_number}</td>
           <td>{table.max_capacity}</td>
           <td>{openSeats(table)}</td>
-          <td>{table.parties.map(maidsForTable)}</td>
-          <td>{table.parties.map(patronsForTable)}</td>
-          <td>{table.parties.map(timeForTable)}</td>
+          <td>{table.barcodes.map(maidsForTable)}</td>
+          <td>{table.barcodes.map(patronsForTable)}</td>
+          <td>{table.barcodes.map(timeForTable)}</td>
           <td className="text-right">
             <span>
               {isAvailable(table)

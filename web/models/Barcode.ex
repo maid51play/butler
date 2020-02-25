@@ -1,4 +1,4 @@
-defmodule Butler.Party do
+defmodule Butler.Barcode do
   @moduledoc """
   Placeholder moduledoc
   """
@@ -6,7 +6,7 @@ defmodule Butler.Party do
   use Butler.Web, :model
 
   @derive {Jason.Encoder, only: [:id, :size, :reservation]}
-  schema "parties" do
+  schema "barcodes" do
     field :size, :integer
 
     timestamps()

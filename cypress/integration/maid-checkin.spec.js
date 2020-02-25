@@ -3,7 +3,7 @@
 
 context('Maid Checkin', () => {
   beforeEach(() => {
-    cy.factorydb('party', {});
+    cy.factorydb('barcode', {});
 
     cy.login();
     cy.visit('localhost:4001/');

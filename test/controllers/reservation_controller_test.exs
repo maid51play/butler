@@ -37,11 +37,11 @@ defmodule Butler.ReservationControllerTest do
   describe "#create" do
     setup do
       table = insert(:table)
-      party = insert(:party, table: table)
+      barcode = insert(:barcode, table: table)
       maid = insert(:maid)
       %{
-        valid_attrs: %{notes: "some notes", shinkansen: true, size: 2, staff: true, table_number: table.table_number, party_id: party.id, maid_id: maid.id},
-        invalid_attrs: %{table_number: party.table.table_number},
+        valid_attrs: %{notes: "some notes", shinkansen: true, size: 2, staff: true, table_number: table.table_number, barcode_id: barcode.id, maid_id: maid.id},
+        invalid_attrs: %{table_number: barcode.table.table_number},
         table: table,
       }
     end
@@ -55,8 +55,8 @@ defmodule Butler.ReservationControllerTest do
     end
 
     test "allows multiple parties at one table when data is valid and table is not overbooked", %{conn: conn, valid_attrs: valid_attrs, table: table} do
-      existing_party = insert(:party, table: table)
-      insert(:reservation, party: existing_party, table_number: valid_attrs.table_number, size: 2)
+      existing_table_barcode = insert(:barcode, table: table)
+      insert(:reservation, barcode: existing_table_barcode, table_number: valid_attrs.table_number, size: 2)
 
       conn = conn
         |> authorize
@@ -84,8 +84,8 @@ defmodule Butler.ReservationControllerTest do
     end
 
     test "does not create resource and renders errors when party size would overbook table", %{conn: conn, valid_attrs: valid_attrs, table: table} do
-      existing_party = insert(:party, table: table)
-      insert(:reservation, party: existing_party, table_number: valid_attrs.table_number, size: 2)
+      existing_table_barcode = insert(:barcode, table: table)
+      insert(:reservation, barcode: existing_table_barcode, table_number: valid_attrs.table_number, size: 2)
 
       invalid_attrs = %{valid_attrs | size: 3}
 
@@ -132,14 +132,14 @@ defmodule Butler.ReservationControllerTest do
   describe "#update" do
     setup do
       table = insert(:table, table_number: "B1")
-      party = insert(:party, table: table)
+      barcode = insert(:barcode, table: table)
       new_maid = insert(:maid)
-      reservation = insert(:reservation, party: party, table_number: table.table_number)
+      reservation = insert(:reservation, barcode: barcode, table_number: table.table_number)
       %{
-        valid_attrs: %{notes: "some new notes", shinkansen: false, size: 3, staff: false, table_number: table.table_number, party_id: party.id, maid_id: new_maid.id},
+        valid_attrs: %{notes: "some new notes", shinkansen: false, size: 3, staff: false, table_number: table.table_number, barcode_id: barcode.id, maid_id: new_maid.id},
         invalid_attrs: %{table_number: table.table_number, size: 100},
         reservation: reservation,
-        party: party,
+        barcode: barcode,
       }
     end
 

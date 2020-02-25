@@ -15,7 +15,7 @@ defmodule Butler.ReservationController do
       Reservation
         |> Reservation.seated
         |> order_by(asc: :id)
-        |> preload([:maid, party: :table])
+        |> preload([:maid, barcode: :table])
         |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
@@ -58,12 +58,12 @@ defmodule Butler.ReservationController do
   end
 
   def show(conn, %{"id" => id}) do
-    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, barcode: :table])
     render(conn, "show.html", reservation: reservation)
   end
 
   def seat(conn, %{"id" => id, "table_id" => table_id}) do
-    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, barcode: :table])
     table = Repo.get!(Table, table_id)
     maids = Maid |> Maid.present |> Repo.all
     changeset = Reservation.booking_waitlist_changeset(reservation)
@@ -87,8 +87,8 @@ defmodule Butler.ReservationController do
   end
 
   def edit(conn, %{"id" => id}) do
-    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, party: :table])
-    table = if reservation.party, do: reservation.party.table, else: nil
+    reservation = Reservation |> Repo.get!(id) |> Repo.preload([:maid, barcode: :table])
+    table = if reservation.barcode, do: reservation.barcode.table, else: nil
     available_maids = Maid |> Maid.present |> Repo.all
     maids = cond do
       reservation.time_out -> Maid |> Repo.all
@@ -152,19 +152,19 @@ defmodule Butler.ReservationController do
     end
   end
 
-  def clear(conn, %{"reservation" => %{"party_id" => ""}}) do
+  def clear(conn, %{"reservation" => %{"barcode_id" => ""}}) do
     conn
       |> put_flash(:error, "Must scan a barcode.")
       |> redirect(to: reservation_path(conn, :clear))
   end
 
-  def clear(conn, %{"reservation" => %{"party_id" => party_id}}) do
-    reservation = Repo.get_by(Reservation, party_id: party_id)
+  def clear(conn, %{"reservation" => %{"barcode_id" => barcode_id}}) do
+    reservation = Repo.get_by(Reservation, barcode_id: barcode_id)
     if reservation do
       changeset = Reservation.clearing_changeset(reservation)
       case Repo.update(changeset) do
         {:ok, reservation} ->
-          Butler.Endpoint.broadcast("room:lobby", "table_cleared", %{id: party_id})
+          Butler.Endpoint.broadcast("room:lobby", "table_cleared", %{id: barcode_id})
           conn
             |> put_flash(:info, "Reservation cleared successfully.")
             |> redirect(to: reservation_path(conn, :show, reservation))
