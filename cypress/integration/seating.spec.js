@@ -2,20 +2,20 @@
 
 context('Seating parties without a waitlist reservation', () => {
   let tableA1;
-  let party1;
+  let barcode1;
 
   beforeEach(() => {
     tableA1 = { table_number: 'A1', max_capacity: '8' };
-    party1 = {};
+    barcode1 = {};
 
     cy.factorydb('table', tableA1)
       .then((result) => { tableA1.id = result.body.id; })
-      .then(() => cy.factorydb('party', { table_id: tableA1.id }))
+      .then(() => cy.factorydb('barcode', { table_id: tableA1.id }))
       .then((result) => {
-        party1 = { table_id: tableA1.id, id: result.body.id };
+        barcode1 = { table_id: tableA1.id, id: result.body.id };
       })
       .then(() => {
-        tableA1.parties = [party1.id];
+        tableA1.barcodes = [barcode1.id];
       });
 
     cy.factorydb('maid', {
@@ -47,7 +47,7 @@ context('Seating parties without a waitlist reservation', () => {
     // mocking the barcode input
     cy.window().then((win) => {
       // eslint-disable-next-line no-param-reassign, prefer-destructuring
-      win.document.getElementById('reservation_party_id').value = tableA1.parties[0];
+      win.document.getElementById('reservation_barcode_id').value = tableA1.barcodes[0];
     });
 
     cy.contains('Submit').click();
@@ -72,7 +72,7 @@ context('Seating parties without a waitlist reservation', () => {
     // mocking the barcode input
     cy.window().then((win) => {
       // eslint-disable-next-line no-param-reassign, prefer-destructuring
-      win.document.getElementById('reservation_party_id').value = tableA1.parties[0];
+      win.document.getElementById('reservation_barcode_id').value = tableA1.barcodes[0];
     });
 
     cy.contains('Submit').click();

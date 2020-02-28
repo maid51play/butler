@@ -51,7 +51,7 @@ defmodule Butler.WaitlistController do
     token = get_csrf_token()
     reservation = Reservation
       |> Repo.get!(id)
-      |> Repo.preload([:maid, party: :table])
+      |> Repo.preload([:maid, barcode: :table])
     changeset = Reservation.waitlist_changeset(reservation)
     render(conn, "edit.html", reservation: reservation, changeset: changeset, token: token)
   end

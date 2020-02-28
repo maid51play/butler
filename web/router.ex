@@ -43,9 +43,9 @@ defmodule Butler.Router do
 
     resources "/waitlist", WaitlistController
 
-    get "/parties/clear", PartyController, :clear
-    post "/parties/clear", PartyController, :clear
-    resources "/parties", PartyController
+    get "/barcodes/clear", BarcodeController, :clear
+    post "/barcodes/clear", BarcodeController, :clear
+    resources "/barcodes", BarcodeController
 
     get "/reservations/new/:table_id", ReservationController, :new
     get "/reservations/clear", ReservationController, :clear

@@ -16,7 +16,7 @@ defmodule Butler.Maid do
 
     timestamps()
 
-    belongs_to :party, Butler.Party
+    belongs_to :barcode, Butler.Barcode
     has_many :reservations, Butler.Reservation
   end
 
@@ -43,14 +43,14 @@ defmodule Butler.Maid do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :party_id])
+    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :barcode_id])
     |> cast_assoc(:reservations)
     |> validate_required([:name, :status, :goshujinsama, :tables, :logged_hours])
   end
 
   def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :party_id])
+    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :barcode_id])
     |> validate_required([:name])
   end
 end

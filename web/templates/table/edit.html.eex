@@ -7,9 +7,9 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :party_size, class: "control-label" %>
-    <%= number_input f, :party_size, class: "form-control" %>
-    <%= error_tag f, :party_size %>
+    <%= label f, :barcode_size, class: "control-label" %>
+    <%= number_input f, :barcode_size, class: "form-control" %>
+    <%= error_tag f, :barcode_size %>
   </div>
 
   <div class="form-group">
@@ -26,9 +26,9 @@
   </div>
   
   <div class="form-group" style="height: 0px; overflow: hidden;">
-    <%= label f, :party_id, class: "control-label" %>
-    <%= text_input f, :party_id, class: "form-control", autocomplete: "false" %>
-    <%= error_tag f, :party_id %>
+    <%= label f, :barcode_id, class: "control-label" %>
+    <%= text_input f, :barcode_id, class: "form-control", autocomplete: "false" %>
+    <%= error_tag f, :barcode_id %>
   </div>
 
   <div class="form-group">
@@ -65,13 +65,13 @@ function clearFunc(){
 $(document).ready(function(){
   $('body').on('keydown',function(e){
     if(e.which == 27 || e.which == 66){
-      $("#table_party_id").focus()
+      $("#table_barcode_id").focus()
     }
   })
-  $("#table_party_id").on('keydown',function(e){
+  $("#table_barcode_id").on('keydown',function(e){
     clearTimeout(clearInput)
     if(scanning == false){
-      $("#table_party_id").val("")
+      $("#table_barcode_id").val("")
       scanning = true
     }
     if(e.which == 13){
@@ -79,7 +79,7 @@ $(document).ready(function(){
     }
     clearInput = setTimeout(function(){ clearFunc() }, 20);
   })
-  $("#table_party_id").on('focus',function(){
+  $("#table_barcode_id").on('focus',function(){
     clearTimeout(clearInput)
     clearInput = setTimeout(function(){ $('input').blur() }, 20);
   })

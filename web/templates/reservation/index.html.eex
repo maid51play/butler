@@ -14,7 +14,7 @@ We have served <b><%= @goshujinsama %></b> goshujinsama and <b><%= @total_entrie
       <th>Time out</th>
       <th></th>
       <th>Notes</th>
-      <th>party id</th>
+      <th>barcode id</th>
       <th>id</th>
 
       <th></th>
@@ -32,7 +32,7 @@ We have served <b><%= @goshujinsama %></b> goshujinsama and <b><%= @total_entrie
       <td class="time_out<%= reservation.id %>"><%= reservation.time_out %></td>
       <td></td>
       <td><%= reservation.notes %></td>
-      <td><%= if reservation.party do reservation.party.id end %></td>
+      <td><%= if reservation.barcode do reservation.barcode.id end %></td>
       <td><%= reservation.id %></td>
 
       <td class="text-right">

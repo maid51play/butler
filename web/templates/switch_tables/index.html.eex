@@ -9,14 +9,14 @@
   <div style="display: flex;">
     <div style="margin: 10px; width: 300px;">
       <div class="form-group needs-barcode" onClick="selectBarcode(this)">
-        <%= label f, :party_id, class: "control-label" %>
-        <input class="party-input" style="height: 0px; overflow: hidden; opacity: 0;" name="party_1" />
+        <%= label f, :barcode_id, class: "control-label" %>
+        <input class="barcode-input" style="height: 0px; overflow: hidden; opacity: 0;" name="barcode_1" />
         <div class="hidden">
           <select>
-            <%= for party <- @parties do %>
-              <option value="<%= party.id %>"><%= party.table.table_number %> <%= party.id %>
-              <%= if party.reservation do %>
-                - <%= party.reservation.maid.name %> (<%= party.reservation.size %>)
+            <%= for barcode <- @barcodes do %>
+              <option value="<%= barcode.id %>"><%= barcode.table.table_number %> <%= barcode.id %>
+              <%= if barcode.reservation do %>
+                - <%= barcode.reservation.maid.name %> (<%= barcode.reservation.size %>)
               <% end %>
               </option>
             <% end %>
@@ -24,23 +24,23 @@
         </div>
 
         <div class="form-group barcode" style="background: url(/images/unscanned.png) no-repeat;">
-          <img src="https://i.imgur.com/hKnSuU3.gif" class="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :party_id), do: "", else: "visibility:hidden;"%>" height="150" />
+          <img src="https://i.imgur.com/hKnSuU3.gif" class="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :barcode_id), do: "", else: "visibility:hidden;"%>" height="150" />
           <h3 class="scan-label">Please click to scan.</h3>
-          <%= error_tag f, :party_id %>
+          <%= error_tag f, :barcode_id %>
         </div>
       </div>
     </div>
 
     <div style="margin: 10px; width: 300px;">
       <div class="form-group needs-barcode" onClick="selectBarcode(this)">
-        <%= label f, :party_id, class: "control-label" %>
-        <input class="party-input" style="height: 0px; overflow: hidden; opacity: 0;" name="party_2"/>
+        <%= label f, :barcode_id, class: "control-label" %>
+        <input class="barcode-input" style="height: 0px; overflow: hidden; opacity: 0;" name="barcode_2"/>
         <div class="hidden">
           <select>
-            <%= for party <- @parties do %>
-              <option value="<%= party.id %>"><%= party.table.table_number %> <%= party.id %>
-              <%= if party.reservation do %>
-                - <%= party.reservation.maid.name %> (<%= party.reservation.size %>)
+            <%= for barcode <- @barcodes do %>
+              <option value="<%= barcode.id %>"><%= barcode.table.table_number %> <%= barcode.id %>
+              <%= if barcode.reservation do %>
+                - <%= barcode.reservation.maid.name %> (<%= barcode.reservation.size %>)
               <% end %>
               </option>
             <% end %>
@@ -48,9 +48,9 @@
         </div>
 
         <div class="form-group barcode" style="background: url(/images/unscanned.png) no-repeat;">
-          <img src="https://i.imgur.com/hKnSuU3.gif" class="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :party_id), do: "", else: "visibility:hidden;"%>" height="150" />
+          <img src="https://i.imgur.com/hKnSuU3.gif" class="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :barcode_id), do: "", else: "visibility:hidden;"%>" height="150" />
           <h3 class="scan-label">Please click to scan.</h3>
-          <%= error_tag f, :party_id %>
+          <%= error_tag f, :barcode_id %>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
-    <button class="manualButton" type="button" onClick="manual()">Pick Party Manually</button>
+    <button class="manualButton" type="button" onClick="manual()">Pick Card ID Manually</button>
   </div>
 <% end %>
 
@@ -73,9 +73,9 @@
 let manual = () => {
   ok = confirm("Are you sure you want to switch these parties without scanning the table card?")
   if (ok) {
-    $(".party-input").remove()
-    $("select").first().attr("name","party_1")
-    $("select").last().attr("name","party_2")
+    $(".barcode-input").remove()
+    $("select").first().attr("name","barcode_1")
+    $("select").last().attr("name","barcode_2")
     $("div.hidden").removeClass('hidden')
     $(".barcode").addClass('hidden')
     $(".manualButton").addClass('hidden')
@@ -107,13 +107,13 @@ function clearFunc(){
 $(document).ready(function(){
   $('body').on('keydown',function(e){
     if(e.which == 27 || e.which == 66){
-      $(".selected").find(".party-input").focus()
+      $(".selected").find(".barcode-input").focus()
     }
   })
-  $(".party-input").on('keydown',function(e){
+  $(".barcode-input").on('keydown',function(e){
     clearTimeout(clearInput)
     if(scanning == false){
-      $(".selected").find(".party-input").val("")
+      $(".selected").find(".barcode-input").val("")
       scanning = true
     }
     if(e.which == 13){
@@ -121,7 +121,7 @@ $(document).ready(function(){
     }
     clearInput = setTimeout(function(){ clearFunc() }, 20);
   })
-  $(".party-input").on('focus',function(){
+  $(".barcode-input").on('focus',function(){
     clearTimeout(clearInput)
     clearInput = setTimeout(function(){ $('input').blur() }, 20);
   })
