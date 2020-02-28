@@ -170,7 +170,7 @@ context('Waitlist seating', () => {
         barcode4 = { table_id: tableA2.id, id: result.body.id };
       })
       .then(() => {
-        tableA2.parties = [barcode3.id, barcode4.id];
+        tableA2.barcodes = [barcode3.id, barcode4.id];
       });
 
     // create a seat alone reservation
