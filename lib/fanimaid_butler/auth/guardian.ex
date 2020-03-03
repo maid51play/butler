@@ -2,7 +2,7 @@ defmodule Butler.Auth.Guardian do
   @moduledoc """
   Placeholder moduledoc
   """
-  use Guardian, otp_app: :fanimaid_butler
+  use Guardian, otp_app: :butler
   alias Butler.Auth
 
   def subject_for_token(user, _claims) do
