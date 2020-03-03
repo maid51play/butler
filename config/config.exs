@@ -6,11 +6,11 @@
 use Mix.Config
 
 # General application configuration
-config :fanimaid_butler,
+config :butler,
   ecto_repos: [Butler.Repo]
 
 # Configures the endpoint
-config :fanimaid_butler, Butler.Endpoint,
+config :butler, Butler.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Butler.ErrorView, accepts: ~w(html json)],
@@ -18,8 +18,8 @@ config :fanimaid_butler, Butler.Endpoint,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures auth
-config :fanimaid_butler, Butler.Auth.Guardian,
-  issuer: "fanimaid_butler",
+config :butler, Butler.Auth.Guardian,
+  issuer: "butler",
   secret_key: System.get_env("AUTH_SECRET")
 
 # Configures Elixir's Logger

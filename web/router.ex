@@ -57,7 +57,7 @@ defmodule Butler.Router do
   # Other scopes may use custom stacks.
   scope "/api", Butler do
     pipe_through :api
-    if Application.get_env(:fanimaid_butler, :env) == :cypress do
+    if Application.get_env(:butler, :env) == :cypress do
       forward("end-to-end", Plug.TestEndToEnd)
     end
   end
