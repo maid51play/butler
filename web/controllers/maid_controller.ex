@@ -3,6 +3,8 @@ defmodule Butler.MaidController do
 
   alias Butler.Maid
 
+  alias Butler.Plug.Logger
+
   def index(conn, %{"search" => search, "page" => page}) do
     page =
       Maid
@@ -107,6 +109,7 @@ defmodule Butler.MaidController do
 
     case Repo.update(changeset) do
       {:ok, maid} ->
+        Logger.log(maid, "check_in")
         conn
           |> put_flash(:info, "#{maid.name} checked in successfully at #{DateTime.utc_now()}")
           |> redirect(to: maid_path(conn, :index))
@@ -123,6 +126,7 @@ defmodule Butler.MaidController do
 
     case Repo.update(changeset) do
       {:ok, maid} ->
+        Logger.log(maid, "check_out")
         conn
           |> put_flash(:info, "#{maid.name} checked out successfully.")
           |> redirect(to: maid_path(conn, :index))
