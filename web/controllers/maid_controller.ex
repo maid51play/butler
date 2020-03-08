@@ -67,11 +67,15 @@ defmodule Butler.MaidController do
   end
 
   def show(conn, %{"id" => id}) do
-    maid = Repo.get!(Maid, id) |> Repo.preload(:logs)
+    log_query = from log in Butler.Log,
+      where: log.message == "check_in",
+      or_where: log.message == "check_out",
+      order_by: [desc: :inserted_at]
+    maid = Repo.get!(Maid, id) |> Repo.preload([logs: log_query])
     hours = maid.logs 
       |> Enum.map(fn log -> log.inserted_at end) 
       |> Enum.chunk_every(2)
-      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair, 1, NaiveDateTime.utc_now()), Enum.at(pair, 0)) end)
+      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair, 0, NaiveDateTime.utc_now()), Enum.at(pair, 1)) end)
       |> Enum.reduce(0, fn x, acc -> x + acc end)
     render(conn, "show.html", maid: maid, hours: hours)
   end
