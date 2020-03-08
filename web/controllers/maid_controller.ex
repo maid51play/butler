@@ -71,7 +71,7 @@ defmodule Butler.MaidController do
     hours = maid.logs 
       |> Enum.map(fn log -> log.inserted_at end) 
       |> Enum.chunk_every(2)
-      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair,1, NaiveDateTime.utc_now()), Enum.at(pair,0)) end)
+      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair, 1, NaiveDateTime.utc_now()), Enum.at(pair, 0)) end)
       |> Enum.reduce(0, fn x, acc -> x + acc end)
     render(conn, "show.html", maid: maid, hours: hours)
   end

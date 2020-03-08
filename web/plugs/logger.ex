@@ -1,4 +1,7 @@
 defmodule Butler.Plug.Logger do
+    @moduledoc """
+    Commits a struct change or event to the audit log
+    """
     def log(struct, message, data \\ "[]") do
         %name{} = struct
         model_name = name |> Module.split |> Enum.at(-1) |> String.downcase
