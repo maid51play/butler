@@ -4,7 +4,6 @@ defmodule Butler.MaidController do
   alias Butler.Maid
 
   def index(conn, %{"search" => search, "page" => page}) do
-    # IO.puts(Maid.fuzzy_search(search, 5))
     page =
       Maid.fuzzy_search(search, 5)
         |> Butler.Repo.paginate(page: page)
