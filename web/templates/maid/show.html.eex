@@ -13,31 +13,25 @@
   </li>
 
   <li>
-    <strong>Goshujinsama:</strong>
-    <%= @maid.goshujinsama %>
-  </li>
-
-  <li>
-    <strong>Tables:</strong>
-    <%= @maid.tables %>
-  </li>
-
-  <li>
     <strong>Logged hours:</strong>
     <span id="logged_hours"></span>
     <script>
-    duration = moment.duration(<%= @maid.logged_hours %>*1000)
-    formatted_duration = duration.isValid() ? [duration.hours(),('0' + duration.minutes()).slice(-2)].join(':') : ''
+    duration = moment.duration(<%= @hours %>, "seconds");
+    formatted_duration = duration.isValid() ? [Math.round(duration.asHours()),('0' + duration.minutes()).slice(-2)].join(':') : ''
     $('#logged_hours').html(formatted_duration)
     </script>
   </li>
-
-  <li>
-    <strong>Logged in since:</strong>
-    <%= @maid.checked_in_at %>
-  </li>
-
 </ul>
 
 <span><%= link "Edit", to: maid_path(@conn, :edit, @maid) %></span>
 <span><%= link "Back", to: maid_path(@conn, :index) %></span>
+<br />
+<br />
+<%= for log <- @maid.logs do %>
+  <%= if log.message=="check_in" do %>
+    <div style="font-style: italic; color: grey; font-size: 11px;">Checked in at <%= log.inserted_at %> UTC</div>
+  <% end %>
+    <%= if log.message=="check_out" do %>
+    <div style="font-style: italic; color: grey; font-size: 11px;">Checked out at <%= log.inserted_at %> UTC</div>
+  <% end %>
+<% end %>
