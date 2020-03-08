@@ -1,4 +1,4 @@
-defmodule Butler.Logging do
+defmodule Butler.Log do
     @moduledoc """
     Placeholder moduledoc
     """
@@ -6,8 +6,8 @@ defmodule Butler.Logging do
     use Butler.Web, :model
   
     @derive {Jason.Encoder, only: [:id, :name]}
-    schema "logging" do
-      field :operation, :string
+    schema "logs" do
+      field :message, :string
       field :data, :string
   
       timestamps()
@@ -20,7 +20,7 @@ defmodule Butler.Logging do
     """
     def changeset(struct, params \\ %{}) do
       struct
-      |> cast(params, [:operation, :data])
+      |> cast(params, [:message, :data])
     end
   end
   

@@ -18,7 +18,7 @@ defmodule Butler.Maid do
 
     belongs_to :barcode, Butler.Barcode
     has_many :reservations, Butler.Reservation
-    has_many :logging, Butler.Logging
+    has_many :logs, Butler.Log
   end
 
   def present(query) do

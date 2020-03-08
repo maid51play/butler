@@ -3,7 +3,7 @@ defmodule Butler.Plug.Logger do
         %name{} = struct
         model_name = name |> Module.split |> Enum.at(-1) |> String.downcase
         model_atom = String.to_existing_atom("#{model_name}_id")
-        changeset = Butler.Logging.changeset(%Butler.Logging{:operation => message, :data => data} |> Map.replace!(model_atom, struct.id))
+        changeset = Butler.Log.changeset(%Butler.Log{:message => message, :data => data} |> Map.replace!(model_atom, struct.id))
         Butler.Repo.insert!(changeset)
     end
 end
