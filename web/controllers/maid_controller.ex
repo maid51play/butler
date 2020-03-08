@@ -126,8 +126,7 @@ defmodule Butler.MaidController do
   def check_out(conn, %{"id" => id}) do
     maid = Repo.get!(Maid, id)
     new_hours = DateTime.diff(DateTime.utc_now(), maid.checked_in_at)
-    hours = maid.logged_hours + new_hours
-    changeset = Maid.check_in_changeset(maid, %{status: "not-present", checked_in_at: nil, logged_hours: hours})
+    changeset = Maid.check_in_changeset(maid, %{status: "not-present", checked_in_at: nil})
 
     case Repo.update(changeset) do
       {:ok, maid} ->
