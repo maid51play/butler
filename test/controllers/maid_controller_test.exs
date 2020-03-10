@@ -3,7 +3,7 @@ defmodule Butler.MaidControllerTest do
 
   alias Butler.Maid
 
-  @valid_attrs %{goshujinsama: 42, logged_hours: 120.5, name: "some name", status: "some status", tables: 42}
+  @valid_attrs %{name: "some name", status: "some status"}
   @invalid_attrs %{}
 
   test "lists all entries on index for a given page", %{conn: conn} do

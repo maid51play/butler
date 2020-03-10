@@ -26,7 +26,7 @@
       </td>
 
       <td class="text-right">
-        <span hidden><%= link "Show", to: maid_path(@conn, :show, maid) %></span>
+        <span><%= link "Show", to: maid_path(@conn, :show, maid) %></span>
         <span hidden><%= link "Edit", to: maid_path(@conn, :edit, maid), class: "btn btn-default btn-xs" %></span>
         <span hidden><%= link "Delete", to: maid_path(@conn, :delete, maid), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
