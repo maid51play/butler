@@ -18,8 +18,13 @@
       <td><%= maid.name %></td>
       <td class="checked_in_at<%= maid.id %>"></td>
       <td>
-      <%= if maid.status=="present" do %>
-        <%= button("Check Out", to: "/maids/#{maid.id}/check-out", method: "post", class: "btn btn-primary") %>
+      <%= if maid.status=="present" || maid.status=="on-break" do %>
+        <div><%= button("Check Out", to: "/maids/#{maid.id}/check-out", method: "post", class: "btn btn-primary") %></div>
+        <%= if maid.status=="present" do %>
+          <div><%= button("Start Break", to: "/maids/#{maid.id}/start-break", method: "post", class: "btn btn-link") %></div>
+        <% else %>
+          <div><%= button("End Break", to: "/maids/#{maid.id}/end-break", method: "post", class: "btn btn-link") %></div>
+        <% end %>
       <% else %>
         <%= button("Check In", to: "/maids/#{maid.id}/check-in", method: "post", class: "btn btn-default") %>
       <% end %>

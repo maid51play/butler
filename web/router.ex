@@ -35,6 +35,8 @@ defmodule Butler.Router do
     resources "/maids", MaidController
     post "/maids/:id/check-in", MaidController, :check_in
     post "/maids/:id/check-out", MaidController, :check_out
+    post "/maids/:id/start-break", MaidController, :start_break
+    post "/maids/:id/end-break", MaidController, :end_break
 
     resources "/tables", TableController
 

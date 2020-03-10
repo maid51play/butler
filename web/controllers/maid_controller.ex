@@ -70,12 +70,15 @@ defmodule Butler.MaidController do
     log_query = from log in Butler.Log,
       where: log.message == "check_in",
       or_where: log.message == "check_out",
+      or_where: log.message == "start_break",
+      or_where: log.message == "end_break",
       order_by: [desc: :inserted_at]
     maid = Repo.get!(Maid, id) |> Repo.preload([logs: log_query])
     hours = maid.logs 
+      |> Enum.filter(fn log -> log.message == "start_break" || log.message == "end_break" end)
       |> Enum.map(fn log -> log.inserted_at end) 
       |> Enum.chunk_every(2)
-      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair, 0, NaiveDateTime.utc_now()), Enum.at(pair, 1)) end)
+      |> Enum.map(fn pair -> NaiveDateTime.diff(Enum.at(pair, 1, NaiveDateTime.utc_now()), Enum.at(pair, 0)) end)
       |> Enum.reduce(0, fn x, acc -> x + acc end)
     render(conn, "show.html", maid: maid, hours: hours)
   end
@@ -137,6 +140,36 @@ defmodule Butler.MaidController do
         Logger.log(maid, "check_out")
         conn
           |> put_flash(:info, "#{maid.name} checked out successfully.")
+          |> redirect(to: maid_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "edit.html", maid: maid, changeset: changeset)
+    end
+  end
+
+  def start_break(conn, %{"id" => id}) do
+    maid = Repo.get!(Maid, id)
+    changeset = Maid.check_in_changeset(maid, %{status: "on-break"})
+
+    case Repo.update(changeset) do
+      {:ok, maid} ->
+        Logger.log(maid, "start_break")
+        conn
+          |> put_flash(:info, "#{maid.name} is on break now!")
+          |> redirect(to: maid_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "edit.html", maid: maid, changeset: changeset)
+    end
+  end
+
+  def end_break(conn, %{"id" => id}) do
+    maid = Repo.get!(Maid, id)
+    changeset = Maid.check_in_changeset(maid, %{status: "present"})
+
+    case Repo.update(changeset) do
+      {:ok, maid} ->
+        Logger.log(maid, "end_break")
+        conn
+          |> put_flash(:info, "おかえり、#{maid.name}！")
           |> redirect(to: maid_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", maid: maid, changeset: changeset)

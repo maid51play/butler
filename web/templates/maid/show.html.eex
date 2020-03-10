@@ -31,7 +31,13 @@
   <%= if log.message=="check_in" do %>
     <div style="font-style: italic; color: grey; font-size: 11px;">Checked in at <%= log.inserted_at %> UTC</div>
   <% end %>
-    <%= if log.message=="check_out" do %>
+  <%= if log.message=="check_out" do %>
     <div style="font-style: italic; color: grey; font-size: 11px;">Checked out at <%= log.inserted_at %> UTC</div>
+  <% end %>
+  <%= if log.message=="start_break" do %>
+    <div style="font-style: italic; color: grey; font-size: 11px;">Went on break at <%= log.inserted_at %> UTC</div>
+  <% end %>
+  <%= if log.message=="end_break" do %>
+    <div style="font-style: italic; color: grey; font-size: 11px;">Returned from break at <%= log.inserted_at %> UTC</div>
   <% end %>
 <% end %>
