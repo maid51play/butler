@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import MaidSearch from './maidSearch';
+import Pagination from './pagination';
 
 const durationObject = checkedInAt => moment.duration(moment().diff(checkedInAt));
 
@@ -16,11 +17,17 @@ const checkedInTime = (checkedInAt) => {
   return duration.isValid() ? moment(checkedInAt).format('LLLL') : '';
 };
 
-const tableComponent = ({ maids, search, token }) => (
+const tableComponent = ({
+  maids, search, url, pageNumber, totalPages, token,
+}) => (
   <div>
     <h2>Maid Check-In</h2>
     <MaidSearch search={search} />
-    {/* TODO: pagination */}
+    <Pagination
+      url={url}
+      pageNumber={pageNumber}
+      totalPages={totalPages}
+    />
     <table className="table">
       <thead>
         <tr>
@@ -55,22 +62,33 @@ const tableComponent = ({ maids, search, token }) => (
         ))}
       </tbody>
     </table>
-    {/* TODO: pagination */}
 
-    <span>
+    <Pagination
+      url={url}
+      pageNumber={pageNumber}
+      totalPages={totalPages}
+    />
+
+    <div>
       <a href="/maids/new">New maid</a>
-    </span>
+    </div>
   </div>
 );
 
 tableComponent.propTypes = {
   maids: PropTypes.arrayOf(PropTypes.object).isRequired,
   search: PropTypes.string,
+  url: PropTypes.string,
+  pageNumber: PropTypes.number,
+  totalPages: PropTypes.number,
   token: PropTypes.string.isRequired,
 };
 
 tableComponent.defaultProps = {
   search: '',
+  url: '/maid',
+  pageNumber: 1,
+  totalPages: 1,
 };
 
 export default tableComponent;
