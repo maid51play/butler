@@ -1,1 +1,1 @@
-<%= react_component("Components.MaidComponent", %{maids: @maids, token: @token}) %>
+<%= react_component("Components.MaidComponent", %{maids: @maids, search: @search, token: @token}) %>

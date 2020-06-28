@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
+import MaidSearch from './maidSearch';
 
 const durationObject = checkedInAt => moment.duration(moment().diff(checkedInAt));
 
@@ -15,10 +16,10 @@ const checkedInTime = (checkedInAt) => {
   return duration.isValid() ? moment(checkedInAt).format('LLLL') : '';
 };
 
-const tableComponent = ({ maids, token }) => (
+const tableComponent = ({ maids, search, token }) => (
   <div>
     <h2>Maid Check-In</h2>
-    {/* TODO: search component */}
+    <MaidSearch search={search} />
     {/* TODO: pagination */}
     <table className="table">
       <thead>
@@ -64,9 +65,12 @@ const tableComponent = ({ maids, token }) => (
 
 tableComponent.propTypes = {
   maids: PropTypes.arrayOf(PropTypes.object).isRequired,
+  search: PropTypes.string,
   token: PropTypes.string.isRequired,
 };
 
-tableComponent.defaultProps = {};
+tableComponent.defaultProps = {
+  search: '',
+};
 
 export default tableComponent;
