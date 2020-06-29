@@ -49,8 +49,9 @@ defmodule Butler.MaidController do
   end
 
   def new(conn, _params) do
+    token = get_csrf_token()
     changeset = Maid.create_changeset(%Maid{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, token: token)
   end
 
   def create(conn, %{"maid" => maid_params}) do
@@ -62,7 +63,8 @@ defmodule Butler.MaidController do
           |> put_flash(:info, "Maid #{maid.name} created successfully.")
           |> redirect(to: maid_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        token = get_csrf_token()
+        render(conn, "new.html", changeset: changeset, token: token)
     end
   end
 
@@ -81,22 +83,24 @@ defmodule Butler.MaidController do
   end
 
   def edit(conn, %{"id" => id}) do
+    token = get_csrf_token()
     maid = Repo.get!(Maid, id)
     changeset = Maid.changeset(maid)
-    render(conn, "edit.html", maid: maid, changeset: changeset)
+    render(conn, "edit.html", maid: maid, changeset: changeset, token: token)
   end
 
   def update(conn, %{"id" => id, "maid" => maid_params}) do
     maid = Repo.get!(Maid, id)
     changeset = Maid.changeset(maid, maid_params)
-
+    
     case Repo.update(changeset) do
       {:ok, maid} ->
         conn
           |> put_flash(:info, "Maid updated successfully.")
           |> redirect(to: maid_path(conn, :show, maid))
       {:error, changeset} ->
-        render(conn, "edit.html", maid: maid, changeset: changeset)
+        token = get_csrf_token()
+        render(conn, "edit.html", maid: maid, changeset: changeset, token: token)
     end
   end
 

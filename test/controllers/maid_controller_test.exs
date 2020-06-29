@@ -18,7 +18,7 @@ defmodule Butler.MaidControllerTest do
     conn = conn
       |> authorize
       |> get(maid_path(conn, :new))
-    assert html_response(conn, 200) =~ "New maid"
+    assert html_response(conn, 200) =~ "MaidNewComponent"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -34,7 +34,7 @@ defmodule Butler.MaidControllerTest do
       |> authorize
       |> post(maid_path(conn, :create), maid: @invalid_attrs)
 
-    assert html_response(conn, 200) =~ "New maid"
+    assert html_response(conn, 200) =~ "MaidNewComponent"
   end
 
   test "shows chosen resource", %{conn: conn} do
@@ -60,7 +60,7 @@ defmodule Butler.MaidControllerTest do
       |> authorize
       |> get(maid_path(conn, :edit, maid))
 
-    assert html_response(conn, 200) =~ "Edit maid"
+    assert html_response(conn, 200) =~ "MaidEditComponent"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -79,7 +79,7 @@ defmodule Butler.MaidControllerTest do
       |> authorize
       |> put(maid_path(conn, :update, maid), maid: @invalid_attrs)
 
-    assert html_response(conn, 200) =~ "Edit maid"
+    assert html_response(conn, 200) =~ "MaidEditComponent"
   end
 
   test "deletes chosen resource", %{conn: conn} do
