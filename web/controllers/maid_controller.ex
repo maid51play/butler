@@ -7,10 +7,7 @@ defmodule Butler.MaidController do
 
   def index(conn, %{"search" => search, "page" => page}) do
     page =
-      Maid
-        |> where([m], ilike(m.name, ^search))
-        |> order_by(desc: :status)
-        |> order_by(:name)
+      Maid.fuzzy_search(search, 5)
         |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
