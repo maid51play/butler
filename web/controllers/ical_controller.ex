@@ -23,7 +23,7 @@ defmodule Butler.IcalController do
     calendar_str = Enum.join(events, "\n")
 
 
-    render(conn, "index.ical", calendar_str: calendar_str)
+    render(conn, "index.txt", calendar_str: calendar_str)
   end
 
   def string_to_ical(str) do
