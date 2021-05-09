@@ -54,6 +54,7 @@ defmodule Butler.Mixfile do
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:httpoison, "~> 1.8"},
       {:timex, "~> 3.0"},
+      {:blankable, "~> 0.0.1"},
     ]
   end
 
