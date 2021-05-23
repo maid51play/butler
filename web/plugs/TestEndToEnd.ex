@@ -43,7 +43,7 @@ defmodule Butler.Plug.TestEndToEnd do
       db_schema = String.to_atom(schema)
       db_attrs = Enum.map(attrs, fn {k, v} -> {String.to_atom(k), v} end)
       db_entry = Factory.insert(db_schema, db_attrs)
-      send_resp(conn, 200, Poison.encode!(%{id: db_entry.id}))
+      send_resp(conn, 200, Jason.encode!(%{id: db_entry.id}))
     else
       _ -> send_resp(conn, 401, "schema or attributes missing")
     end
