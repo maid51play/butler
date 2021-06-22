@@ -5,7 +5,7 @@ defmodule Butler.Maid do
 
   use Butler.Web, :model
 
-  @derive {Jason.Encoder, only: [:id, :name]}
+  @derive {Jason.Encoder, only: [:id, :name, :status, :checked_in_at]}
   schema "maids" do
     field :name, :string
     field :status, :string, default: "not-present"

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Pagination from 'react-bootstrap/Pagination';
 import { Socket } from 'phoenix';
+import Pagination from './pagination';
 
 class waitlistComponent extends React.Component {
   constructor(props, context) {
@@ -43,18 +43,6 @@ class waitlistComponent extends React.Component {
     const { waitlist } = this.state;
     const { modal, selectReservation, token } = this.props;
 
-    const pages = [...Array(waitlist.total_pages + 1).keys()]
-      .slice(
-        Math.max(1, waitlist.page_number - 2),
-        waitlist.page_number + 3,
-      );
-
-    const paginationItem = number => (
-      <Pagination.Item key={number} active={number === waitlist.page_number} href={`/waitlist?page=${number}`}>
-        {number}
-      </Pagination.Item>
-    );
-
     const waitlistRow = entry => (
       <tr key={`waitlist-${entry.id}`}>
         <td>{entry.name}</td>
@@ -92,13 +80,7 @@ class waitlistComponent extends React.Component {
         </table>
         {!modal && <a href="/waitlist/new">New reservation</a>}
         {!modal && (
-        <Pagination>
-          <Pagination.Item href="/waitlist?page=1">start</Pagination.Item>
-          {waitlist.page_number !== 1 && <Pagination.Prev href={`/waitlist?page=${waitlist.page_number - 1}`} />}
-          {pages.map(paginationItem)}
-          {waitlist.page_number !== waitlist.total_pages && <Pagination.Next href={`/waitlist?page=${waitlist.page_number + 1}`} />}
-          <Pagination.Item href={`/waitlist?page=${waitlist.total_pages}`}>end</Pagination.Item>
-        </Pagination>
+        <Pagination url="/waitlist" totalPages={waitlist.total_pages} pageNumber={waitlist.pageNumber} />
         )}
       </div>
     );
