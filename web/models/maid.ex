@@ -30,6 +30,23 @@ defmodule Butler.Maid do
     where: is_nil(r.time_out) and not is_nil(r)
   end
 
+  def fuzzy_search(query_string, threshold) do
+    query_string = query_string |> String.downcase
+    from maid in Butler.Maid,
+      where:
+        fragment(
+          "levenshtein(LOWER(?), LOWER(?))",
+          maid.name,
+          ^query_string
+        ) <= ^threshold,
+      order_by:
+        fragment(
+          "levenshtein(LOWER(?), LOWER(?))",
+          maid.name,
+          ^query_string
+        )
+  end
+
   def check_in_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:status, :checked_in_at])
