@@ -7,9 +7,11 @@ defmodule Butler.IcalController do
     response = HTTPoison.request!(:get, url, "", [], [follow_redirect: true]) 
     req = response.body
         
-    IO.puts('>>>>>>>>>>>>><<<<<<<<<<<<<<')
-    IO.puts(String.split(req, ~r/\R/) |> Enum.filter(fn (line) -> !Blankable.blank?(String.split(line, ~r/,/) |> Enum.at(1)) end) |> List.delete_at(0)|> List.delete_at(0))
+    # IO.puts('>>>>>>>>>>>>><<<<<<<<<<<<<<')
+    # IO.puts(String.split(req, ~r/\R/) |> Enum.filter(fn (line) -> !Blankable.blank?(String.split(line, ~r/,/) |> Enum.at(1)) end) |> List.delete_at(0)|> List.delete_at(0))
+    
     events = Enum.map(String.split(req, ~r/\R/) |> Enum.filter(fn (line) -> !Blankable.blank?(String.split(line, ~r/,/) |> Enum.at(1)) end) |> List.delete_at(0)|> List.delete_at(0), fn (event) ->
+      IO.puts(event)
       string_to_ical(event)
     end)
 
@@ -21,10 +23,10 @@ defmodule Butler.IcalController do
   def string_to_ical(str) do
       list = String.split(str, ~r/,/)
 
-      starts_at_date = Enum.at(list, 1)
-      starts_at_time = Enum.at(list, 6)
-      ends_at_date = Enum.at(list, 1)
-      ends_at_time = Enum.at(list, 7)
+      starts_at_date = Enum.at(list, 2)
+      starts_at_time = Enum.at(list, 3)
+      ends_at_date = Enum.at(list, 2)
+      ends_at_time = Enum.at(list, 4)
 
       IO.puts(str)
       IO.puts(starts_at_time)
@@ -33,9 +35,9 @@ defmodule Butler.IcalController do
 
       if parsed_date_data != false do
       'BEGIN:VEVENT
-SUMMARY:#{Enum.at(list, 2)}
+SUMMARY:#{Enum.at(list, 0)}
 #{parsed_date_data}
-DESCRIPTION: #{Enum.at(list, 3)}
+DESCRIPTION: #{Enum.at(list, 1)}
 END:VEVENT'
       else
         ''
