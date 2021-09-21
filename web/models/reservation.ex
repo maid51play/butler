@@ -16,6 +16,7 @@ defmodule Butler.Reservation do
     Jason.Encoder,
     only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :maid]
   }
+
   schema "reservations" do
     field :name, :string
     field :size, :integer
