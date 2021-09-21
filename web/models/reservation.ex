@@ -14,12 +14,9 @@ defmodule Butler.Reservation do
 
   @derive {
     Jason.Encoder,
-    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]
+    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :maid]
   }
-  @derive {
-    Poison.Encoder,
-    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :seat_alone, :maid]
-  }
+
   schema "reservations" do
     field :name, :string
     field :size, :integer

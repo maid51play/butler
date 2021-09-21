@@ -14,8 +14,7 @@ config :butler, Butler.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Butler.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Butler.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Butler.PubSub
 
 # Configures auth
 config :butler, Butler.Auth.Guardian,
@@ -26,6 +25,8 @@ config :butler, Butler.Auth.Guardian,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
