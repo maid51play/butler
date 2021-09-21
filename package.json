@@ -2,7 +2,7 @@
   "repository": {},
   "license": "MIT",
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "jest": {
     "testPathIgnorePatterns": [
