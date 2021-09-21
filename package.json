@@ -1,12 +1,6 @@
 {
-  "name": "butler",
-  "description": "butler",
-  "version": "1.0.0",
   "repository": {},
   "license": "MIT",
-  "engines": {
-    "node": "16.9.1"
-  },
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/",
