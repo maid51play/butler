@@ -6,7 +6,7 @@ version: 2.1
 docker_elixir_postgres: &docker_elixir_postgres
   docker:
     # specify the version here
-    - image: circleci/elixir:1.7
+    - image: circleci/elixir:1.11.4
       environment:
           TEST_DATABASE_URL: postgresql://root@localhost/butler_test
           SECRET_KEY_BASE: "izWOC7mx5UA1B6v9nkG+l57S9aYSceTPuaa/ou7Nl6LofuPbt5609KVSsGvCOWXs"
@@ -22,7 +22,7 @@ commands:
     steps:
       - checkout
       - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-9.6
+      - run: sudo apt-get install postgresql-client
       - run: curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs
       - run: whoami
