@@ -17,7 +17,7 @@ defmodule Butler.IcalController do
 
     calendar_str = Enum.join(events, "\n")
 
-    send_download(conn, {:binary, calendar_str}, filename: "calendar.ical")
+    render(conn, "index.txt", calendar_str: calendar_str)
   end
 
   def string_to_ical(str) do
