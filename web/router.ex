@@ -27,6 +27,8 @@ defmodule Butler.Router do
     get "/", PageController, :index
     post "/", PageController, :login
     post "/logout", PageController, :logout
+
+    get "/ical", IcalController, :index
   end
 
   scope "/", Butler do

@@ -52,6 +52,9 @@ defmodule Butler.Mixfile do
       {:ex_machina, "~> 2.2", only: [:test, :cypress]},
       {:react_phoenix, "~> 1.0.0"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+      {:httpoison, "~> 1.8"},
+      {:timex, "~> 3.0"},
+      {:blankable, "~> 0.0.1"},
     ]
   end
 
