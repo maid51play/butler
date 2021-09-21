@@ -4,7 +4,7 @@ defmodule Butler.Auth.Pipeline do
   """
 
   use Guardian.Plug.Pipeline,
-    otp_app: :fanimaid_butler,
+    otp_app: :butler,
     error_handler: Butler.Auth.ErrorHandler,
     module: Butler.Auth.Guardian
   # If there is a session token, validate it

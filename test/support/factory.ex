@@ -7,7 +7,7 @@ defmodule Butler.Factory do
 
   alias Butler.Auth.User
   alias Butler.Maid
-  alias Butler.Party
+  alias Butler.Barcode
   alias Butler.Reservation
   alias Butler.Table
   alias Comeonin.Bcrypt
@@ -19,22 +19,36 @@ defmodule Butler.Factory do
     }
   end
 
-  def reservation_factory do
-    %Reservation{
+  def reservation_factory(attrs \\ %{}) do
+    barcode_id = Map.get(attrs, :barcode_id, nil)
+    barcode = Map.get(attrs, :barcode, nil)
+
+    reservation = merge_attributes(%Reservation{
       size: 2,
       shinkansen: false,
       staff: false,
       time_in: "2010-04-17 14:00:00.000000Z",
       notes: "",
-      party: build(:party),
       maid: build(:maid)
-    }
+    }, attrs)
+
+    if is_nil(barcode_id) && is_nil(barcode) do
+      %Reservation{reservation | barcode: build(:barcode)}
+    else
+      reservation
+    end
   end
 
-  def party_factory do
-    %Party{
-      table: build(:table),
-    }
+  def barcode_factory(attrs \\ %{}) do
+    table_id = Map.get(attrs, :table_id, nil)
+    table = Map.get(attrs, :table, nil)
+    barcode = merge_attributes(%Barcode{}, attrs)
+    
+    if is_nil(table_id) && is_nil(table) do
+      %Barcode{barcode | table: build(:table)}
+    else
+      barcode
+    end
   end
 
   def table_factory do

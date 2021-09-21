@@ -9,15 +9,13 @@ defmodule Butler.Maid do
   schema "maids" do
     field :name, :string
     field :status, :string, default: "not-present"
-    field :goshujinsama, :integer, default: 0
-    field :tables, :integer, default: 0
-    field :logged_hours, :float, default: 0.0
     field :checked_in_at, :utc_datetime, default: nil
 
     timestamps()
 
-    belongs_to :party, Butler.Party
+    belongs_to :barcode, Butler.Barcode
     has_many :reservations, Butler.Reservation
+    has_many :logs, Butler.Log
   end
 
   def present(query) do
@@ -34,7 +32,7 @@ defmodule Butler.Maid do
 
   def check_in_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:status, :logged_hours, :checked_in_at])
+    |> cast(params, [:status, :checked_in_at])
     |> validate_required([:status])
   end
 
@@ -43,14 +41,14 @@ defmodule Butler.Maid do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :party_id])
+    |> cast(params, [:name, :status, :checked_in_at, :barcode_id])
     |> cast_assoc(:reservations)
-    |> validate_required([:name, :status, :goshujinsama, :tables, :logged_hours])
+    |> validate_required([:name, :status])
   end
 
   def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :status, :goshujinsama, :tables, :logged_hours, :checked_in_at, :party_id])
+    |> cast(params, [:name, :status, :checked_in_at, :barcode_id])
     |> validate_required([:name])
   end
 end

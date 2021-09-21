@@ -45,9 +45,9 @@ defmodule Butler.Router do
 
     resources "/waitlist", WaitlistController
 
-    get "/parties/clear", PartyController, :clear
-    post "/parties/clear", PartyController, :clear
-    resources "/parties", PartyController
+    get "/barcodes/clear", BarcodeController, :clear
+    post "/barcodes/clear", BarcodeController, :clear
+    resources "/barcodes", BarcodeController
 
     get "/reservations/new/:table_id", ReservationController, :new
     get "/reservations/clear", ReservationController, :clear
@@ -59,7 +59,7 @@ defmodule Butler.Router do
   # Other scopes may use custom stacks.
   scope "/api", Butler do
     pipe_through :api
-    if Application.get_env(:fanimaid_butler, :env) == :cypress do
+    if Application.get_env(:butler, :env) == :cypress do
       forward("end-to-end", Plug.TestEndToEnd)
     end
   end

@@ -1,0 +1,6 @@
+<h2>Edit barcode</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: barcode_path(@conn, :update, @barcode) %>
+
+<span><%= link "Back", to: barcode_path(@conn, :index) %></span>

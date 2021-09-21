@@ -1,0 +1,13 @@
+<h2>Show barcode</h2>
+
+<ul>
+
+  <li>
+    <strong>Size:</strong>
+    <%= @barcode.size %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: barcode_path(@conn, :edit, @barcode) %></span>
+<span><%= link "Back", to: barcode_path(@conn, :index) %></span>

@@ -1,5 +1,5 @@
 defmodule Butler.Endpoint do
-  use Phoenix.Endpoint, otp_app: :fanimaid_butler
+  use Phoenix.Endpoint, otp_app: :butler
 
   socket "/socket", Butler.UserSocket,
     websocket: [timeout: 45_000]
@@ -9,7 +9,7 @@ defmodule Butler.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :fanimaid_butler, gzip: false,
+    at: "/", from: :butler, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -26,7 +26,7 @@ defmodule Butler.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -36,7 +36,7 @@ defmodule Butler.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_fanimaid_butler_key",
+    key: "_butler_key",
     signing_salt: "X6Zzam7Y"
 
   plug Butler.Router

@@ -1,14 +1,28 @@
 {
   "repository": {},
   "license": "MIT",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/cypress/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>web/static/js/setupTests.js"
+    ]
+  },
   "scripts": {
+    "brunch:build": "brunch build",
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "test": "jest"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "bootstrap": "^4.3.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "moment": "^2.24.0",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html",
@@ -32,6 +46,9 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0",
+    "react-test-renderer": "^16.11.0",
     "uglify-js-brunch": "2.10.0"
   }
 }

@@ -2,8 +2,7 @@ defmodule Butler.IcalController do
   use Butler.Web, :controller
 
   def index(conn, _params) do
-    url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-cldaNaUXFu7XLT5i61GaXplDhFLXxNg9MydEsPPHEWnKcax7LY2Df8bibgwZjb3No4gNVFQCw-33/pub?gid=0&single=true&output=csv"
-    
+    url = System.get_env("GOOGLE_CALENDAR_CSV")    
     response = HTTPoison.request!(:get, url, "", [], [follow_redirect: true]) 
     req = response.body
         
@@ -22,7 +21,7 @@ defmodule Butler.IcalController do
       list = String.split(str, ~r/,/)
 
       starts_at_date = Enum.at(list, 1)
-      starts_at_time = Enum.at(list,6)
+      starts_at_time = Enum.at(list, 6)
       ends_at_date = Enum.at(list, 1)
       ends_at_time = Enum.at(list, 7)
 

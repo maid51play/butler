@@ -20,5 +20,5 @@ defmodule Butler.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :fanimaid_butler
+  use Gettext, otp_app: :butler
 end

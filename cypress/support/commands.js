@@ -42,3 +42,18 @@ Cypress.Commands.add('factorydb', (schema, attrs) => {
     attributes: attrs,
   }).as('factoryDb');
 });
+
+Cypress.Commands.add('login', () => {
+  cy.factorydb('user', {
+    username: 'admin',
+  });
+  cy.visit('localhost:4001/');
+  cy.get('#user_username')
+    .type('admin').should('have.value', 'admin');
+
+  cy.get('#user_password')
+    .type('password');
+
+  cy.contains('Submit')
+    .click();
+});

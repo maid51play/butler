@@ -6,17 +6,11 @@ Butler is an open source tabling application by [5.1 Play][5-1-play] for use at 
 
 ## Contributor Guidelines
 
-5.1 Play strives to create an environment where our staff and streamers can teach each other real world skills that are applicable both inside and outside of our cafe. As an organization dedicated to the growth of our girls, we are proud to add "software development" to the list of many skills we offer to foster in our maids! While any and all contributions will be treasured, please keep in mind that we will prioritize supporting contributions from those involved with 5.1 Play and affiliated organizations to this end.
-
-For those of you who are not involved in running and organizing our cafe but would still like to collaborate, please pick up issues that are labeled [ご主人様OK][label-ご主人様-ok]. We recommend picking an issue with this label to ensure the biggest chance of success in being able to merge your PR. Due to the level of coordination required for larger feature work, picking up issues outside of this label may result in missing vital information which prevents us from merging your PR in a timely fashion. We would love to see all of your smiling faces on our list of contributors!
-
-Those affiliated with 5.1 Play who are interested in contributing to the codebase outside of the ご主人様OK label should contact **Midori** directly on discord. In addition to the content of this readme, she can provide the additional resources necessary to get started!
-
-We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary duplicate work or contributing to stale issues which are no longer being prioritized or are lacking appropriate levels of detail. Failure to follow the contribution guidelines below may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the [contribution guidelines][contributor-workflow] closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
+We are doing our best to clearly explain our contribution guidelines to avoid contributors doing unnecessary work. Failure to follow the [contribution guidelines][contributor-workflow] may result in your PR being closed, which would make all of us extremely sad! ｡ﾟ(*´□`)ﾟ｡ To avoid this, following the [contribution guidelines][contributor-workflow] closely and tagging @MeganeMidori before starting development work is best! ヾ(＾-＾)ノ
 
 ## Reporting a bug
 
-If you find a bug in our codebase, we want to hear about it! Please [open up an issue][new-issue] about it with steps to reproduce the bug and the expected behavior vs the actual behavior. Screenshots are especially helpful! The issue will be labeled as a [bug][label-bug] and a maintainer will prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board][project-board].
+If you find a bug in our codebase, we want to hear about it! Please [open up an issue][new-issue] about it with steps to reproduce the bug. Screenshots are especially helpful! The issue will be labeled as a [bug][label-bug] and a maintainer will prioritize it in the backlog appropriately. **Even if you intend to work on a fix yourself, please still open a bug ticket for posterity!** If you mention that you are already developing a fix for the bug, the maintainers will assign the issue to you and categorize it appropriately in the [project board][project-board].
 
 ## Requesting a feature
 
@@ -30,13 +24,18 @@ Unless you have been given collaborator status (you know who you are), you will 
 
 Before you start writing code, please make sure you have followed the process outlined in our [contributor workflow wiki page][contributor-workflow]!
 
+## System dependencies
+
+To prepare your development environment you will need to install the following:
+
+1. [Elixir](https://elixir-lang.org/install.html)
+1. [PostgreSQL](https://www.postgresql.org/)
+
 ## Secrets: それは…ひ•み•ちゅ(｡•ᴗ-)~☆
 
 ![](https://media.giphy.com/media/5fBH6zl91iH9rzPc556/giphy.gif)
 
 Running the app will require you to create a `.env` file to store certain app secrets! Trying to run the app without them is a big non-non~
-
-**The following advice has not been verified to work yet. If you try following these instructions and your app doesn't run, it is probably because the README is wrong ^^; Please [submit an issue][new-issue] so that we can update the README accordingly!**
 
 1. In your terminal, generate a secret key base:
 
@@ -55,6 +54,10 @@ Running the app will require you to create a `.env` file to store certain app se
     ```$ source .env```
 
 ## Running tests
+
+### Unit tests
+1. `$ npm test` runs the front end component tests in Jest
+1. `$ source .env && mix test` runs the elixir tests
 
 ### Cypress end to end tests
 1. `$ MIX_ENV=cypress mix do ecto.drop, ecto.create, ecto.migrate`

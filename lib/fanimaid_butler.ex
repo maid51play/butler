@@ -14,6 +14,8 @@ defmodule Butler do
     children = [
       # Start the Ecto repository
       supervisor(Butler.Repo, []),
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Butler.PubSub},
       # Start the endpoint when the application starts
       supervisor(Butler.Endpoint, []),
       # Start your own worker by calling: Butler.Worker.start_link(arg1, arg2, arg3)

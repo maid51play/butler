@@ -8,7 +8,7 @@ defmodule Butler.Reservation do
 
   use Butler.Web, :model
 
-  alias Butler.Party
+  alias Butler.Barcode
   alias Butler.Repo
   alias Butler.Table
 
@@ -16,10 +16,7 @@ defmodule Butler.Reservation do
     Jason.Encoder,
     only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :maid]
   }
-  @derive {
-    Poison.Encoder,
-    only: [:id, :name, :size, :time_waitlisted, :time_in, :seat_alone, :notes, :maid]
-  }
+
   schema "reservations" do
     field :name, :string
     field :size, :integer
@@ -34,7 +31,7 @@ defmodule Butler.Reservation do
 
     timestamps()
 
-    belongs_to :party, Butler.Party
+    belongs_to :barcode, Butler.Barcode
     belongs_to :maid, Butler.Maid
   end
 
@@ -65,14 +62,14 @@ defmodule Butler.Reservation do
     struct
       |> cast(
         params,
-        [:name, :size, :shinkansen, :staff, :time_in, :notes, :table_number, :party_id, :maid_id, :seat_alone]
+        [:name, :size, :shinkansen, :staff, :time_in, :notes, :table_number, :barcode_id, :maid_id, :seat_alone]
       )
       |> cast_assoc(:maid)
-      |> cast_assoc(:party)
-      |> validate_matching_party()
-      |> validate_party_available()
-      |> validate_party_size()
-      |> validate_required([:size, :shinkansen, :staff, :maid_id, :table_number, :party_id])
+      |> cast_assoc(:barcode)
+      |> validate_matching_barcode()
+      |> validate_barcode_available()
+      |> validate_barcode_size()
+      |> validate_required([:size, :shinkansen, :staff, :maid_id, :table_number, :barcode_id])
       |> put_change(:time_in, DateTime.truncate(DateTime.utc_now, :second))
   end
 
@@ -86,21 +83,21 @@ defmodule Butler.Reservation do
     struct
       |> changeset(params)
       |> put_change(:time_out, DateTime.truncate(DateTime.utc_now, :second))
-      |> put_change(:party_id, nil)
+      |> put_change(:barcode_id, nil)
   end
 
   def update_changeset(struct, params \\ %{}) do
     struct
       |> cast(params, [:size, :shinkansen, :staff, :time_in, :time_out, :notes, :maid_id])
       |> cast_assoc(:maid)
-      |> validate_party_size()
+      |> validate_barcode_size()
       |> validate_required([:size, :shinkansen, :staff, :maid_id])
   end
 
-  def switch_parties_changeset(struct, params \\ %{}) do
+  def switch_barcodes_changeset(struct, params \\ %{}) do
     struct
-      |> cast(params, [:party_id, :table_number])
-      |> cast_assoc(:party)
+      |> cast(params, [:barcode_id, :table_number])
+      |> cast_assoc(:barcode)
   end
 
   @doc """
@@ -108,32 +105,32 @@ defmodule Butler.Reservation do
   """
   def changeset(struct, params \\ %{}) do
     struct
-      |> cast(params, [:size, :shinkansen, :staff, :time_in, :time_out, :notes, :table_number, :party_id, :maid_id])
+      |> cast(params, [:size, :shinkansen, :staff, :time_in, :time_out, :notes, :table_number, :barcode_id, :maid_id])
       |> cast_assoc(:maid)
-      |> cast_assoc(:party)
-      |> validate_matching_party()
-      |> validate_party_available()
-      |> validate_party_size()
-      |> validate_required([:size, :shinkansen, :staff, :maid_id, :table_number, :party_id])
+      |> cast_assoc(:barcode)
+      |> validate_matching_barcode()
+      |> validate_barcode_available()
+      |> validate_barcode_size()
+      |> validate_required([:size, :shinkansen, :staff, :maid_id, :table_number, :barcode_id])
   end
 
-  def validate_matching_party(changeset \\ []) do
-    if get_change(changeset, :party_id) && Repo.get!(Party, get_change(changeset, :party_id)).table_id != Repo.get_by!(Table, table_number: get_change(changeset, :table_number)).id do
-      add_error(changeset, :party_id, "Scanned party does not match table!")
+  def validate_matching_barcode(changeset \\ []) do
+    if get_change(changeset, :barcode_id) && Repo.get!(Barcode, get_change(changeset, :barcode_id)).table_id != Repo.get_by!(Table, table_number: get_change(changeset, :table_number)).id do
+      add_error(changeset, :barcode_id, "Scanned barcode does not match table!")
     else
       changeset
     end
   end
 
-  def validate_party_size(changeset \\ []) do
+  def validate_barcode_size(changeset \\ []) do
     if get_change(changeset, :size) do
       table = Table
         |> Repo.get_by!(table_number: get_change(changeset, :table_number, changeset.data.table_number))
-        |> Repo.preload([parties: :reservation])
-      party_id = get_change(changeset, :party_id, changeset.data.party_id)
+        |> Repo.preload([barcodes: :reservation])
+      barcode_id = get_change(changeset, :barcode_id, changeset.data.barcode_id)
 
-      table_parties = Enum.filter(table.parties, fn x -> if changeset.data.time_out, do: x.id == party_id, else: x.id != party_id end)
-      full_seats = Enum.reduce(table_parties, 0, fn(x, acc) -> if x.reservation do x.reservation.size + acc else acc end end)
+      table_barcodes = Enum.filter(table.barcodes, fn x -> if changeset.data.time_out, do: x.id == barcode_id, else: x.id != barcode_id end)
+      full_seats = Enum.reduce(table_barcodes, 0, fn(x, acc) -> if x.reservation do x.reservation.size + acc else acc end end)
       max_seats = table.max_capacity
 
       if get_change(changeset, :size) > (max_seats - full_seats) do
@@ -146,13 +143,13 @@ defmodule Butler.Reservation do
     end
   end
 
-  def validate_party_available(changeset \\ []) do
-    if get_change(changeset, :party_id) do
-      party = Party
-        |> Repo.get!(get_change(changeset, :party_id))
+  def validate_barcode_available(changeset \\ []) do
+    if get_change(changeset, :barcode_id) do
+      barcode = Barcode
+        |> Repo.get!(get_change(changeset, :barcode_id))
         |> Repo.preload([reservation: :maid])
-      if party.reservation do
-        add_error(changeset, :party_id, "Barcode already assigned to #{party.reservation.maid.name}")
+      if barcode.reservation do
+        add_error(changeset, :barcode_id, "Barcode already assigned to #{barcode.reservation.maid.name}")
       else
         changeset
       end

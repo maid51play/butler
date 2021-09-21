@@ -28,7 +28,7 @@ defmodule Butler.MaidTest do
       reservation = Repo.insert! %Reservation{}
 
       %{
-        valid_attrs: %{name: "chihiro", goshujinsama: 1, tables: 0, logged_hours: 120.5, status: "some status", checked_in_at: "2010-04-17 14:00:00.000000Z", reservation_id: reservation.id},
+        valid_attrs: %{name: "chihiro", status: "some status", checked_in_at: "2010-04-17 14:00:00.000000Z", reservation_id: reservation.id},
         invalid_attrs: %{}
       }
     end
@@ -47,7 +47,7 @@ defmodule Butler.MaidTest do
   describe "create_changeset" do
     setup do
       %{
-        valid_attrs: %{name: "chihiro", goshujinsama: 1, tables: 0, logged_hours: 120.5, status: "some status", checked_in_at: "2010-04-17 14:00:00.000000Z"},
+        valid_attrs: %{name: "chihiro", status: "some status", checked_in_at: "2010-04-17 14:00:00.000000Z"},
         invalid_attrs: %{}
       }
     end

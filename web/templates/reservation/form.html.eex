@@ -47,8 +47,8 @@
 
   <%= if !@changeset.data.time_out do %>
     <div class="form-group" style="height: 0px; overflow: hidden;">
-      <%= label f, :party_id, class: "control-label" %>
-      <%= text_input f, :party_id, class: "form-control", autocomplete: "false" %>
+      <%= label f, :barcode_id, class: "control-label" %>
+      <%= text_input f, :barcode_id, class: "form-control", autocomplete: "false" %>
     </div>
 
     <%= if @table do %>
@@ -61,9 +61,9 @@
 
     <%= if !@changeset.data.time_out do %>
     <div class="form-group" style="background: url(/images/unscanned.png) no-repeat;">
-      <img src="https://i.imgur.com/hKnSuU3.gif" id="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :party_id), do: "", else: "visibility:hidden;"%>" height="150" />
+      <img src="https://i.imgur.com/hKnSuU3.gif" id="scan-complete" style="<%= if Map.has_key?(@changeset.changes, :barcode_id), do: "", else: "visibility:hidden;"%>" height="150" />
       <h3 id="scan-label">Please scan a barcode.</h3>
-      <%= error_tag f, :party_id %>
+      <%= error_tag f, :barcode_id %>
     </div>
     <% end %>
   <% end %>
@@ -87,13 +87,13 @@ function clearFunc(){
 $(document).ready(function(){
   $('body').on('keydown',function(e){
     if(e.which == 27 || e.which == 66){
-      $("#reservation_party_id").focus()
+      $("#reservation_barcode_id").focus()
     }
   })
-  $("#reservation_party_id").on('keydown',function(e){
+  $("#reservation_barcode_id").on('keydown',function(e){
     clearTimeout(clearInput)
     if(scanning == false){
-      $("#reservation_party_id").val("")
+      $("#reservation_barcode_id").val("")
       scanning = true
     }
     if(e.which == 13){
@@ -101,7 +101,7 @@ $(document).ready(function(){
     }
     clearInput = setTimeout(function(){ clearFunc() }, 20);
   })
-  $("#reservation_party_id").on('focus',function(){
+  $("#reservation_barcode_id").on('focus',function(){
     clearTimeout(clearInput)
     clearInput = setTimeout(function(){ $('input').blur() }, 20);
   })

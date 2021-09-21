@@ -1,0 +1,29 @@
+<h2>Listing barcodes</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Size</th>
+      <th>Table</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for barcode <- @barcodes do %>
+    <tr>
+      <td><%= barcode.size %></td>
+      <% IO.inspect(barcode) %>
+      <td><%= if barcode.table, do: barcode.table.table_number %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: barcode_path(@conn, :show, barcode), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: barcode_path(@conn, :edit, barcode), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: barcode_path(@conn, :delete, barcode), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New barcode", to: barcode_path(@conn, :new) %></span>
