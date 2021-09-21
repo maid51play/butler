@@ -23,7 +23,7 @@ defmodule Butler.IcalController do
       list = String.split(str, ~r/,/)
 
       starts_at_date = Enum.at(list, 1)
-      starts_at_time = Enum.at(list,6)
+      starts_at_time = Enum.at(list, 6)
       ends_at_date = Enum.at(list, 1)
       ends_at_time = Enum.at(list, 7)
 
