@@ -7,6 +7,7 @@ import Alert from 'react-bootstrap/Alert';
 import { Socket } from 'phoenix';
 import Waitlist from './waitlist';
 
+// TODO: Use pure functional components going forward
 class tableComponent extends React.Component {
   constructor(props, context) {
     super(props, context);

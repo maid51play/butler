@@ -16,11 +16,11 @@
     "watch": "brunch watch --stdin",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test": "jest"
+    "test": "jest --env=jest-environment-jsdom-sixteen"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.7.0",
     "bootstrap": "^4.3.1",
+    "core-js": "^3.19.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "moment": "^2.24.0",
@@ -30,11 +30,15 @@
     "react": "^16.8.6",
     "react-bootstrap": "1.0.0-beta.8",
     "react-dom": "^16.8.6",
-    "react-phoenix": "file:deps/react_phoenix"
+    "react-phoenix": "file:deps/react_phoenix",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@testing-library/dom": "^8.11.0",
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
     "babel-brunch": "7.0.1",
     "babel-eslint": "^10.0.1",
     "brunch": "^2.10.17",
@@ -48,6 +52,7 @@
     "eslint-plugin-react": "^7.13.0",
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "react-test-renderer": "^16.11.0",
     "uglify-js-brunch": "2.10.0"
   }
