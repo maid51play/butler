@@ -29,7 +29,6 @@ const waitlistFormComponent = ({
       <div className="form-group">
         <label className="control-label" htmlFor="reservation_seat_alone">
           Seat Alone:
-          <input name="reservation[seat_alone]" type="hidden" value="false" />
           <input className="checkbox" id="reservation_seat_alone" name="reservation[seat_alone]" type="checkbox" value="true" defaultChecked={reservation && reservation.seat_alone} />
         </label>
       </div>
