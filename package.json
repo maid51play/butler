@@ -19,6 +19,7 @@
     "test": "jest --env=jest-environment-jsdom-sixteen"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "bootstrap": "^4.3.1",
     "core-js": "^3.19.1",
     "enzyme": "^3.10.0",
