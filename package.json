@@ -19,7 +19,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
+    "@babel/polyfill": "^7.7.0",
     "bootstrap": "^4.3.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
