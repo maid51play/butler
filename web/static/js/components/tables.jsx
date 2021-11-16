@@ -147,7 +147,7 @@ class tableComponent extends React.Component {
         <Alert variant="warning">
           {`Seating party of ${reservation.size} for ${reservation.name}.`}
           <Button variant="link" onClick={() => this.selectReservation({})}>
-          Cancel
+            Cancel
           </Button>
         </Alert>
         )}
