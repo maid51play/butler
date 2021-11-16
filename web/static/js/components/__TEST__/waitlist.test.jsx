@@ -73,13 +73,13 @@ describe('#waitlist', () => {
     expect(nicoValues[0].textContent).toEqual('nico');
     expect(nicoValues[1].textContent).toEqual('2');
     expect(nicoValues[2].textContent).toEqual('');
-    expect(nicoValues[3].textContent).toEqual('4:54 pm');
+    expect(nicoValues[3].textContent).toEqual('12:54 pm');
     expect(nicoValues[4].textContent).toEqual('nico notes');
 
     expect(nicoValues[12].textContent).toEqual('rin');
     expect(nicoValues[13].textContent).toEqual('1');
     expect(nicoValues[14].textContent).toEqual('💖');
-    expect(nicoValues[15].textContent).toEqual('4:54 pm');
+    expect(nicoValues[15].textContent).toEqual('12:54 pm');
     expect(nicoValues[16].textContent).toEqual('rin notes');
   });
 });
