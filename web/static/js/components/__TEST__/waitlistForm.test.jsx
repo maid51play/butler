@@ -34,7 +34,7 @@ describe('#waitlistForm', () => {
 
     expect(screen.getByLabelText('Name:')).toHaveValue('');
     expect(screen.getByLabelText('Size:')).toHaveValue(null);
-    expect(screen.getByLabelText('Seat Alone:')).not.toBeChecked();
+    expect(screen.getAllByLabelText('Seat Alone:')[1]).not.toBeChecked();
     expect(screen.getByLabelText('Notes:')).toHaveValue('');
   });
 
@@ -43,7 +43,7 @@ describe('#waitlistForm', () => {
 
     expect(screen.getByLabelText('Name:')).toHaveValue('nico');
     expect(screen.getByLabelText('Size:')).toHaveValue(2);
-    expect(screen.getByLabelText('Seat Alone:')).toBeChecked();
+    expect(screen.getAllByLabelText('Seat Alone:')[1]).toBeChecked();
     expect(screen.getByLabelText('Notes:')).toHaveValue('nico notes');
   });
 });
