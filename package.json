@@ -42,6 +42,7 @@
     "babel-eslint": "^10.0.1",
     "brunch": "^2.10.17",
     "clean-css-brunch": "2.10.0",
+    "cypress": "^3.4.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-cypress": "^2.7.0",
