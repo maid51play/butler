@@ -104,7 +104,7 @@ describe('#tables', () => {
   });
 
   describe('seating a party from the waitlist', () => {
-    it('opens the waitlist waitlist', async () => {
+    it('opens the waitlist waitlist', () => {
       render(<TableComponent tables={tables} waitlist={waitlist} />);
 
       fireEvent.click(screen.getByText('Waitlist'));
