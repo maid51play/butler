@@ -55,6 +55,7 @@ defmodule Butler.Mixfile do
       {:httpoison, "~> 1.8"},
       {:timex, "~> 3.0"},
       {:blankable, "~> 0.0.1"},
+      {:nimble_csv, "~> 1.1"},
     ]
   end
 

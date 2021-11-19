@@ -1,43 +1,43 @@
 defmodule Butler.IcalController do
   use Butler.Web, :controller
+  alias NimbleCSV.RFC4180, as: CSV
 
   def index(conn, _params) do
     url = System.get_env("GOOGLE_CALENDAR_CSV")
+
+    response = HTTPoison.request!(:get, url, "", [], [follow_redirect: true])
     
-    response = HTTPoison.request!(:get, url, "", [], [follow_redirect: true]) 
-    req = response.body
-        
-    # IO.puts('>>>>>>>>>>>>><<<<<<<<<<<<<<')
-    # IO.puts(String.split(req, ~r/\R/) |> Enum.filter(fn (line) -> !Blankable.blank?(String.split(line, ~r/,/) |> Enum.at(1)) end) |> List.delete_at(0)|> List.delete_at(0))
-    
-    events = Enum.map(String.split(req, ~r/\R/) |> Enum.filter(fn (line) -> !Blankable.blank?(String.split(line, ~r/,/) |> Enum.at(1)) end) |> List.delete_at(0)|> List.delete_at(0), fn (event) ->
-      IO.puts(event)
-      string_to_ical(event)
-    end)
+    events = response.body
+      |> CSV.parse_string
+      |> List.delete_at(0)
+      |> List.delete_at(0)
+      |> List.delete_at(0)
+      |> Enum.map(fn (entry) -> entry |> list_to_ical_str end)
 
     calendar_str = Enum.join(events, "\n")
 
     render(conn, "index.txt", calendar_str: calendar_str)
   end
 
-  def string_to_ical(str) do
-      list = String.split(str, ~r/,/)
-
+  def list_to_ical_str(list) do
       starts_at_date = Enum.at(list, 2)
       starts_at_time = Enum.at(list, 3)
       ends_at_date = Enum.at(list, 2)
       ends_at_time = Enum.at(list, 4)
-
-      IO.puts(str)
-      IO.puts(starts_at_time)
       
       parsed_date_data = if Blankable.blank?(starts_at_time), do: parse_date_all_day(starts_at_date, starts_at_time, ends_at_date, ends_at_time), else: parse_date(starts_at_date, starts_at_time, ends_at_date, ends_at_time)      
+
+      subunit = Enum.at(list, 1)
+      notes = Enum.at(list, 6)
+      description = 'Subunit: #{subunit}
+
+#{notes}'
 
       if parsed_date_data != false do
       'BEGIN:VEVENT
 SUMMARY:#{Enum.at(list, 0)}
 #{parsed_date_data}
-DESCRIPTION: #{Enum.at(list, 1)}
+DESCRIPTION: #{description}
 END:VEVENT'
       else
         ''
