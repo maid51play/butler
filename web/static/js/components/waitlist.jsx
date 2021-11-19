@@ -4,7 +4,6 @@ import moment from 'moment';
 import Pagination from 'react-bootstrap/Pagination';
 import { Socket } from 'phoenix';
 
-// TODO: Use pure functional components going forward
 class waitlistComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
