@@ -29,7 +29,9 @@ defmodule Butler.IcalController do
 
       subunit = Enum.at(list, 1)
       notes = Enum.at(list, 6)
-      description = 'Subunit: #{subunit}\n\n#{notes}.'
+      description = "Subunit: #{subunit}
+
+#{notes}" |> String.replace(~r/\r|\n/, "\\n")
 
       if parsed_date_data != false do
       'BEGIN:VEVENT
@@ -58,7 +60,10 @@ DTEND;#{parsed_ends_at}"
     def parse_date_all_day(starts_at_date, starts_at_time, ends_at_date, ends_at_time) do
       try do
         starts_at = Timex.parse!("#{starts_at_date}", "%-m/%-d/%Y", :strftime)
+          |> Timex.to_datetime("America/Los_Angeles")
         ends_at = Timex.parse!("#{ends_at_date}", "%-m/%-d/%Y", :strftime)
+          |> Timex.to_datetime("America/Los_Angeles")
+          |> DateTime.add(86_400)
         parsed_starts_at = Timex.format!(starts_at, "VALUE=DATE:%Y%m%d", :strftime)
         parsed_ends_at = Timex.format!(ends_at, "VALUE=DATE:%Y%m%d", :strftime)
         "DTSTART;#{parsed_starts_at}
