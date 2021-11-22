@@ -29,7 +29,9 @@ defmodule Butler.IcalController do
 
       subunit = Enum.at(list, 1)
       notes = Enum.at(list, 6)
-      description = 'Subunit: #{subunit}\n\n#{notes}.'
+      description = "Subunit: #{subunit}
+
+#{notes}" |> String.replace( "\n", "\\n")
 
       if parsed_date_data != false do
       'BEGIN:VEVENT
