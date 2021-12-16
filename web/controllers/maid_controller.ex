@@ -6,6 +6,8 @@ defmodule Butler.MaidController do
   alias Butler.Plug.Logger
 
   def index(conn, %{"search" => search, "page" => page}) do
+    token = get_csrf_token()
+
     page =
       Maid
         |> where([m], ilike(m.name, ^search))
@@ -20,7 +22,8 @@ defmodule Butler.MaidController do
       page_number: page.page_number,
       page_size: page.page_size,
       total_pages: page.total_pages,
-      total_entries: page.total_entries)
+      total_entries: page.total_entries,
+      token: token)
   end
 
   def index(conn, %{"search" => search}) do
@@ -28,6 +31,8 @@ defmodule Butler.MaidController do
   end
 
   def index(conn, %{"page" => page}) do
+    token = get_csrf_token()
+
     page =
       Maid
         |> order_by(desc: :status)
@@ -41,7 +46,8 @@ defmodule Butler.MaidController do
       page_number: page.page_number,
       page_size: page.page_size,
       total_pages: page.total_pages,
-      total_entries: page.total_entries)
+      total_entries: page.total_entries,
+      token: token)
   end
 
   def index(conn, _params) do

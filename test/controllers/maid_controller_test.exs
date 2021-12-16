@@ -11,7 +11,7 @@ defmodule Butler.MaidControllerTest do
       |> authorize
       |> get(maid_path(conn, :index, page: 1))
 
-    assert html_response(conn, 200) =~ "Maid Check-In"
+    assert html_response(conn, 200) =~ "MaidComponent"
   end
 
   test "renders form for new resources", %{conn: conn} do

@@ -19,6 +19,7 @@ import 'react-phoenix';
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+import MaidComponent from './components/maid';
 import MaidEditComponent from './components/maidEdit';
 import MaidNewComponent from './components/maidNew';
 import TableComponent from './components/tables';
@@ -27,6 +28,7 @@ import WaitlistEditComponent from './components/waitlistEdit';
 import WaitlistNewComponent from './components/waitlistNew';
 
 window.Components = {
+  MaidComponent,
   MaidEditComponent,
   MaidNewComponent,
   TableComponent,
