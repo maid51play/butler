@@ -21,6 +21,15 @@ defmodule Butler.Router do
     plug Guardian.Plug.EnsureAuthenticated
   end
 
+  pipeline :maybe_user do
+    plug :fetch_current_user
+  end
+
+  def fetch_current_user(conn, _) do
+    conn
+    |> assign(:maybe_user, Guardian.Plug.current_resource(conn))
+  end
+
   scope "/", Butler do
     pipe_through [:browser, :auth]
 
@@ -34,7 +43,7 @@ defmodule Butler.Router do
   end
 
   scope "/admin", Butler do
-    pipe_through [:browser, :auth, :ensure_auth] # Use the default browser stack
+    pipe_through [:browser, :auth, :ensure_auth, :maybe_user] # Use the default browser stack
 
     resources "/maids", MaidController
     post "/maids/:id/check-in", MaidController, :check_in
