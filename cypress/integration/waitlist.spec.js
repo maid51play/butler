@@ -34,7 +34,7 @@ context('Waitlist seating', () => {
 
     cy.login();
 
-    cy.visit('localhost:4001/');
+    cy.visit('localhost:4001/admin');
   });
 
   it('waitlist happy path', () => {

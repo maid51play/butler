@@ -45,8 +45,8 @@ const waitlistFormComponent = ({
         <button className="btn btn-primary" type="submit">Submit</button>
       </div>
     </form>
-    <a href="/waitlist">Back</a>
-    {reservation && <a className="btn btn-danger btn-xs pull-right" data-confirm="Are you sure?" data-csrf={token} data-method="delete" data-to={`/waitlist/${reservation.id}`} href={`/reservations/${reservation.id}`} rel="nofollow">Delete</a>}
+    <a href="/admin/waitlist">Back</a>
+    {reservation && <a className="btn btn-danger btn-xs pull-right" data-confirm="Are you sure?" data-csrf={token} data-method="delete" data-to={`/admin/waitlist/${reservation.id}`} href={`/admin/reservations/${reservation.id}`} rel="nofollow">Delete</a>}
   </div>
 );
 

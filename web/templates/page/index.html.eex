@@ -1,24 +1,10 @@
-<div class="jumbotron">
-  <h2>Fanimaid Butler BETA</h2>
-  <%= if @maybe_user == nil do %>
-    <%= form_for @changeset, @action, fn f -> %>
-    
-      <div class="form-group">
-        <%= label f, :username, class: "control-label" %>
-        <%= text_input f, :username, class: "form-control" %>
-        <%= error_tag f, :username %>
-      </div>
-      <div class="form-group">
-        <%= label f, :password, class: "control-label" %>
-        <%= password_input f, :password, class: "form-control" %>
-        <%= error_tag f, :password %>
-      </div>
-      <div class="form-group">
-        <%= submit "Submit", class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  <% else %>
-    <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
-  <% end %>
+<div style="display: flex; height: 100vh;align-items: center; justify-content: center;">
+<div style="text-align: center">
+<h1 class="gradient-text">The Fanimaid kitchen<br/>is heating up!</h1>
+<br/>
+<p>
+<button style="color: rgb(217, 46, 138); border-color: rgb(217, 46, 138);"
+    class="button is-large is-disabled is-disabled is-outlined">Reservations begin May 28, 2022</button>
+    </p>
 </div>
 </div>

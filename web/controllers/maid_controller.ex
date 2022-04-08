@@ -15,7 +15,7 @@ defmodule Butler.MaidController do
 
     render(conn, "index.html",
       search: search,
-      url: "/maids",
+      url: "/admin/maids",
       maids: page.entries,
       page_number: page.page_number,
       page_size: page.page_size,
@@ -36,7 +36,7 @@ defmodule Butler.MaidController do
 
     render(conn, "index.html",
       search: "",
-      url: "/maids",
+      url: "/admin/maids",
       maids: page.entries,
       page_number: page.page_number,
       page_size: page.page_size,

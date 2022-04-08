@@ -6,7 +6,7 @@
 
     <div class="form-group">
     <button class="btn btn-primary search-button" id="maidSearchBtn">Search</button>
-    <%= if String.length("#{@search}") > 0 do %> <a href="/maids" class="btn btn-secondary search-clear-button">x</a> <% end %>
+    <%= if String.length("#{@search}") > 0 do %> <a href="/admin/maids" class="btn btn-secondary search-clear-button">x</a> <% end %>
     </div>
 </form>
 
@@ -15,6 +15,6 @@
     $(maidSearchForm).on('submit',function(e){ e.preventDefault(); search(); })
   })
   function search() {
-    window.location.assign("/maids?search=" + $("#maidSearchInput").val())
+    window.location.assign("/admin/maids?search=" + $("#maidSearchInput").val())
   }
 </script>

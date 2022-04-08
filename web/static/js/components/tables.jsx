@@ -60,7 +60,7 @@ class tableComponent extends React.Component {
 
   selectReservation(reservation) {
     this.setState({ reservation });
-    window.history.pushState('tables', 'Title', `/tables${reservation.id ? `?reservation=${reservation.id}` : ''}`);
+    window.history.pushState('tables', 'Title', `/admin/tables${reservation.id ? `?reservation=${reservation.id}` : ''}`);
     this.handleClose();
   }
 
@@ -119,7 +119,7 @@ class tableComponent extends React.Component {
     );
 
     const tableRow = (table) => {
-      const bookLink = reservation.id ? `/reservations/${reservation.id}/seat/${table.id}` : `/reservations/new/${table.id}`;
+      const bookLink = reservation.id ? `/admin/reservations/${reservation.id}/seat/${table.id}` : `/admin/reservations/new/${table.id}`;
       const suggestionClasses = reservation.seat_alone ? tableReservationCount(table) > 0 && 'not-suggested' : '';
 
       return (

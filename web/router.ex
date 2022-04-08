@@ -25,13 +25,15 @@ defmodule Butler.Router do
     pipe_through [:browser, :auth]
 
     get "/", PageController, :index
-    post "/", PageController, :login
-    post "/logout", PageController, :logout
+
+    get "/admin", AdminController, :index
+    post "/admin", AdminController, :login
+    post "/admin/logout", AdminController, :logout
 
     get "/ical", IcalController, :index
   end
 
-  scope "/", Butler do
+  scope "/admin", Butler do
     pipe_through [:browser, :auth, :ensure_auth] # Use the default browser stack
 
     resources "/maids", MaidController

@@ -6,7 +6,7 @@ context('Maid Checkin', () => {
     cy.factorydb('barcode', {});
 
     cy.login();
-    cy.visit('localhost:4001/');
+    cy.visit('localhost:4001/admin');
   });
 
   it('maid check in happy path', () => {

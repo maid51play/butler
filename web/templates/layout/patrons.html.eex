@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello Butler!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body style="padding: 0; margin: 0">
+    <nav class="navbar is-light is-fixed-top is-spaced has-shadow" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand" style="padding: 0;">
+          <img src="/images/fanimaid.png" />
+        </div>
+        <div class="navbar-end">
+          <a class="navbar-item" href="https://www.fanime.com/maid-cafe/">
+            About
+          </a>
+          <a class="navbar-item" href="https://twitter.com/FanimaidCafe">
+            Twitter
+          </a>
+        </div>
+    </nav>
+      <%= @inner_content %>
+  </body>
+</html>
