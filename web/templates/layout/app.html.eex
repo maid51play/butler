@@ -19,13 +19,15 @@
     <div class="container">
       <header class="header">
         <nav role="navigation">
+          <%= if @maybe_user != nil do %>
           <ul class="nav nav-pills pull-right">
-            <li><a href="/maids">Maid Check In</a></li>
-            <li><a href="/reservations">Cafe Data</a></li>
-            <li><a href="/tables">Tables</a></li>
-            <li><a href="/reservations/clear">Clear Party</a></li>
-            <li><a href="/waitlist">Waitlist</a></li>
+            <li><a href="/admin/maids">Maid Check In</a></li>
+            <li><a href="/admin/reservations">Cafe Data</a></li>
+            <li><a href="/admin/tables">Tables</a></li>
+            <li><a href="/admin/reservations/clear">Clear Party</a></li>
+            <li><a href="/admin/waitlist">Waitlist</a></li>
           </ul>
+          <% end %>
         </nav>
         <span class="logo"></span>
       </header>

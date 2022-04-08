@@ -1,4 +1,4 @@
-<p class="alert alert-warning" role="alert">Seating party of <%= @reservation.size %> for <%= @reservation.name %>.<a href="/reservations/new/<%= @table.id %>" class="btn btn-link">Cancel</a></p>
+<p class="alert alert-warning" role="alert">Seating party of <%= @reservation.size %> for <%= @reservation.name %>.<a href="/admin/reservations/new/<%= @table.id %>" class="btn btn-link">Cancel</a></p>
 <%= if @warning.message do %>
 <p class="alert alert-danger" role="alert"><%= @warning.message %></p>
 <% end %>

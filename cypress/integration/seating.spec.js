@@ -26,7 +26,7 @@ context('Seating parties without a waitlist reservation', () => {
 
     cy.login();
 
-    cy.visit('localhost:4001/');
+    cy.visit('localhost:4001/admin');
   });
 
   it('seating happy path', () => {

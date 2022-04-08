@@ -5,7 +5,7 @@ import WaitlistForm from './waitlistForm';
 const waitlistNewComponent = ({ token }) => (
   <div>
     <h2>New Waitlist Reservation</h2>
-    <WaitlistForm token={token} action="/waitlist" method="post" />
+    <WaitlistForm token={token} action="/admin/waitlist" method="post" />
   </div>
 );
 

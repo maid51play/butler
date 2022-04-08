@@ -22,7 +22,7 @@ const maidFormComponent = ({
         <button className="btn btn-primary" type="submit">Submit</button>
       </div>
     </form>
-    <a href="/maids">Back</a>
+    <a href="/admin/maids">Back</a>
   </div>
 );
 

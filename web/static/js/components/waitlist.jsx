@@ -50,7 +50,7 @@ class waitlistComponent extends React.Component {
       );
 
     const paginationItem = number => (
-      <Pagination.Item key={number} active={number === waitlist.page_number} href={`/waitlist?page=${number}`}>
+      <Pagination.Item key={number} active={number === waitlist.page_number} href={`/admin/waitlist?page=${number}`}>
         {number}
       </Pagination.Item>
     );
@@ -63,8 +63,8 @@ class waitlistComponent extends React.Component {
         <td>{moment(entry.time_waitlisted).format('h:mm a')}</td>
         <td>{entry.notes}</td>
         <td className="text-right">
-          <span><a className="btn btn-default btn-xs" href={`/waitlist/${entry.id}/edit`}>Edit</a></span>
-          {!modal && <span><a className="btn btn-danger btn-xs" data-confirm="Are you sure?" data-csrf={token} data-method="delete" data-to={`/waitlist/${entry.id}`} href={`/waitlist/${entry.id}`} rel="nofollow">Delete</a></span>}
+          <span><a className="btn btn-default btn-xs" href={`/admin/waitlist/${entry.id}/edit`}>Edit</a></span>
+          {!modal && <span><a className="btn btn-danger btn-xs" data-confirm="Are you sure?" data-csrf={token} data-method="delete" data-to={`/admin/waitlist/${entry.id}`} href={`/admin/waitlist/${entry.id}`} rel="nofollow">Delete</a></span>}
           {modal && (<span><button type="button" className="btn btn-primary btn-xs" onClick={() => selectReservation(entry)}>Select</button></span>)}
         </td>
       </tr>
@@ -73,7 +73,7 @@ class waitlistComponent extends React.Component {
     return (
       <div>
         {!modal && <h2>Waitlist</h2>}
-        {!modal && <a href="/waitlist/new">New reservation</a>}
+        {!modal && <a href="/admin/waitlist/new">New reservation</a>}
         <table className="table">
           <thead>
             <tr>
@@ -90,14 +90,14 @@ class waitlistComponent extends React.Component {
             {waitlist.entries.map(waitlistRow)}
           </tbody>
         </table>
-        {!modal && <a href="/waitlist/new">New reservation</a>}
+        {!modal && <a href="/admin/waitlist/new">New reservation</a>}
         {!modal && (
         <Pagination>
-          <Pagination.Item href="/waitlist?page=1">start</Pagination.Item>
-          {waitlist.page_number !== 1 && <Pagination.Prev href={`/waitlist?page=${waitlist.page_number - 1}`} />}
+          <Pagination.Item href="/admin/waitlist?page=1">start</Pagination.Item>
+          {waitlist.page_number !== 1 && <Pagination.Prev href={`/admin/waitlist?page=${waitlist.page_number - 1}`} />}
           {pages.map(paginationItem)}
-          {waitlist.page_number !== waitlist.total_pages && <Pagination.Next href={`/waitlist?page=${waitlist.page_number + 1}`} />}
-          <Pagination.Item href={`/waitlist?page=${waitlist.total_pages}`}>end</Pagination.Item>
+          {waitlist.page_number !== waitlist.total_pages && <Pagination.Next href={`/admin/waitlist?page=${waitlist.page_number + 1}`} />}
+          <Pagination.Item href={`/admin/waitlist?page=${waitlist.total_pages}`}>end</Pagination.Item>
         </Pagination>
         )}
       </div>

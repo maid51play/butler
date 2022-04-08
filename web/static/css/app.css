@@ -1,4 +1,19 @@
 /* This file is for your main application css. */
+.main {
+    max-width: 1100px;
+    margin: auto;
+}
+.gradient-text{
+    background: linear-gradient(
+        to right, 
+        rgb(217, 46, 138), 
+        rgb(28, 72, 139)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+}
+
 .logo{
     width: 200px;
     height: 57px;

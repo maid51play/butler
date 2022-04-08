@@ -5,7 +5,7 @@ import MaidForm from './maidForm';
 const maidNewComponent = ({ token }) => (
   <div>
     <h2>New maid</h2>
-    <MaidForm token={token} action="/maids" method="post" />
+    <MaidForm token={token} action="/admin/maids" method="post" />
   </div>
 );
 

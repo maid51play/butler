@@ -19,7 +19,7 @@ defmodule Butler.ReservationController do
         |> Butler.Repo.paginate(page: page)
 
     render(conn, "index.html",
-      url: "/reservations",
+      url: "/admin/reservations",
       reservations: page.entries,
       page_number: page.page_number,
       page_size: page.page_size,

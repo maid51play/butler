@@ -34,7 +34,7 @@ context('Waitlist seating', () => {
 
     cy.login();
 
-    cy.visit('localhost:4001/');
+    cy.visit('localhost:4001/admin');
   });
 
   it('waitlist happy path', () => {
@@ -100,7 +100,7 @@ context('Waitlist seating', () => {
 
     cy.contains('Cancel').click();
 
-    cy.contains('Seating party of 6 for Hanayo.').should('not.be.visible');
+    cy.contains('Seating party of 6 for Hanayo.').should('not.exist');
 
     cy.contains('button', 'Waitlist').click();
 
@@ -211,7 +211,7 @@ context('Waitlist seating', () => {
 
     cy.contains('Reservation created successfully.').should('be.visible');
 
-    cy.contains('Nako').parent().contains('💖').should('not.be.visible');
+    cy.contains('Nako').parent().contains('💖').should('not.exist');
 
     // book button for table with a party already seated should be greyed out
     cy.contains('Tables').click();
@@ -236,7 +236,7 @@ context('Waitlist seating', () => {
     cy.contains('A2').parent().contains('Book').should('not.have.class', 'not-suggested')
       .click();
 
-    cy.contains('The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?').should('not.be.visible');
+    cy.contains('The party you are seating requested to be seated alone, but this table has parties already seated. Are you sure you want to seat this party with others anyway?').should('not.exist');
 
     cy.contains('Kotori').click();
 

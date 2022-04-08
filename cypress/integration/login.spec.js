@@ -2,11 +2,11 @@
 
 context('Login', () => {
   beforeEach(() => {
-    cy.visit('localhost:4001/');
+    cy.visit('localhost:4001/admin');
   });
 
   it('displays unathenticated error when accessing pages without logging in', () => {
-    cy.contains('Cafe Data').click();
+    cy.visit('localhost:4001/admin/tables', { failOnStatusCode: false });
 
     cy.contains('unauthenticated').should('be.visible');
   });
@@ -23,7 +23,7 @@ context('Login', () => {
 
     cy.contains('Incorrect username or password').should('be.visible');
 
-    cy.contains('Cafe Data').click();
+    cy.visit('localhost:4001/admin/tables', { failOnStatusCode: false });
 
     cy.contains('unauthenticated').should('be.visible');
   });

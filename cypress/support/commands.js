@@ -47,7 +47,7 @@ Cypress.Commands.add('login', () => {
   cy.factorydb('user', {
     username: 'admin',
   });
-  cy.visit('localhost:4001/');
+  cy.visit('localhost:4001/admin');
   cy.get('#user_username')
     .type('admin').should('have.value', 'admin');
 
