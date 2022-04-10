@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const reserveTimeslot = ({ timeslots }) => (
   <div style={{ textAlign: 'center' }}>
@@ -11,12 +11,17 @@ const reserveTimeslot = ({ timeslots }) => (
     </div>
     <div>
       <h2 className="title is-2 is-primary">Available Reservations</h2>
-      {timeslots.map(timeslot => <div><button className="button is-large is-fullwidth is-outlined" type="button">{format(new Date(timeslot.start_time), 'hh:mm a')}</button></div>)}
+      {timeslots.map(timeslot => <div key={timeslot.start_time}><button className="button is-large is-fullwidth is-outlined" type="button">{format(new Date(timeslot.start_time), 'hh:mm a')}</button></div>)}
     </div>
   </div>
 );
 
 reserveTimeslot.propTypes = {
+  timeslots: PropTypes.arrayOf(PropTypes.object),
+};
+
+reserveTimeslot.defaultProps = {
+  timeslots: [],
 };
 
 export default reserveTimeslot;

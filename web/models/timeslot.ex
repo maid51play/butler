@@ -15,6 +15,8 @@ defmodule Butler.Timeslot do
 
   def today(query) do
     from timeslot in query,
+    group_by: timeslot.start_time,
+    select: %{start_time: timeslot.start_time, count: count(timeslot.id)},
     where: fragment("? BETWEEN CURRENT_DATE AND CURRENT_DATE + interval '1 day' - interval '1 second'", timeslot.start_time)
   end
 
