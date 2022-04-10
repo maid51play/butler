@@ -1,0 +1,18 @@
+<h1>Show Timeslot</h1>
+
+<ul>
+
+  <li>
+    <strong>Start time:</strong>
+    <%= @timeslot.start_time %>
+  </li>
+
+  <li>
+    <strong>End time:</strong>
+    <%= @timeslot.end_time %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: timeslot_path(@conn, :edit, @timeslot) %></span>
+<span><%= link "Back", to: timeslot_path(@conn, :index) %></span>

@@ -10,6 +10,7 @@ defmodule Butler.Factory do
   alias Butler.Barcode
   alias Butler.Reservation
   alias Butler.Table
+  alias Butler.Timeslot
   alias Comeonin.Bcrypt
 
   def user_factory do
@@ -60,6 +61,11 @@ defmodule Butler.Factory do
 
   def maid_factory do
     %Maid{
+    }
+  end
+
+  def timeslot_factory do
+    %Timeslot{
     }
   end
 

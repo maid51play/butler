@@ -1,0 +1,5 @@
+<h1>New Timeslot</h1>
+
+<%= render "form.html", Map.put(assigns, :action, timeslot_path(@conn, :create)) %>
+
+<span><%= link "Back", to: timeslot_path(@conn, :index) %></span>

@@ -26,6 +26,7 @@
             <li><a href="/admin/tables">Tables</a></li>
             <li><a href="/admin/reservations/clear">Clear Party</a></li>
             <li><a href="/admin/waitlist">Waitlist</a></li>
+            <li><a href="/admin/timeslots">Timeslots</a></li>
           </ul>
           <% end %>
         </nav>
