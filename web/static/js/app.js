@@ -25,6 +25,7 @@ import TableComponent from './components/tables';
 import WaitlistComponent from './components/waitlist';
 import WaitlistEditComponent from './components/waitlistEdit';
 import WaitlistNewComponent from './components/waitlistNew';
+import ReserveTimeslotComponent from './components/reserveTimeslot';
 
 window.Components = {
   MaidEditComponent,
@@ -33,4 +34,5 @@ window.Components = {
   WaitlistComponent,
   WaitlistEditComponent,
   WaitlistNewComponent,
+  ReserveTimeslotComponent,
 };

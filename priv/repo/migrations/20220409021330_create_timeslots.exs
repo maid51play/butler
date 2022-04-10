@@ -3,8 +3,8 @@ defmodule Butler.Repo.Migrations.CreateTimeslots do
 
   def change do
     create table(:timeslots) do
-      add :start_time, :naive_datetime
-      add :end_time, :naive_datetime
+      add :start_time, :utc_datetime
+      add :end_time, :utc_datetime
 
       timestamps()
     end

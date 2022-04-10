@@ -12,20 +12,8 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body style="padding: 0; margin: 0">
-    <nav class="navbar is-light is-fixed-top is-spaced has-shadow" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand" style="padding: 0;">
-          <img src="/images/fanimaid.png" />
-        </div>
-        <div class="navbar-end">
-          <a class="navbar-item" href="https://www.fanime.com/maid-cafe/">
-            About
-          </a>
-          <a class="navbar-item" href="https://twitter.com/FanimaidCafe">
-            Twitter
-          </a>
-        </div>
-    </nav>
+  <body>
       <%= @inner_content %>
+      <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

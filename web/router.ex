@@ -35,6 +35,8 @@ defmodule Butler.Router do
 
     get "/", PageController, :index
 
+    get "/book", ReserveTimeslotController, :index
+
     get "/admin", AdminController, :index
     post "/admin", AdminController, :login
     post "/admin/logout", AdminController, :logout

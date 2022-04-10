@@ -13,6 +13,11 @@ defmodule Butler.Timeslot do
     timestamps()
   end
 
+  def today(query) do
+    from timeslot in query,
+    where: fragment("? BETWEEN CURRENT_DATE AND CURRENT_DATE + interval '1 day' - interval '1 second'", timeslot.start_time)
+  end
+
   @doc false
   def changeset(struct, params \\ %{}) do
     struct
