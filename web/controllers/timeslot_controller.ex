@@ -62,4 +62,13 @@ defmodule Butler.TimeslotController do
     |> put_flash(:info, "Timeslot deleted successfully.")
     |> redirect(to: timeslot_path(conn, :index))
   end
+
+  def reserve_timeslot(conn, %{}) do
+    # TODO: get the first available timeslot for the time,
+    # update the timeslot "booking_started_at"
+    # return the timeslot id
+
+    # timeslot is available if it has no reservation relation and
+    # the booking_started_at date was more than 2 minutes ago
+  end
 end
