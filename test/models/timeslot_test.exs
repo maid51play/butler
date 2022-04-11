@@ -5,13 +5,13 @@ defmodule Butler.TimeslotTest do
   
   alias Butler.Timeslot
 
-  @valid_attrs %{start_time: "2010-04-17 14:00:00.000000Z", end_time: "2010-04-17 14:00:00.000000Z"}
+  @valid_attrs %{start_time: "2010-04-17 14:00:00.000000Z", end_time: "2010-04-17 15:00:00.000000Z"}
   @invalid_attrs %{}
   
   test "today" do
-    past_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86400, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86400, :second))
-    today_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now, start_time: NaiveDateTime.utc_now)
-    future_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86400, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86400, :second))
+    past_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-82800, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86400, :second))
+    today_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(3600, :second) , start_time: NaiveDateTime.utc_now)
+    future_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(90000, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86400, :second))
 
     timeslots = Timeslot |> Timeslot.today |> Repo.all
 

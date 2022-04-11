@@ -24,6 +24,17 @@ defmodule Butler.Timeslot do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:start_time, :end_time])
+    |> validate_start_time_before_end_time()
     |> validate_required([:start_time, :end_time])
+  end
+
+  def validate_start_time_before_end_time(changeset \\ []) do
+    start_time = get_change(changeset, :start_time)
+    end_time = get_change(changeset, :end_time)
+    if NaiveDateTime.diff(start_time, end_time) >= 0 do
+      add_error(changeset, :end_time, "End time must be after start time")
+    else
+      changeset
+    end
   end
 end
