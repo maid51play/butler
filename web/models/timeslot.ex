@@ -13,11 +13,15 @@ defmodule Butler.Timeslot do
     timestamps()
   end
 
-  def today(query) do
+  def for_day(query, date) do
+    today_start = Timex.beginning_of_day(date)
+    today_end = Timex.end_of_day(date)
+    
     from timeslot in query,
     group_by: timeslot.start_time,
     select: %{start_time: timeslot.start_time, count: count(timeslot.id)},
-    where: fragment("? BETWEEN CURRENT_DATE AND CURRENT_DATE + interval '1 day' - interval '1 second'", timeslot.start_time)
+    where: timeslot.start_time >= ^today_start and
+    timeslot.start_time <= ^today_end
   end
 
   @doc false

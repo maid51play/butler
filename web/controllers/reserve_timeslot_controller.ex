@@ -4,7 +4,7 @@ defmodule Butler.ReserveTimeslotController do
     alias Butler.Timeslot
 
     def index(conn, _params) do
-        timeslots = Timeslot |> Timeslot.today |> Repo.all
+        timeslots = Timeslot |> Timeslot.for_day(Timex.now) |> Repo.all
 
         render(conn, "index.html", timeslots: timeslots, layout: {Butler.LayoutView, "patrons.html"})
     end

@@ -8,15 +8,15 @@ defmodule Butler.TimeslotTest do
   @valid_attrs %{start_time: "2010-04-17 14:00:00.000000Z", end_time: "2010-04-17 15:00:00.000000Z"}
   @invalid_attrs %{}
   
-  test "today" do
-    past_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-82_800, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86_400, :second))
-    today_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(3600, :second) , start_time: NaiveDateTime.utc_now)
-    future_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(90_000, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86_400, :second))
+  test "for_day" do
+    past_timeslot = insert(:timeslot, end_time: ~N[2010-04-16 15:00:00], start_time:  ~N[2010-04-16 16:00:00])
+    today_timeslot = insert(:timeslot, end_time: ~N[2010-04-17 15:00:00], start_time:  ~N[2010-04-17 16:00:00])
+    future_timeslot = insert(:timeslot, end_time: ~N[2010-04-18 15:00:00], start_time: ~N[2010-04-18 16:00:00])
 
-    timeslots = Timeslot |> Timeslot.today |> Repo.all
+    timeslots = Timeslot |> Timeslot.for_day(~N[2010-04-17 15:00:00]) |> Repo.all
 
     assert Enum.count(timeslots) == 1
-    assert Enum.at(timeslots, 0) == today_timeslot
+    assert Enum.at(timeslots, 0).start_time == today_timeslot.start_time
   end
 
   test "changeset with valid attributes" do
