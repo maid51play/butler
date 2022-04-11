@@ -5,8 +5,8 @@ defmodule Butler.TimeslotControllerTest do
 
   alias Butler.Timeslot
 
-  @create_attrs %{end_time: ~N[2010-04-17 14:00:00], start_time: ~N[2010-04-17 14:00:00]}
-  @update_attrs %{end_time: ~N[2011-05-18 15:01:01], start_time: ~N[2011-05-18 15:01:01]}
+  @create_attrs %{end_time: ~N[2010-04-17 15:00:00], start_time: ~N[2010-04-17 14:00:00]}
+  @update_attrs %{end_time: ~N[2011-05-18 16:01:01], start_time: ~N[2011-05-18 15:01:01]}
   @invalid_attrs %{end_time: nil, start_time: nil}
 
   test "lists all timeslots on index", %{conn: conn} do

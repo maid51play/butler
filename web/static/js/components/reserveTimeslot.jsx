@@ -7,7 +7,7 @@ const reserveTimeslot = ({ timeslots }) => (
     <img src="images/fanimaid.png" alt="Fanimaid Cafe" style={{ height: '50px' }} />
     <div>
       <h2 className="title is-1">Today</h2>
-      <h3 className="subtitle is-1">{ format(new Date(), 'MMMM d, yyyy')}</h3>
+      <h3 className="subtitle is-1">{ format(new Date(), 'eeee, MMMM d')}</h3>
     </div>
     <div>
       <h2 className="title is-2 is-primary">Available Reservations</h2>
