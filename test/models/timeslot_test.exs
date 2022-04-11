@@ -9,9 +9,9 @@ defmodule Butler.TimeslotTest do
   @invalid_attrs %{}
   
   test "today" do
-    past_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-82800, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86400, :second))
+    past_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-82_800, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(-86_400, :second))
     today_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(3600, :second) , start_time: NaiveDateTime.utc_now)
-    future_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(90000, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86400, :second))
+    future_timeslot = insert(:timeslot, end_time: NaiveDateTime.utc_now |> NaiveDateTime.add(90_000, :second), start_time: NaiveDateTime.utc_now |> NaiveDateTime.add(86_400, :second))
 
     timeslots = Timeslot |> Timeslot.today |> Repo.all
 
