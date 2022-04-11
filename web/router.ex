@@ -35,6 +35,8 @@ defmodule Butler.Router do
 
     get "/", PageController, :index
 
+    get "/book", ReserveTimeslotController, :index
+
     get "/admin", AdminController, :index
     post "/admin", AdminController, :login
     post "/admin/logout", AdminController, :logout
@@ -65,6 +67,8 @@ defmodule Butler.Router do
     post "/reservations/clear", ReservationController, :clear
     get "/reservations/:id/seat/:table_id", ReservationController, :seat
     resources "/reservations", ReservationController
+
+    resources "/timeslots", TimeslotController
   end
 
   # Other scopes may use custom stacks.

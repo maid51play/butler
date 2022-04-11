@@ -1,0 +1,28 @@
+<h1>Listing Timeslots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for timeslot <- @timeslots do %>
+    <tr>
+      <td><%= timeslot.start_time %></td>
+      <td><%= timeslot.end_time %></td>
+
+      <td>
+        <span><%= link "Show", to: timeslot_path(@conn, :show, timeslot) %></span>
+        <span><%= link "Edit", to: timeslot_path(@conn, :edit, timeslot) %></span>
+        <span><%= link "Delete", to: timeslot_path(@conn, :delete, timeslot), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Timeslot", to: timeslot_path(@conn, :new) %></span>

@@ -1,0 +1,1 @@
+<%= react_component("Components.ReserveTimeslotComponent", %{timeslots: @timeslots, token: "token"}) %>
