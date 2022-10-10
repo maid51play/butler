@@ -2,9 +2,7 @@ defmodule Butler.IcalController do
   use Butler.Web, :controller
   alias NimbleCSV.RFC4180, as: CSV
 
-  def index(conn, _params) do
-    url = System.get_env("GOOGLE_CALENDAR_CSV")
-
+  def index(conn, %{"csv_url" => url, "subunits" => subunits, "filters" => filters, "overrides" => overrides}) do
     response = HTTPoison.request!(:get, url, "", [], [follow_redirect: true])
     
     events = response.body
@@ -12,11 +10,36 @@ defmodule Butler.IcalController do
       |> List.delete_at(0)
       |> List.delete_at(0)
       |> List.delete_at(0)
+      |> Enum.filter(fn entry -> entry |> filter_entries(String.split(subunits, ","), String.split(filters, ","), String.split(overrides, ",")))
       |> Enum.map(fn (entry) -> entry |> list_to_ical_str end)
 
     calendar_str = Enum.join(events, "\n")
 
     render(conn, "index.txt", calendar_str: calendar_str)
+  end
+  
+  def filter_entries(list, subunits, blocked, overrides) do
+      subunit = Enum.at(list, 1)
+      notes = Enum.at(list, 6)
+      title = Enum.at(list, 0)
+      
+      is_override = String.contains?(notes,overrides) || String.contains?(title,overrides)
+      is_blocked = String.contains?(notes,blocked) || String.contains?(title,blocked)
+      is_subunit = Enum.member?(subunits, subunit)
+      
+      if is_override do
+        return true
+      end
+      
+      if is_blocked do
+        return false
+      end
+      
+      if is_subunit do
+        return true
+      end
+      
+      false
   end
 
   def list_to_ical_str(list) do
